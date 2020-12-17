@@ -5,8 +5,7 @@ Application used to better understand the development opportunities across the C
 ## Getting Started
 
 This project was created using:
- - [Leaflet](https://leafletjs.com/) for WebGL map rendering.
- - [Esri-Leaflet](https://github.com/Esri/esri-leaflet) for Esri connections.
+ - [Mapbox](https://www.mapbox.com/) for WebGL map rendering.
  - [Turf](https://turfjs.org/) for geospacial analysis.
  - [Parcel](https://parceljs.org/) as a web application bundler.
  - [Yarn](https://yarnpkg.com/en/) for 3rd party library use and management.
