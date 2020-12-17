@@ -32,6 +32,11 @@ $cubic: cubic-bezier(.64,.09,.08,1);
             margin: 1em 0;
         }
 
+        img{
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
         .group{
             border: .1em solid $color-1;
             margin-bottom: 1.25em;

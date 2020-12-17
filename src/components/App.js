@@ -7,7 +7,8 @@ export default class App {
     constructor() {
         this.point = null;
         this.map = new Map('map');
-        this.layers = {};
+        this.layers = [];
+        this.boundary = null;
         this.userControls = document.createElement('form');
         this.panel = new Panel(this);
         this.geocoder = new Geocoder('geocoder', this);
@@ -20,6 +21,7 @@ export default class App {
         });
         let dashBtn = document.createElement('button');
         let configBtn = document.createElement('button');
+        let infoBtn = document.createElement('button');
         dashBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>';
         dashBtn.addEventListener('click', (ev)=>{
             ev.preventDefault();
@@ -28,10 +30,16 @@ export default class App {
         configBtn.innerHTML = '<i class="fas fa-cogs"></i> <span>Filters</span>';
         configBtn.addEventListener('click', (ev)=>{
             ev.preventDefault();
-            _app.panel.createPanel(_app.panel, 'config');
+            _app.panel.createPanel(_app.panel, 'filter');
+        });
+        infoBtn.innerHTML = '<i class="fas fa-info-circle"></i> <span>Info</span>';
+        infoBtn.addEventListener('click', (ev)=>{
+            ev.preventDefault();
+            _app.panel.createPanel(_app.panel, 'info');
         });
         _app.userControls.appendChild(dashBtn);
         _app.userControls.appendChild(configBtn);
+        _app.userControls.appendChild(infoBtn);
         document.getElementById('user-controls').appendChild(_app.userControls);
     }
 

@@ -26,48 +26,48 @@ export default class Filters {
   init(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
     // Create zipcodes section elemets
-    let zipCodes = document.createElement('article');
-    let zipCodesInput = document.createElement('input');
-    let zipCodesList = document.createElement('datalist');
-    let zipCodesInputLabel = document.createElement('label');
-    let zipCodesBtn = document.createElement('button');
-    zipCodesInput.type = 'text';
-    zipCodesInput.setAttribute('id', 'zipcode');
-    zipCodesInput.setAttribute('list','zipcodes');
-    zipCodesInput.setAttribute('placeholder','Enter zip code');
-    zipCodesInputLabel.innerText = 'By Zip code:';
-    zipCodesInputLabel.setAttribute('for', 'zipcode');
-    zipCodesList.setAttribute('id', 'zipcodes');
-    for (const [key, value] of Object.entries(_filterPanel.app.zips)) {
-        let tempOption = document.createElement('option');
-        tempOption.value = key;
-        zipCodesList.appendChild(tempOption);
-    }
-    zipCodesBtn.innerText = 'x';
-    zipCodesBtn.id = 'zipcode-filter-btn';
-    if(_filterPanel.app.filters.zipcode == null){
-        zipCodesBtn.className = 'filter-btn';
-    }else{
-        zipCodesInput.value = _filterPanel.app.filters.zipcode;
-        zipCodesBtn.className = 'filter-btn active';
-    }
-    zipCodesInput.addEventListener('change', (ev)=>{
-        ev.preventDefault();
-        if(ev.target.value != null){
-            _filterPanel.app.applyFilters(ev, _filterPanel.app);
-            _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-        }
-    });
-    zipCodesBtn.addEventListener('click', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.removeFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    zipCodes.appendChild(zipCodesBtn);
-    zipCodes.appendChild(zipCodesInputLabel);
-    zipCodes.appendChild(zipCodesInput);
-    zipCodes.appendChild(zipCodesList);
-    _filterPanel.form.appendChild(zipCodes);
+    // let zipCodes = document.createElement('article');
+    // let zipCodesInput = document.createElement('input');
+    // let zipCodesList = document.createElement('datalist');
+    // let zipCodesInputLabel = document.createElement('label');
+    // let zipCodesBtn = document.createElement('button');
+    // zipCodesInput.type = 'text';
+    // zipCodesInput.setAttribute('id', 'zipcode');
+    // zipCodesInput.setAttribute('list','zipcodes');
+    // zipCodesInput.setAttribute('placeholder','Enter zip code');
+    // zipCodesInputLabel.innerText = 'By Zip code:';
+    // zipCodesInputLabel.setAttribute('for', 'zipcode');
+    // zipCodesList.setAttribute('id', 'zipcodes');
+    // for (const [key, value] of Object.entries(_filterPanel.app.zips)) {
+    //     let tempOption = document.createElement('option');
+    //     tempOption.value = key;
+    //     zipCodesList.appendChild(tempOption);
+    // }
+    // zipCodesBtn.innerText = 'x';
+    // zipCodesBtn.id = 'zipcode-filter-btn';
+    // if(_filterPanel.app.filters.zipcode == null){
+    //     zipCodesBtn.className = 'filter-btn';
+    // }else{
+    //     zipCodesInput.value = _filterPanel.app.filters.zipcode;
+    //     zipCodesBtn.className = 'filter-btn active';
+    // }
+    // zipCodesInput.addEventListener('change', (ev)=>{
+    //     ev.preventDefault();
+    //     if(ev.target.value != null){
+    //         _filterPanel.app.applyFilters(ev, _filterPanel.app);
+    //         _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    //     }
+    // });
+    // zipCodesBtn.addEventListener('click', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // zipCodes.appendChild(zipCodesBtn);
+    // zipCodes.appendChild(zipCodesInputLabel);
+    // zipCodes.appendChild(zipCodesInput);
+    // zipCodes.appendChild(zipCodesList);
+    // _filterPanel.form.appendChild(zipCodes);
     
     // Create population section elemets
     let populationTypes = {
