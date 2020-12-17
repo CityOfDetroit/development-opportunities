@@ -1,0 +1,26 @@
+{
+  "name": "development-opportunities",
+  "version": "1.0.0",
+  "description": "Application used to better understand the development opportunities across the City of Detriot.",
+  "main": "index.js",
+  "repository": "https://github.com/CityOfDetroit/development-opportunities.git",
+  "author": "Edgar Montes <jedgar1mx@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html --https --no-cache -p 3000 --open",
+    "test": "./node_modules/.bin/cypress open",
+    "build": "parcel build src/index.js --no-cache --public-url '.' --no-source-maps -d build"
+  },
+  "dependencies": {
+    "@turf/turf": "^5.1.6",
+    "esri-leaflet": "^2.5.1",
+    "leaflet": "^1.7.1",
+    "mapbox-gl": "^2.0.0",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "sass": "^1.30.0"
+  }
+}
