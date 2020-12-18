@@ -3,6 +3,9 @@ import './Filters.scss';
 export default class Filters {
   constructor(container, app) {
     this.form = null;
+    this.expansion = {
+        zoning : false
+    }
     this.app = app;
     this.init(document.getElementById(container), this);
   }
@@ -26,6 +29,28 @@ export default class Filters {
   init(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
     // Create zipcodes section elemets
+    let zoning = document.createElement('article');
+    let zoningAllInput = document.createElement('input');
+    let zoningAllLabel = document.createElement('label');
+    let zoningAllExpandBtn = document.createElement('button');
+    zoningAllInput.type = 'checkbox';
+    zoningAllInput.id = 'zoning-all';
+    zoningAllLabel.innerText = 'All Zonings';
+    zoningAllLabel.setAttribute('for', 'zoning-all');
+    zoningAllExpandBtn.type = 'expand';
+    if(_filterPanel.expansion.zoning){
+        zoningAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        zoningAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    zoningAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.zoning) ? _filterPanel.expansion.zoning = false : _filterPanel.expansion.zoning = true;
+        console.log(_filterPanel.expansion.zoning);
+    });
+    zoning.appendChild(zoningAllInput);
+    zoning.appendChild(zoningAllLabel);
+    zoning.appendChild(zoningAllExpandBtn);
+    _filterPanel.form.appendChild(zoning);
     // let zipCodes = document.createElement('article');
     // let zipCodesInput = document.createElement('input');
     // let zipCodesList = document.createElement('datalist');
@@ -70,155 +95,155 @@ export default class Filters {
     // _filterPanel.form.appendChild(zipCodes);
     
     // Create population section elemets
-    let populationTypes = {
-        first: 'Select Type',
-        Elderly: 'Elderly',
-        Family: 'Family',
-        Special_Needs_or_Disabled: 'Special Need or Disabled',
-        Homeless: 'Homeless',
-        Veterans: 'Veterans'
-    }
-    let population = document.createElement('article');
-    let populationSelect = document.createElement('select');
-    let populationSelectLabel = document.createElement('label');
-    let populationBtn = document.createElement('button');
-    let populationDesc = document.createElement('p');
-    populationSelect.setAttribute('id', 'population');
-    populationSelect.setAttribute('aria-describedby','population-description');
-    for (const [key, value] of Object.entries(populationTypes)) {
-        let tempOption = document.createElement('option');
-        if(key == 'first'){
-            tempOption.value = null;
-        }else{
-            tempOption.value = key;
-        }
-        tempOption.innerText = value;
-        populationSelect.appendChild(tempOption);
-    }
-    populationSelectLabel.innerText = 'For Special Populations:';
-    populationSelectLabel.setAttribute('for', 'population');
-    populationBtn.innerText = 'x';
-    populationBtn.id = 'population-filter-btn';
-    if(_filterPanel.app.filters.population == null){
-        populationBtn.className = 'filter-btn';
-        populationSelect.value = '';
-    }else{
-        populationSelect.value = _filterPanel.app.filters.population;
-        populationBtn.className = 'filter-btn active';
-    }
-    populationDesc.innerText = '(Examples: elderly, veterans, families, etc.)';
-    populationDesc.id = 'population-description';
-    populationSelect.addEventListener('change', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.applyFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    populationBtn.addEventListener('click', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.removeFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    population.appendChild(populationBtn);
-    population.appendChild(populationSelectLabel);
-    population.appendChild(populationSelect);
-    population.appendChild(populationDesc);
-    _filterPanel.form.appendChild(population);
+    // let populationTypes = {
+    //     first: 'Select Type',
+    //     Elderly: 'Elderly',
+    //     Family: 'Family',
+    //     Special_Needs_or_Disabled: 'Special Need or Disabled',
+    //     Homeless: 'Homeless',
+    //     Veterans: 'Veterans'
+    // }
+    // let population = document.createElement('article');
+    // let populationSelect = document.createElement('select');
+    // let populationSelectLabel = document.createElement('label');
+    // let populationBtn = document.createElement('button');
+    // let populationDesc = document.createElement('p');
+    // populationSelect.setAttribute('id', 'population');
+    // populationSelect.setAttribute('aria-describedby','population-description');
+    // for (const [key, value] of Object.entries(populationTypes)) {
+    //     let tempOption = document.createElement('option');
+    //     if(key == 'first'){
+    //         tempOption.value = null;
+    //     }else{
+    //         tempOption.value = key;
+    //     }
+    //     tempOption.innerText = value;
+    //     populationSelect.appendChild(tempOption);
+    // }
+    // populationSelectLabel.innerText = 'For Special Populations:';
+    // populationSelectLabel.setAttribute('for', 'population');
+    // populationBtn.innerText = 'x';
+    // populationBtn.id = 'population-filter-btn';
+    // if(_filterPanel.app.filters.population == null){
+    //     populationBtn.className = 'filter-btn';
+    //     populationSelect.value = '';
+    // }else{
+    //     populationSelect.value = _filterPanel.app.filters.population;
+    //     populationBtn.className = 'filter-btn active';
+    // }
+    // populationDesc.innerText = '(Examples: elderly, veterans, families, etc.)';
+    // populationDesc.id = 'population-description';
+    // populationSelect.addEventListener('change', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.applyFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // populationBtn.addEventListener('click', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // population.appendChild(populationBtn);
+    // population.appendChild(populationSelectLabel);
+    // population.appendChild(populationSelect);
+    // population.appendChild(populationDesc);
+    // _filterPanel.form.appendChild(population);
 
-    // Create bedrooms section elemets
-    let bedroomsTypes = {
-        first: 'Select # of Bedrooms',
-        Number_0BR: 'Studio',
-        Number_1BR: '1 - Bedroom',
-        Number_2BR: '2 - Bedroom',
-        Number_3BR: '3 - Bedroom',
-        Number_4BR: '4 - Bedroom',
-        Number_5BR: '5 - Bedroom',
-    }
-    let bedrooms = document.createElement('article');
-    let bedroomsSelect = document.createElement('select');
-    let bedroomsSelectLabel = document.createElement('label');
-    let bedroomsBtn = document.createElement('button');
-    bedroomsSelect.setAttribute('id', 'rooms');
-    for (const [key, value] of Object.entries(bedroomsTypes)) {
-        let tempOption = document.createElement('option');
-        if(key == 'first'){
-            tempOption.value = null;
-        }else{
-            tempOption.value = key;
-        }
-        tempOption.innerText = value;
-        bedroomsSelect.appendChild(tempOption);
-    }
-    bedroomsSelectLabel.innerText = 'By Number of Bedrooms:';
-    bedroomsSelectLabel.setAttribute('for', 'rooms');
-    bedroomsBtn.innerText = 'x';
-    bedroomsBtn.id = 'bedrooms-filter-btn';
-    if(_filterPanel.app.filters.bedrooms == null){
-        bedroomsBtn.className = 'filter-btn';
-    }else{
-        bedroomsSelect.value = _filterPanel.app.filters.bedrooms;
-        bedroomsBtn.className = 'filter-btn active';
-    }
-    bedroomsSelect.addEventListener('change', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.applyFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    bedroomsBtn.addEventListener('click', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.removeFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    bedrooms.appendChild(bedroomsBtn);
-    bedrooms.appendChild(bedroomsSelectLabel);
-    bedrooms.appendChild(bedroomsSelect);
-    _filterPanel.form.appendChild(bedrooms);
+    // // Create bedrooms section elemets
+    // let bedroomsTypes = {
+    //     first: 'Select # of Bedrooms',
+    //     Number_0BR: 'Studio',
+    //     Number_1BR: '1 - Bedroom',
+    //     Number_2BR: '2 - Bedroom',
+    //     Number_3BR: '3 - Bedroom',
+    //     Number_4BR: '4 - Bedroom',
+    //     Number_5BR: '5 - Bedroom',
+    // }
+    // let bedrooms = document.createElement('article');
+    // let bedroomsSelect = document.createElement('select');
+    // let bedroomsSelectLabel = document.createElement('label');
+    // let bedroomsBtn = document.createElement('button');
+    // bedroomsSelect.setAttribute('id', 'rooms');
+    // for (const [key, value] of Object.entries(bedroomsTypes)) {
+    //     let tempOption = document.createElement('option');
+    //     if(key == 'first'){
+    //         tempOption.value = null;
+    //     }else{
+    //         tempOption.value = key;
+    //     }
+    //     tempOption.innerText = value;
+    //     bedroomsSelect.appendChild(tempOption);
+    // }
+    // bedroomsSelectLabel.innerText = 'By Number of Bedrooms:';
+    // bedroomsSelectLabel.setAttribute('for', 'rooms');
+    // bedroomsBtn.innerText = 'x';
+    // bedroomsBtn.id = 'bedrooms-filter-btn';
+    // if(_filterPanel.app.filters.bedrooms == null){
+    //     bedroomsBtn.className = 'filter-btn';
+    // }else{
+    //     bedroomsSelect.value = _filterPanel.app.filters.bedrooms;
+    //     bedroomsBtn.className = 'filter-btn active';
+    // }
+    // bedroomsSelect.addEventListener('change', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.applyFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // bedroomsBtn.addEventListener('click', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // bedrooms.appendChild(bedroomsBtn);
+    // bedrooms.appendChild(bedroomsSelectLabel);
+    // bedrooms.appendChild(bedroomsSelect);
+    // _filterPanel.form.appendChild(bedrooms);
 
-    // Create Income elements
-    let income = document.createElement('article');
-    let incomeBtn = document.createElement('button');
-    let calcBtn = document.createElement('button');
-    incomeBtn.innerText = 'x';
-    incomeBtn.id = 'income-filter-btn';
-    incomeBtn.className = 'filter-btn';
-    if(_filterPanel.app.filters.incomeBucket == null){
-        calcBtn.innerText = 'Search by Income';
-        calcBtn.className = 'off';
-        incomeBtn.className = 'filter-btn';
-    }else{
-        calcBtn.innerText = 'By Income';
-        calcBtn.className = 'on';
-        incomeBtn.className = 'filter-btn active';
-    }
-    incomeBtn.addEventListener('click', (ev)=>{
-        ev.preventDefault();
-        _filterPanel.app.removeFilters(ev, _filterPanel.app);
-        _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    });
-    calcBtn.addEventListener('click', (ev)=>{
-        ev.preventDefault();
-        if(ev.target.className == 'off'){
-            _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'calculator');
-        }
-    });
-    income.appendChild(incomeBtn);
-    income.appendChild(calcBtn);
-    _filterPanel.form.appendChild(income);
+    // // Create Income elements
+    // let income = document.createElement('article');
+    // let incomeBtn = document.createElement('button');
+    // let calcBtn = document.createElement('button');
+    // incomeBtn.innerText = 'x';
+    // incomeBtn.id = 'income-filter-btn';
+    // incomeBtn.className = 'filter-btn';
+    // if(_filterPanel.app.filters.incomeBucket == null){
+    //     calcBtn.innerText = 'Search by Income';
+    //     calcBtn.className = 'off';
+    //     incomeBtn.className = 'filter-btn';
+    // }else{
+    //     calcBtn.innerText = 'By Income';
+    //     calcBtn.className = 'on';
+    //     incomeBtn.className = 'filter-btn active';
+    // }
+    // incomeBtn.addEventListener('click', (ev)=>{
+    //     ev.preventDefault();
+    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
+    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
+    // });
+    // calcBtn.addEventListener('click', (ev)=>{
+    //     ev.preventDefault();
+    //     if(ev.target.className == 'off'){
+    //         _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'calculator');
+    //     }
+    // });
+    // income.appendChild(incomeBtn);
+    // income.appendChild(calcBtn);
+    // _filterPanel.form.appendChild(income);
 
-    // Create Income legend elements
-    let legend = document.createElement('article');
-    let best = document.createElement('p');
-    let maybe = document.createElement('p');
-    best.innerHTML = '<span>x</span> Best match for your income';
-    maybe.innerHTML = '<span>x</span> May have units affordable for your income';
-    if(_filterPanel.app.filters.incomeBucket == null){
-        legend.className = 'legend';
-    }else{
-        legend.className = 'legend active';
-    }
-    legend.appendChild(best);
-    legend.appendChild(maybe);
-    _filterPanel.form.appendChild(legend);
+    // // Create Income legend elements
+    // let legend = document.createElement('article');
+    // let best = document.createElement('p');
+    // let maybe = document.createElement('p');
+    // best.innerHTML = '<span>x</span> Best match for your income';
+    // maybe.innerHTML = '<span>x</span> May have units affordable for your income';
+    // if(_filterPanel.app.filters.incomeBucket == null){
+    //     legend.className = 'legend';
+    // }else{
+    //     legend.className = 'legend active';
+    // }
+    // legend.appendChild(best);
+    // legend.appendChild(maybe);
+    // _filterPanel.form.appendChild(legend);
 
     // Handle submits
     _filterPanel.form.addEventListener('submit', (ev) => {
