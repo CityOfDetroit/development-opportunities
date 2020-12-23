@@ -1,12 +1,10 @@
-import mapboxgl from 'mapbox-gl';
+import { Map, NavigationControl } from 'maplibre-gl'
 import mapStyle from './style.json';
 import './Map.scss';
-import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+import '../../node_modules/maplibre-gl/dist/mapbox-gl.css';
 import videoIcon from '../img/video.png'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY2l0eW9mZGV0cm9pdGZpcmUiLCJhIjoiY2tpdDVnYnpyMG81NDMycnh0ZG5nOXU0cCJ9.XHsQ74nCMMOE6hYdXnSeyg';
-
-export default class Map {
+export default class Maps {
     constructor(container, app) {
         this.app = app;
         this.svCoords = {
@@ -14,7 +12,7 @@ export default class Map {
             lat: 42.36
         }
         this.svBearing = 180;
-        this.map = new mapboxgl.Map({
+        this.map = new Map({
             container: container, // container id
             style: mapStyle, // stylesheet location
             center: [this.svCoords.lng,this.svCoords.lat], // starting position [lng, lat]
@@ -24,13 +22,13 @@ export default class Map {
     }
 
     init(_map){
-        _map.map.addControl(new mapboxgl.NavigationControl());
+        _map.map.addControl(new NavigationControl());
         _map.map.on("load", function () {
             // Creating sources
-            _map.map.addSource("zoning", {
-              type: "vector",
-              url: "mapbox://cityofdetroit.5kwrqmxx",
-            });
+            // _map.map.addSource("zoning", {
+            //   type: "vector",
+            //   url: "mapbox://cityofdetroit.5kwrqmxx",
+            // });
             _map.map.addSource("completed-planning-projects", {
               type: "geojson",
               data:
@@ -117,62 +115,62 @@ export default class Map {
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/QLine_Stops/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
             });
             // Creating layers
-            _map.map.addLayer({
-                id: "zoning",
-                type: "line",
-                source: "zoning",
-                "source-layer": "zoninggeojson",
-                layout: { visibility: "none" },
-                paint: {
-                  "line-color": {
-                    property: "zoning_rev",
-                    type: "categorical",
-                    stops: [
-                      ["B1", "#b16776"],
-                      ["B2", "#ca5572"],
-                      ["B3", "#e2396f"],
-                      ["B4", "#aa0044"],
-                      ["B5", "#952347"],
-                      ["B6", "#74001e"],
-                      ["M1", "#986eac"],
-                      ["M2", "#a265c2"],
-                      ["M3", "#ab5ad8"],
-                      ["M4", "#713891"],
-                      ["M5", "#792aa6"],
-                      ["P1", "#72a553"],
-                      ["PC", "#72a553"],
-                      ["PCA", "#72a553"],
-                      ["PD", "#72a553"],
-                      ["PR", "#72a553"],
-                      ["R1", "#8195ae"],
-                      ["R2", "#6097ce"],
-                      ["R3", "#009aee"],
-                      ["R4", "#006cbb"],
-                      ["R5", "#29699d"],
-                      ["R6", "#00428a"],
-                      ["SD1", "#c57c3d"],
-                      ["SD2", "#c57c3d"],
-                      ["SD4", "#c57c3d"],
-                      ["SD5", "#c57c3d"],
-                      ["TM", "#c57c3d"],
-                      ["W1", "#c57c3d"],
-                    ],
-                  },
-                  "line-width": {
-                    stops: [
-                      [14, 1],
-                      [19, 15],
-                    ],
-                  },
-                  "line-offset": {
-                    stops: [
-                      [14, 0],
-                      [17, -1],
-                      [19, -6],
-                    ],
-                  },
-                },
-              });
+            // _map.map.addLayer({
+            //     id: "zoning",
+            //     type: "line",
+            //     source: "zoning",
+            //     "source-layer": "zoninggeojson",
+            //     layout: { visibility: "none" },
+            //     paint: {
+            //       "line-color": {
+            //         property: "zoning_rev",
+            //         type: "categorical",
+            //         stops: [
+            //           ["B1", "#b16776"],
+            //           ["B2", "#ca5572"],
+            //           ["B3", "#e2396f"],
+            //           ["B4", "#aa0044"],
+            //           ["B5", "#952347"],
+            //           ["B6", "#74001e"],
+            //           ["M1", "#986eac"],
+            //           ["M2", "#a265c2"],
+            //           ["M3", "#ab5ad8"],
+            //           ["M4", "#713891"],
+            //           ["M5", "#792aa6"],
+            //           ["P1", "#72a553"],
+            //           ["PC", "#72a553"],
+            //           ["PCA", "#72a553"],
+            //           ["PD", "#72a553"],
+            //           ["PR", "#72a553"],
+            //           ["R1", "#8195ae"],
+            //           ["R2", "#6097ce"],
+            //           ["R3", "#009aee"],
+            //           ["R4", "#006cbb"],
+            //           ["R5", "#29699d"],
+            //           ["R6", "#00428a"],
+            //           ["SD1", "#c57c3d"],
+            //           ["SD2", "#c57c3d"],
+            //           ["SD4", "#c57c3d"],
+            //           ["SD5", "#c57c3d"],
+            //           ["TM", "#c57c3d"],
+            //           ["W1", "#c57c3d"],
+            //         ],
+            //       },
+            //       "line-width": {
+            //         stops: [
+            //           [14, 1],
+            //           [19, 15],
+            //         ],
+            //       },
+            //       "line-offset": {
+            //         stops: [
+            //           [14, 0],
+            //           [17, -1],
+            //           [19, -6],
+            //         ],
+            //       },
+            //     },
+            //   });
               _map.map.addLayer({
                 id: "targeted-multi-family-fill",
                 type: "fill",
@@ -496,5 +494,11 @@ export default class Map {
                 // setCoords(e.lngLat);
             });
         });
+    }
+
+    changeVisibility(layers, visibility, _map){
+      layers.forEach(layer => {
+        _map.map.setLayoutProperty(layer, "visibility", visibility);
+      });
     }
 }

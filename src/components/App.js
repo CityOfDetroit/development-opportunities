@@ -1,4 +1,4 @@
-import Map from './Map';
+import Maps from './Map';
 import Panel from './Panel';
 import Geocoder from './Geocoder';
 import './App.scss';
@@ -8,8 +8,8 @@ export default class App {
         this.parcel = null;
         this.propertyData = null;
         this.point = null;
-        this.map = new Map('map', this);
-        this.layers = [];
+        this.map = new Maps('map', this);
+        this.filters = [];
         this.boundary = null;
         this.userControls = document.createElement('form');
         this.panel = new Panel(this);

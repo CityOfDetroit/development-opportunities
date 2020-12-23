@@ -4,10 +4,11 @@ export default class Filters {
   constructor(container, app) {
     this.form = null;
     this.expansion = {
-        zoning : false
+        transportation : false
     }
     this.app = app;
-    this.init(document.getElementById(container), this);
+    this.container = document.getElementById(container);
+    this.buidlForm(document.getElementById(container), this);
   }
 
   checkLock(_filterPanel){
@@ -26,31 +27,104 @@ export default class Filters {
     }
   }
   
-  init(container, _filterPanel){
+  removeForm(container){
+    container.removeChild(container.childNodes[1]);
+  }
+
+  updateFilters(ev,_filterPanel){
+    console.log(ev);
+    let visibility = 'none';
+    if(ev.target.checked){
+      visibility = 'visible';
+      if(!_filterPanel.app.filters.includes(ev.target.id)){
+        _filterPanel.app.filters.push(ev.target.id);
+      }
+    }else{
+      if(_filterPanel.app.filters.includes(ev.target.id)){
+        let filtered = _filterPanel.app.filters.filter(function(value, index, arr){ 
+          return value != ev.target.id;
+        });
+        console.log(filtered);
+        _filterPanel.app.filters = filtered;
+      }
+    }
+    let layers = ev.target.value.split(',');
+    _filterPanel.app.map.changeVisibility(layers, visibility, _filterPanel.app.map);
+    if(ev.target.className == 'parent-filter'){
+      _filterPanel.changeSubsets(ev, _filterPanel);
+    }
+  }
+
+  changeSubsets(ev, _filterPanel){
+    console.log(ev);
+  }
+
+  buidlForm(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
     // Create zipcodes section elemets
-    let zoning = document.createElement('article');
-    let zoningAllInput = document.createElement('input');
-    let zoningAllLabel = document.createElement('label');
-    let zoningAllExpandBtn = document.createElement('button');
-    zoningAllInput.type = 'checkbox';
-    zoningAllInput.id = 'zoning-all';
-    zoningAllLabel.innerText = 'All Zonings';
-    zoningAllLabel.setAttribute('for', 'zoning-all');
-    zoningAllExpandBtn.type = 'expand';
-    if(_filterPanel.expansion.zoning){
-        zoningAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    let transportation = document.createElement('article');
+    let transportationAllInput = document.createElement('input');
+    let transportationAllLabel = document.createElement('label');
+    let transportationAllExpandBtn = document.createElement('button');
+    let transportationSubsets = document.createElement('article');
+    let smartBusInput = document.createElement('input');
+    let smartBusLegend = document.createElement('span');
+    let smartBusLabel = document.createElement('label');
+    transportation.className ='parent-filter-container';
+    transportationAllInput.type = 'checkbox';
+    transportationAllInput.value = 'smartroutes'
+    transportationAllInput.id = 'transportation-all';
+    transportationAllInput.name = 'trans-data';
+    if(_filterPanel.app.filters.includes('transportation-all')){
+      transportationAllInput.checked = true;
     }else{
-        zoningAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+      transportationAllInput.checked = false;
     }
-    zoningAllExpandBtn.addEventListener('click', (ev)=>{
-        (_filterPanel.expansion.zoning) ? _filterPanel.expansion.zoning = false : _filterPanel.expansion.zoning = true;
-        console.log(_filterPanel.expansion.zoning);
+    transportationAllInput.className = 'parent-filter';
+    transportationAllLabel.innerText = 'All transportations';
+    transportationAllLabel.setAttribute('for', 'transportation-all');
+    transportationAllExpandBtn.type = 'expand';
+    transportationAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
     });
-    zoning.appendChild(zoningAllInput);
-    zoning.appendChild(zoningAllLabel);
-    zoning.appendChild(zoningAllExpandBtn);
-    _filterPanel.form.appendChild(zoning);
+    if(_filterPanel.expansion.transportation){
+        transportationAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        transportationAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    transportationAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.transportation) ? _filterPanel.expansion.transportation = false : _filterPanel.expansion.transportation = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.transportation){
+      transportationSubsets.className = 'filter-subset active';
+    }else{
+      transportationSubsets.className = 'filter-subset';
+    }
+    smartBusInput.type = 'checkbox';
+    smartBusInput.name = 'trans-data';
+    smartBusInput.id = 'smartroutes';
+    smartBusInput.value = 'smartroutes';
+    if(_filterPanel.app.filters.includes('smartroutes')){
+      smartBusInput.checked = true;
+    }else{
+      smartBusInput.checked = false;
+    }
+    smartBusInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    smartBusLabel.innerText = 'Smart Buses';
+    smartBusLabel.setAttribute('for', 'smartroutes');
+    smartBusLegend.className = 'line smart-bus';
+    smartBusLabel.appendChild(smartBusLegend);
+    transportationSubsets.appendChild(smartBusInput);
+    transportationSubsets.appendChild(smartBusLabel);
+    transportation.appendChild(transportationAllInput);
+    transportation.appendChild(transportationAllLabel);
+    transportation.appendChild(transportationAllExpandBtn);
+    _filterPanel.form.appendChild(transportation);
+    _filterPanel.form.appendChild(transportationSubsets);
     // let zipCodes = document.createElement('article');
     // let zipCodesInput = document.createElement('input');
     // let zipCodesList = document.createElement('datalist');
