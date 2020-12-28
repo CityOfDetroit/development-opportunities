@@ -51,7 +51,7 @@ export default class Geocoder {
       newTempAddr += item;
       ((index < size) && (index + 1) !== size) ? newTempAddr += '+': 0;
     }); 
-    let url = `https://opengis.detroitmi.gov/opengis/rest/services/Geocoders/AddressPointUpgrade/GeocodeServer/findAddressCandidates?Street=&City=&ZIP=&Address=${newTempAddr}&category=&outFields=parcel_number&maxLocations=4&outSR=4326&searchExtent=&location=&distance=&magicKey=&f=json`;
+    let url = `https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?Street=&City=&ZIP=&SingleLine=${newTempAddr}&category=&outFields=User_fld&maxLocations=4&outSR=4326&searchExtent=&location=&distance=&magicKey=&f=json`;
     
     try {
         fetch(url)
@@ -60,12 +60,12 @@ export default class Geocoder {
             if(type === 'suggestions'){
                 data.candidates.forEach((item)=>{
                     let sugg = document.createElement('option');
-                    if(item.attributes.parcel_number === ''){
+                    if(item.attributes.User_fld === ''){
                         sugg.value = item.address;
                         sugg.setAttribute('data-parsel', 'no-parcel');
                     }else{
                         sugg.value = `${item.address} RECOMMENDED`;
-                        sugg.setAttribute('data-parsel', item.attributes.parcel_number);
+                        sugg.setAttribute('data-parsel', item.attributes.User_fld);
                     }
                     
                     sugg.onclick = (ev) => {
@@ -84,21 +84,22 @@ export default class Geocoder {
                             let parcel = null;
                             let location;
                             data.candidates.forEach((item) => {
-                                if(item.attributes.parcel_number !== ''){
-                                    if(geocoder._controller.checkParcelValid(item.attributes.parcel_number)){
+                                if(item.attributes.User_fld !== ''){
+                                    if(geocoder._controller.checkParcelValid(item.attributes.User_fld)){
                                         parcel = item;
                                     }
                                 }
                             });
                             (parcel == null) ? location = data.candidates[0].location : location = null;
                             let point = turf.point([parcel.location.x, parcel.location.y]);
-                            geocoder._controller.panel.data = {
-                                address : parcel.address,
-                                parcel: parcel.attributes.parcel_number,
-                                date: null,
-                                type: null
-                            }
-                            geocoder._controller.queryLayer(geocoder._controller,point);
+                            geocoder._controller.parcel = parcel.attributes.User_fld;
+                            geocoder._controller.map.map.flyTo({
+                                center: [parcel.location.x,parcel.location.y],
+                                zoom: 18,
+                                essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                            });
+                            geocoder._controller.map.map.setFilter("parcels-highlight", ["==", "parcelno", parcel.attributes.User_fld]);
+                            geocoder._controller.getParcelData(geocoder._controller);
                             geocoder.form.childNodes[1].value = '';
                         }else{
                             geocoder._controller.panel.createErrorMsg(geocoder._controller.panel);

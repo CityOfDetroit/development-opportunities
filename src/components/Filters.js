@@ -56,23 +56,52 @@ export default class Filters {
   }
 
   changeSubsets(ev, _filterPanel){
-    console.log(ev);
+    console.log(ev.target.value);
+    let filterSet = ev.target.value.split(',');
+    console.log(filterSet);
+    if(ev.target.checked){
+      filterSet.forEach(filter => {
+        if(!_filterPanel.app.filters.includes(filter)){
+          _filterPanel.app.filters.push(filter);
+        }
+      });
+    }else{
+      let original = _filterPanel.app.filters;
+      let newList = _filterPanel.app.filters;
+      filterSet.forEach(filter => {
+        console.log(filter);
+        if(original.includes(filter)){
+          newList = newList.filter(function(value, index, arr){ 
+            return value != filter;
+          });
+        }
+        console.log(newList);
+      });
+      _filterPanel.app.filters = newList;
+    }
+    _filterPanel.removeForm(_filterPanel.container);
+    _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
   }
 
   buidlForm(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
-    // Create zipcodes section elemets
+    // Create transportation section elemets
     let transportation = document.createElement('article');
     let transportationAllInput = document.createElement('input');
     let transportationAllLabel = document.createElement('label');
     let transportationAllExpandBtn = document.createElement('button');
     let transportationSubsets = document.createElement('article');
+    let qLineInput = document.createElement('input');
+    let qLineLegend = document.createElement('span');
+    let qLineLabel = document.createElement('label');
+    let qLineBox = document.createElement('div');
     let smartBusInput = document.createElement('input');
     let smartBusLegend = document.createElement('span');
     let smartBusLabel = document.createElement('label');
+    let smartBusBox = document.createElement('div');
     transportation.className ='parent-filter-container';
     transportationAllInput.type = 'checkbox';
-    transportationAllInput.value = 'smartroutes'
+    transportationAllInput.value = 'smartroutes,qlineroute'
     transportationAllInput.id = 'transportation-all';
     transportationAllInput.name = 'trans-data';
     if(_filterPanel.app.filters.includes('transportation-all')){
@@ -102,6 +131,27 @@ export default class Filters {
     }else{
       transportationSubsets.className = 'filter-subset';
     }
+    // QLine
+    qLineInput.type = 'checkbox';
+    qLineInput.name = 'trans-data';
+    qLineInput.id = 'qlineroute';
+    qLineInput.value = 'qlineroute';
+    if(_filterPanel.app.filters.includes('qlineroute')){
+      qLineInput.checked = true;
+    }else{
+      qLineInput.checked = false;
+    }
+    qLineInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    qLineLabel.innerText = 'DDOT Buses';
+    qLineLabel.setAttribute('for', 'qlineroute');
+    qLineLegend.className = 'line qline';
+    qLineLabel.appendChild(qLineLegend);
+    qLineBox.appendChild(qLineInput);
+    qLineBox.appendChild(qLineLabel);
+    transportationSubsets.appendChild(qLineBox);
+    // Smart buses
     smartBusInput.type = 'checkbox';
     smartBusInput.name = 'trans-data';
     smartBusInput.id = 'smartroutes';
@@ -118,8 +168,10 @@ export default class Filters {
     smartBusLabel.setAttribute('for', 'smartroutes');
     smartBusLegend.className = 'line smart-bus';
     smartBusLabel.appendChild(smartBusLegend);
-    transportationSubsets.appendChild(smartBusInput);
-    transportationSubsets.appendChild(smartBusLabel);
+    smartBusBox.appendChild(smartBusInput);
+    smartBusBox.appendChild(smartBusLabel);
+    transportationSubsets.appendChild(smartBusBox);
+    //===
     transportation.appendChild(transportationAllInput);
     transportation.appendChild(transportationAllLabel);
     transportation.appendChild(transportationAllExpandBtn);

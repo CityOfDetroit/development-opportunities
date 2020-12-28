@@ -424,34 +424,34 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "line-color": "#48ae18" },
               });
-              _map.map.addLayer({
-                id: "parcel-fill",
-                type: "fill",
-                source: "parcels",
-                minzoom: 13,
-                layout: {},
-                paint: { "fill-color": "#fff", "fill-opacity": 0 },
-                "source-layer": "assessor_parcels-50m4yu",
-              });
-              _map.map.addLayer({
-                id: "parcel-line",
-                type: "line",
-                source: "parcels",
-                minzoom: 13,
-                layout: {},
-                paint: { "line-color": "#cbcbcb" },
-                "source-layer": "assessor_parcels-50m4yu",
-              });
-              _map.map.addLayer({
-                id: "parcel-fill-hover",
-                type: "line",
-                source: "parcels",
-                minzoom: 13,
-                layout: {},
-                paint: { "line-color": "#a40040" },
-                "source-layer": "assessor_parcels-50m4yu",
-                filter: ["==", "parcelno", ""],
-              });
+              // _map.map.addLayer({
+              //   id: "parcel-fill",
+              //   type: "fill",
+              //   source: "parcels",
+              //   minzoom: 13,
+              //   layout: {},
+              //   paint: { "fill-color": "#fff", "fill-opacity": 0 },
+              //   "source-layer": "assessor_parcels-50m4yu",
+              // });
+              // _map.map.addLayer({
+              //   id: "parcel-line",
+              //   type: "line",
+              //   source: "parcels",
+              //   minzoom: 13,
+              //   layout: {},
+              //   paint: { "line-color": "#cbcbcb" },
+              //   "source-layer": "assessor_parcels-50m4yu",
+              // });
+              // _map.map.addLayer({
+              //   id: "parcel-fill-hover",
+              //   type: "line",
+              //   source: "parcels",
+              //   minzoom: 13,
+              //   layout: {},
+              //   paint: { "line-color": "#a40040" },
+              //   "source-layer": "assessor_parcels-50m4yu",
+              //   filter: ["==", "parcelno", ""],
+              // });
 
             _map.map.on('style.load', () => {
                 _map.map.loadImage(videoIcon, (error, image) => {
@@ -478,11 +478,9 @@ export default class Maps {
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
-                console.log(e);
                 let parcel = _map.map.queryRenderedFeatures(e.point, {
                   layers: ["parcels-fill"],
                 });
-                console.log(parcel)
                 _map.app.parcel = parcel[0].properties.parcelno;
                 _map.map.flyTo({
                     center: [e.lngLat.lng,e.lngLat.lat],
@@ -493,6 +491,16 @@ export default class Maps {
                 _map.app.getParcelData(_map.app);
                 // setCoords(e.lngLat);
             });
+
+            _map.map.on("click", function (e) {
+              let parcel = _map.map.queryRenderedFeatures(e.point, {
+                layers: ["parcels-fill"],
+              });
+              if(parcel.length < 1){
+                _map.app.panel.dashLast = 'city';
+                _map.app.panel.createPanel(_map.app.panel, 'dash');
+              }
+          });
         });
     }
 

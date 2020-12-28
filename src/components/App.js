@@ -51,7 +51,8 @@ export default class App {
         .then(function(data) {
           console.log(data);
           _app.propertyData = data;
-          _app.panel.createPanel(_app.panel, 'property');
+          _app.panel.dashLast = 'parcel';
+          _app.panel.createPanel(_app.panel, 'dash');
         }).catch( err => {
           // console.log(err);
         });

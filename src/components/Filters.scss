@@ -31,6 +31,10 @@
         padding: .5em;
         background-color: $color-1;
         color: $white;
+
+        label{
+            cursor: pointer;
+        }
     }
 
     .filter-subset{
@@ -39,6 +43,31 @@
         transition: all .2s ease-in-out;
         background-color: $white;
         padding: 1em;
+
+        label {
+            cursor: pointer;
+            
+            span.line{
+                width: 1em; 
+                margin-left: .25em;
+                padding: 0 1em;
+                position: relative;
+                top: -.65em;
+                border-bottom: .2em solid;
+            }
+
+            span.smart-bus{
+                border-color: #d70000;
+            }
+
+            span.smart-bus{
+                border-color: #004736;
+            }
+
+            span.qline{
+                border-color: #7fb6ab;
+            }
+        }
     }
 
     .filter-subset.active{
