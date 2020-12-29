@@ -1,5 +1,7 @@
+import * as Mapillary from "mapillary-js";
 import Filters from './Filters';
 import './Panel.scss';
+import '../../node_modules/mapillary-js/dist/mapillary.min.css';
 export default class Panel {
     constructor(app) {
         this.app = app;
@@ -8,17 +10,22 @@ export default class Panel {
         this.data = null;
         this.panels = [];
         this.dashLast = 'city';
+        this.mly = null;
+        this.formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
     }
 
     closePanel(ev,_panel){
         let tempClass = ev.target.parentNode.parentNode.className;
         tempClass = tempClass.split(' ');
         ev.target.parentNode.parentNode.className = tempClass[0];
-        _panel.app.map.map.flyTo({
-            center: [-83.1,42.36],
-            zoom: 12,
-            essential: true // this animation is considered essential with respect to prefers-reduced-motion
-        });
+        // _panel.app.map.map.flyTo({
+        //     center: [-83.1,42.36],
+        //     zoom: 12,
+        //     essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        // });
         try {
             while (ev.target.parentNode.firstChild) {
                 ev.target.parentNode.removeChild(ev.target.parentNode.firstChild);
@@ -30,15 +37,35 @@ export default class Panel {
         // console.log(_panel.panels);
     }
 
+    // <p><strong>Last Sale Date:</strong> ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}</p><p><strong>Last Sale Price:</strong> ${_panel.formatter(_panel.app.propertyData.saleprice)}</p>
     buildPropertyInfo(_panel){
         console.log('building property panel');
+        let date = null;
+        if(_panel.app.propertyData.saledate != null){
+            date = new Date(_panel.app.propertyData.saledate);
+        }
         let markup = `
         <h2>${_panel.app.propertyData.propaddr}</h2>
+        <section id="mly"></section>
         <section class="group">
-        <span class="header">KEY DATA</span>
+        <span class="header">KEY DATA<sup>*</sup></span>
         <p><strong>Owner:</strong> ${_panel.app.propertyData.taxpayer1}</p>
         <p><strong>Owner's Address:</strong> ${_panel.app.propertyData.taxpaddr}</p>
+        <p><strong>Zoning:</strong> ${_panel.app.propertyData.zoning}</p>
+        <p><strong>Council District:</strong> ${_panel.app.propertyData.council}</p>
         </section>
+        <section class="group">
+        <span class="header">ADDITIONAL DATA</span>
+        ${date != null ? `<p><strong>Last Sale Date:</strong> ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}</p><p><strong>Last Sale Price:</strong> ${_panel.formatter.format(_panel.app.propertyData.saleprice)}</p>` : ``}
+        <p><strong>Parcel Number:</strong> ${_panel.app.propertyData.parcelno}</p>
+        <p><strong>Taxable Status:</strong> ${_panel.app.propertyData.taxstatus}</p>
+        <p><strong>Total Acreage:</strong> ${_panel.app.propertyData.totalacreage}</p>
+        <p><strong>Principal Residence Exemption:</strong> ${_panel.app.propertyData.pre}</p>
+        <p><strong>Frontage:</strong> ${_panel.app.propertyData.frontage}</p>
+        <p><strong>Depth:</strong> ${_panel.app.propertyData.depth}</p>
+        <p><strong>Ward:</strong> ${_panel.app.propertyData.ward}</p>
+        </section>
+        <small><sup>*</sup>City Owned Property data is sourced from the City of Detroit’s Office of the Assessor. If you find any discrepancies please visit the Coleman A. Young Municipal Center at 2 Woodward Avenue - Suite 804 Detroit, Michigan 48226 or call (313) 224-3035</small>
         `;
         return markup;
     }
@@ -193,6 +220,19 @@ export default class Panel {
         </section>
         `;
         return markup;
+    }
+
+    createImagery(_panel){
+        console.log('building imagery');
+        console.log(_panel.app.currentImageKey),
+        _panel.mly = new Mapillary.Viewer({
+            apiClient: _panel.app.mapillaryClientID,
+            container: 'mly',
+            component: {
+                cover: false,
+            },
+            imageKey: _panel.app.currentImageKey.properties.key,
+        });
     }
 
     createPanel(_panel, panelType){

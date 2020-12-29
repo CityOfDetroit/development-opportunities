@@ -18,9 +18,10 @@ $cubic: cubic-bezier(.64,.09,.08,1);
     #welcome-panel.active{
         position: absolute;
         z-index: 1006;
-        top: 5em;
+        top: 0;
         display: flex;
         width: 100vw;
+        height: 100vh;
         transition: all 5s ease-in-out;
       
         .welcome-panel-container{

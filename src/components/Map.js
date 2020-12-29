@@ -29,6 +29,17 @@ export default class Maps {
             //   type: "vector",
             //   url: "mapbox://cityofdetroit.5kwrqmxx",
             // });
+            _map.map.addSource('markers', {
+              type: 'geojson',
+              data: {
+                  type: 'Feature',
+                  geometry: {
+                      type: 'Point',
+                      coordinates: [12.695600612967427, 56.04351888068181],
+                  },
+                  properties: { },
+              },
+            });
             _map.map.addSource("completed-planning-projects", {
               type: "geojson",
               data:
@@ -93,11 +104,6 @@ export default class Maps {
               type: "geojson",
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MoGo_Bike_Share_Locations/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
-            });
-            _map.map.addSource("ddotroutes", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/DDOT_Bus_Routes/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
             });
             _map.map.addSource("smartroutes", {
               type: "geojson",
@@ -172,6 +178,14 @@ export default class Maps {
             //     },
             //   });
               _map.map.addLayer({
+                  id: 'markers',
+                  type: 'symbol',
+                  source: 'markers',
+                  layout: {
+                      'icon-image': '{marker-symbol}-15',
+                  },
+              });
+              _map.map.addLayer({
                 id: "targeted-multi-family-fill",
                 type: "fill",
                 source: "targeted-multi-family-housing",
@@ -193,18 +207,43 @@ export default class Maps {
                 paint: { "line-color": "#2c5490", "line-width": 2 },
               });
               _map.map.addLayer({
-                id: "ddotroutes",
-                type: "line",
-                source: "ddotroutes",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#004736", "line-width": 2 },
-              });
-              _map.map.addLayer({
                 id: "smartroutes",
                 type: "line",
                 source: "smartroutes",
                 layout: { visibility: "none" },
                 paint: { "line-color": "#d70000", "line-width": 2 },
+              });
+              _map.map.addLayer({
+                id: "mogobikes",
+                type: "circle",
+                source: "mogobikes",
+                layout: { visibility: "none" },
+                paint: {
+                  "circle-radius": {
+                    base: 5,
+                    stops: [
+                      [12, 5],
+                      [22, 120],
+                    ],
+                  },
+                  "circle-color": "#ee382a",
+                },
+              });
+              _map.map.addLayer({
+                id: "qlinestops",
+                type: "circle",
+                source: "qlinestops",
+                layout: { visibility: "none" },
+                paint: {
+                  "circle-radius": {
+                    base: 5,
+                    stops: [
+                      [12, 5],
+                      [22, 120],
+                    ],
+                  },
+                  "circle-color": "#7fb6ab",
+                },
               });
               _map.map.addLayer({
                 id: "qlineroute",
@@ -213,6 +252,7 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "line-color": "#7fb6ab", "line-width": 2 },
               });
+              
               _map.map.addLayer({
                 id: "mcm-business",
                 type: "circle",
@@ -245,38 +285,7 @@ export default class Maps {
                   "circle-color": "#004445",
                 },
               });
-              _map.map.addLayer({
-                id: "mogobikes",
-                type: "circle",
-                source: "mogobikes",
-                layout: { visibility: "none" },
-                paint: {
-                  "circle-radius": {
-                    base: 5,
-                    stops: [
-                      [12, 5],
-                      [22, 120],
-                    ],
-                  },
-                  "circle-color": "#ee382a",
-                },
-              });
-              _map.map.addLayer({
-                id: "qlinestops",
-                type: "circle",
-                source: "qlinestops",
-                layout: { visibility: "none" },
-                paint: {
-                  "circle-radius": {
-                    base: 5,
-                    stops: [
-                      [12, 5],
-                      [22, 120],
-                    ],
-                  },
-                  "circle-color": "#d64e34",
-                },
-              });
+        
               _map.map.addLayer({
                 id: "vacant-multi-fill",
                 type: "fill",
@@ -481,6 +490,7 @@ export default class Maps {
                 let parcel = _map.map.queryRenderedFeatures(e.point, {
                   layers: ["parcels-fill"],
                 });
+                _map.app.getImageKey(_map.app, e.lngLat.lng,e.lngLat.lat);
                 _map.app.parcel = parcel[0].properties.parcelno;
                 _map.map.flyTo({
                     center: [e.lngLat.lng,e.lngLat.lat],

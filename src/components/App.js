@@ -5,6 +5,9 @@ import './App.scss';
 
 export default class App {
     constructor() {
+        this.mapillaryClientID = 'bmZxVGc0ODVBVXhZVk5FTDdyeHlhZzowM2EyODU0Njc4OWY3ZGNi';
+        this.imageKeys = null
+        this.currentImageKey = null;
         this.parcel = null;
         this.propertyData = null;
         this.point = null;
@@ -53,6 +56,29 @@ export default class App {
           _app.propertyData = data;
           _app.panel.dashLast = 'parcel';
           _app.panel.createPanel(_app.panel, 'dash');
+        }).catch( err => {
+          // console.log(err);
+        });
+    }
+
+    getImageKey(_app, lng, lat){
+        fetch(`https://a.mapillary.com/v3/images?client_id=${_app.mapillaryClientID}&closeto=${lng},${lat}&radius=80&usernames=codgis&start_time=2018-07-01`)
+        .then((resp) => resp.json()) // Transform the data into json
+        .then(function(data) {
+            console.log(data);
+            let sequences = [];
+            data.features.forEach((ik) => {
+                if (sequences.map((s) => s.properties.captured_at.slice(0, 10)).indexOf(ik.properties.captured_at.slice(0, 10)) === -1) {
+                    sequences.push(ik);
+                }
+            });
+            console.log(sequences);
+
+            let sorted = sequences.sort((a, b) => new Date(a.properties.captured_at) - new Date(b.properties.captured_at));
+            console.log(sorted);
+            _app.imageKeys = sorted;
+            _app.currentImageKey = sorted[sorted.length - 1];
+            _app.panel.createImagery(_app.panel);
         }).catch( err => {
           // console.log(err);
         });

@@ -31,6 +31,7 @@
         padding: .5em;
         background-color: $color-1;
         color: $white;
+        border-bottom: .1em solid $white;
 
         label{
             cursor: pointer;
@@ -56,16 +57,35 @@
                 border-bottom: .2em solid;
             }
 
+            span.circle{
+                width: 1em;
+                margin-left: 0.25em;
+                padding: 0 0.55em;
+                border-radius: 50%;
+            }
+
             span.smart-bus{
                 border-color: #d70000;
             }
 
-            span.smart-bus{
-                border-color: #004736;
-            }
-
             span.qline{
                 border-color: #7fb6ab;
+            }
+
+            span.p-mover{
+                border-color: #2c5490;
+            }
+
+            span.mogo{
+                background-color: #ee382a;
+            }
+
+            span.mcm-business{
+                background-color: #d26e03;
+            }
+
+            span.mc-restore{
+                background-color: #004445;
             }
         }
     }

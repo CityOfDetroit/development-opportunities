@@ -4,7 +4,8 @@ export default class Filters {
   constructor(container, app) {
     this.form = null;
     this.expansion = {
-        transportation : false
+        transportation  : false,
+        retail          : false,
     }
     this.app = app;
     this.container = document.getElementById(container);
@@ -85,6 +86,100 @@ export default class Filters {
 
   buidlForm(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
+    // Create retail section elemets
+    let retail = document.createElement('article');
+    let retailAllInput = document.createElement('input');
+    let retailAllLabel = document.createElement('label');
+    let retailAllExpandBtn = document.createElement('button');
+    let retailSubsets = document.createElement('article');
+    let mcMatchInput = document.createElement('input');
+    let mcMatchLegend = document.createElement('span');
+    let mcMatchLabel = document.createElement('label');
+    let mcMatchBox = document.createElement('div');
+    let mcRestoreInput = document.createElement('input');
+    let mcRestoreLegend = document.createElement('span');
+    let mcRestoreLabel = document.createElement('label');
+    let mcRestoreBox = document.createElement('div');
+    retail.className ='parent-filter-container';
+    retailAllInput.type = 'checkbox';
+    retailAllInput.value = 'mcm-business,mc-restore'
+    retailAllInput.id = 'retail-all';
+    retailAllInput.name = 'trans-data';
+    if(_filterPanel.app.filters.includes('retail-all')){
+      retailAllInput.checked = true;
+    }else{
+      retailAllInput.checked = false;
+    }
+    retailAllInput.className = 'parent-filter';
+    retailAllLabel.innerText = 'All retails';
+    retailAllLabel.setAttribute('for', 'retail-all');
+    retailAllExpandBtn.type = 'expand';
+    retailAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.retail){
+        retailAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        retailAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    retailAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.retail) ? _filterPanel.expansion.retail = false : _filterPanel.expansion.retail = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.retail){
+      retailSubsets.className = 'filter-subset active';
+    }else{
+      retailSubsets.className = 'filter-subset';
+    }
+    // Motor City Match
+    mcMatchInput.type = 'checkbox';
+    mcMatchInput.name = 'trans-data';
+    mcMatchInput.id = 'mcm-business';
+    mcMatchInput.value = 'mcm-business';
+    if(_filterPanel.app.filters.includes('mcm-business')){
+      mcMatchInput.checked = true;
+    }else{
+      mcMatchInput.checked = false;
+    }
+    mcMatchInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    mcMatchLabel.innerText = 'Motor City Match Awardees';
+    mcMatchLabel.setAttribute('for', 'mcm-business');
+    mcMatchLegend.className = 'circle mcm-business';
+    mcMatchLabel.appendChild(mcMatchLegend);
+    mcMatchBox.appendChild(mcMatchInput);
+    mcMatchBox.appendChild(mcMatchLabel);
+    retailSubsets.appendChild(mcMatchBox);
+
+    // Motor City Re-Store
+    mcRestoreInput.type = 'checkbox';
+    mcRestoreInput.name = 'trans-data';
+    mcRestoreInput.id = 'mc-restore';
+    mcRestoreInput.value = 'mc-restore';
+    if(_filterPanel.app.filters.includes('mc-restore')){
+      mcRestoreInput.checked = true;
+    }else{
+      mcRestoreInput.checked = false;
+    }
+    mcRestoreInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    mcRestoreLabel.innerText = 'Motor City Match Restore';
+    mcRestoreLabel.setAttribute('for', 'mc-restore');
+    mcRestoreLegend.className = 'circle mc-restore';
+    mcRestoreLabel.appendChild(mcRestoreLegend);
+    mcRestoreBox.appendChild(mcRestoreInput);
+    mcRestoreBox.appendChild(mcRestoreLabel);
+    retailSubsets.appendChild(mcRestoreBox);
+   
+    retail.appendChild(retailAllInput);
+    retail.appendChild(retailAllLabel);
+    retail.appendChild(retailAllExpandBtn);
+    _filterPanel.form.appendChild(retail);
+    _filterPanel.form.appendChild(retailSubsets);
+
     // Create transportation section elemets
     let transportation = document.createElement('article');
     let transportationAllInput = document.createElement('input');
@@ -99,9 +194,17 @@ export default class Filters {
     let smartBusLegend = document.createElement('span');
     let smartBusLabel = document.createElement('label');
     let smartBusBox = document.createElement('div');
+    let pMoverInput = document.createElement('input');
+    let pMoverLegend = document.createElement('span');
+    let pMoverLabel = document.createElement('label');
+    let pMoverBox = document.createElement('div');
+    let MoGoInput = document.createElement('input');
+    let MoGoLegend = document.createElement('span');
+    let MoGoLabel = document.createElement('label');
+    let MoGoBox = document.createElement('div');
     transportation.className ='parent-filter-container';
     transportationAllInput.type = 'checkbox';
-    transportationAllInput.value = 'smartroutes,qlineroute'
+    transportationAllInput.value = 'smartroutes,qlineroute,qlinestops,peoplemover,mogobikes'
     transportationAllInput.id = 'transportation-all';
     transportationAllInput.name = 'trans-data';
     if(_filterPanel.app.filters.includes('transportation-all')){
@@ -135,7 +238,7 @@ export default class Filters {
     qLineInput.type = 'checkbox';
     qLineInput.name = 'trans-data';
     qLineInput.id = 'qlineroute';
-    qLineInput.value = 'qlineroute';
+    qLineInput.value = 'qlineroute,qlinestops';
     if(_filterPanel.app.filters.includes('qlineroute')){
       qLineInput.checked = true;
     }else{
@@ -144,7 +247,7 @@ export default class Filters {
     qLineInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    qLineLabel.innerText = 'DDOT Buses';
+    qLineLabel.innerText = 'Q-Line';
     qLineLabel.setAttribute('for', 'qlineroute');
     qLineLegend.className = 'line qline';
     qLineLabel.appendChild(qLineLegend);
@@ -171,7 +274,47 @@ export default class Filters {
     smartBusBox.appendChild(smartBusInput);
     smartBusBox.appendChild(smartBusLabel);
     transportationSubsets.appendChild(smartBusBox);
-    //===
+    // People mover
+    pMoverInput.type = 'checkbox';
+    pMoverInput.name = 'trans-data';
+    pMoverInput.id = 'peoplemover';
+    pMoverInput.value = 'peoplemover';
+    if(_filterPanel.app.filters.includes('peoplemover')){
+      pMoverInput.checked = true;
+    }else{
+      pMoverInput.checked = false;
+    }
+    pMoverInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    pMoverLabel.innerText = 'People Mover';
+    pMoverLabel.setAttribute('for', 'peoplemover');
+    pMoverLegend.className = 'line p-mover';
+    pMoverLabel.appendChild(pMoverLegend);
+    pMoverBox.appendChild(pMoverInput);
+    pMoverBox.appendChild(pMoverLabel);
+    transportationSubsets.appendChild(pMoverBox);
+     // MoGo
+     MoGoInput.type = 'checkbox';
+     MoGoInput.name = 'trans-data';
+     MoGoInput.id = 'mogobikes';
+     MoGoInput.value = 'mogobikes';
+     if(_filterPanel.app.filters.includes('mogobikes')){
+       MoGoInput.checked = true;
+     }else{
+       MoGoInput.checked = false;
+     }
+     MoGoInput.addEventListener('change', (ev)=>{
+       _filterPanel.updateFilters(ev, _filterPanel);
+     });
+     MoGoLabel.innerText = 'MoGo Bike Station';
+     MoGoLabel.setAttribute('for', 'mogobikes');
+     MoGoLegend.className = 'circle mogo';
+     MoGoLabel.appendChild(MoGoLegend);
+     MoGoBox.appendChild(MoGoInput);
+     MoGoBox.appendChild(MoGoLabel);
+     transportationSubsets.appendChild(MoGoBox);
+   
     transportation.appendChild(transportationAllInput);
     transportation.appendChild(transportationAllLabel);
     transportation.appendChild(transportationAllExpandBtn);
