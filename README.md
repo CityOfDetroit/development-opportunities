@@ -5,7 +5,7 @@ Application used to better understand the development opportunities across the C
 ## Getting Started
 
 This project was created using:
- - [Mapbox](https://www.mapbox.com/) for WebGL map rendering.
+ - [MapLibre](https://github.com/maplibre/maplibre-gl-js) for WebGL map rendering.
  - [Turf](https://turfjs.org/) for geospacial analysis.
  - [Parcel](https://parceljs.org/) as a web application bundler.
  - [Yarn](https://yarnpkg.com/en/) for 3rd party library use and management.
