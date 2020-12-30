@@ -12,8 +12,7 @@
     "build": "parcel build src/index.js --no-cache --public-url '.' --no-source-maps -d build"
   },
   "dependencies": {
-    "@turf/turf": "^5.1.6",
-    "mapbox-gl": "^2.0.0",
+    "@turf/bearing": "^6.0.1",
     "mapillary-js": "^3.0.0",
     "maplibre-gl": "^1.13.0-rc.4"
   },

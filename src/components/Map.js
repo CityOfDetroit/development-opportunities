@@ -2,7 +2,6 @@ import { Map, NavigationControl } from 'maplibre-gl'
 import mapStyle from './style.json';
 import './Map.scss';
 import '../../node_modules/maplibre-gl/dist/mapbox-gl.css';
-import videoIcon from '../img/video.png'
 
 export default class Maps {
     constructor(container, app) {
@@ -184,7 +183,7 @@ export default class Maps {
                   layout: {
                       'icon-image': '{marker-symbol}-15',
                   },
-              });
+              });  
               _map.map.addLayer({
                 id: "targeted-multi-family-fill",
                 type: "fill",
@@ -490,7 +489,7 @@ export default class Maps {
                 let parcel = _map.map.queryRenderedFeatures(e.point, {
                   layers: ["parcels-fill"],
                 });
-                _map.app.getImageKey(_map.app, e.lngLat.lng,e.lngLat.lat);
+                _map.app.coords = [e.lngLat.lng,e.lngLat.lat];
                 _map.app.parcel = parcel[0].properties.parcelno;
                 _map.map.flyTo({
                     center: [e.lngLat.lng,e.lngLat.lat],

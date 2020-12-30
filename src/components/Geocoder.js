@@ -1,4 +1,3 @@
-import * as turf from '@turf/turf';
 import './Geocoder.scss';
 export default class Geocoder {
   constructor(container, _controller) {
@@ -91,7 +90,7 @@ export default class Geocoder {
                                 }
                             });
                             (parcel == null) ? location = data.candidates[0].location : location = null;
-                            let point = turf.point([parcel.location.x, parcel.location.y]);
+                            geocoder._controller.coords = [parcel.location.x, parcel.location.y];
                             geocoder._controller.parcel = parcel.attributes.User_fld;
                             geocoder._controller.map.map.flyTo({
                                 center: [parcel.location.x,parcel.location.y],

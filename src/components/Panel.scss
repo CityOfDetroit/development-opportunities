@@ -25,17 +25,11 @@ $cubic: cubic-bezier(.64,.09,.08,1);
         position: relative;
         background-color: #eaeaea;
 
-        #mly{
-            height: 15em;
-            width: 100%;
-            margin-bottom: 1em;
-        }
-
         h2{
             font-size: 1.5em;
             border-bottom: solid $color-3;
             padding-right: 4em;
-            margin: 1em 0;
+            margin: 1em 0 .25em 0;
         }
 
         img{

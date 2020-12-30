@@ -6,6 +6,7 @@ Application used to better understand the development opportunities across the C
 
 This project was created using:
  - [MapLibre](https://github.com/maplibre/maplibre-gl-js) for WebGL map rendering.
+ - [Mapillary](https://www.mapillary.com/) for streetview imagery.
  - [Turf](https://turfjs.org/) for geospacial analysis.
  - [Parcel](https://parceljs.org/) as a web application bundler.
  - [Yarn](https://yarnpkg.com/en/) for 3rd party library use and management.

@@ -1,5 +1,5 @@
-import * as Mapillary from "mapillary-js";
 import Filters from './Filters';
+import Streetview from './Streetview';
 import './Panel.scss';
 import '../../node_modules/mapillary-js/dist/mapillary.min.css';
 export default class Panel {
@@ -10,7 +10,7 @@ export default class Panel {
         this.data = null;
         this.panels = [];
         this.dashLast = 'city';
-        this.mly = null;
+        this.streetview = null;
         this.formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -46,7 +46,7 @@ export default class Panel {
         }
         let markup = `
         <h2>${_panel.app.propertyData.propaddr}</h2>
-        <section id="mly"></section>
+        <section id="streetview"></section>
         <section class="group">
         <span class="header">KEY DATA<sup>*</sup></span>
         <p><strong>Owner:</strong> ${_panel.app.propertyData.taxpayer1}</p>
@@ -223,16 +223,8 @@ export default class Panel {
     }
 
     createImagery(_panel){
-        console.log('building imagery');
-        console.log(_panel.app.currentImageKey),
-        _panel.mly = new Mapillary.Viewer({
-            apiClient: _panel.app.mapillaryClientID,
-            container: 'mly',
-            component: {
-                cover: false,
-            },
-            imageKey: _panel.app.currentImageKey.properties.key,
-        });
+        console.log('building streetview');
+        _panel.streetview = new Streetview('streetview', _panel.app);
     }
 
     createPanel(_panel, panelType){
@@ -253,6 +245,7 @@ export default class Panel {
                     tempPanel.innerHTML = `${_panel.buildCityData(_panel)}`;
                 }else{
                     tempPanel.innerHTML = `${_panel.buildPropertyInfo(_panel)}`;
+                    _panel.createImagery(_panel);
                 }
                 break;
 
