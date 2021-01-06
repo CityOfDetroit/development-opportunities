@@ -2,7 +2,7 @@
 #streetview{
     display: flex;
     flex-wrap: wrap;
-    height: 16em;
+    height: 18em;
     width: 100%;
     margin-bottom: 1em;
 
@@ -11,7 +11,7 @@
         display: flex;
         background-color: $color-1;
         color: $white;
-        height: 1.25em;
+        height: 2.25em;
         padding: .3em .5em;
 
         .streetview-title{
@@ -23,6 +23,7 @@
                 margin-right: .25em;
             }
             select{
+                color: $color-1;
                 width: 9em;
             }
         }
