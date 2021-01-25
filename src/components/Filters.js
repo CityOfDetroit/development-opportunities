@@ -4,8 +4,10 @@ export default class Filters {
   constructor(container, app) {
     this.form = null;
     this.expansion = {
+        forSale         : false,
         transportation  : false,
-        retail          : false,
+        publicAssests   : false,
+        planningHousing : false,
     }
     this.app = app;
     this.container = document.getElementById(container);
@@ -86,101 +88,318 @@ export default class Filters {
 
   buidlForm(container, _filterPanel){
     _filterPanel.form = document.createElement('form');
-    // Create retail section elemets
-    let retail = document.createElement('article');
-    let retailAllInput = document.createElement('input');
-    let retailAllLabel = document.createElement('label');
-    let retailAllExpandBtn = document.createElement('button');
-    let retailSubsets = document.createElement('article');
-    let mcMatchInput = document.createElement('input');
-    let mcMatchLegend = document.createElement('span');
-    let mcMatchLabel = document.createElement('label');
-    let mcMatchBox = document.createElement('div');
-    let mcRestoreInput = document.createElement('input');
-    let mcRestoreLegend = document.createElement('span');
-    let mcRestoreLabel = document.createElement('label');
-    let mcRestoreBox = document.createElement('div');
-    retail.className ='parent-filter-container';
-    retailAllInput.type = 'checkbox';
-    retailAllInput.value = 'mcm-business,mc-restore'
-    retailAllInput.id = 'retail-all';
-    retailAllInput.name = 'trans-data';
-    if(_filterPanel.app.filters.includes('retail-all')){
-      retailAllInput.checked = true;
+
+    // ========= Create public assets sections =========
+    let forSale = document.createElement('article');
+    let forSaleAllInput = document.createElement('input');
+    let forSaleAllLabel = document.createElement('label');
+    let forSaleAllExpandBtn = document.createElement('button');
+    let forSaleSubsets = document.createElement('article');
+    let marijuanaLegacyLandInput = document.createElement('input');
+    let marijuanaLegacyLandLegend = document.createElement('span');
+    let marijuanaLegacyLandLabel = document.createElement('label');
+    let marijuanaLegacyLandBox = document.createElement('div');
+    let marijuanaLegacyStructureInput = document.createElement('input');
+    let marijuanaLegacyStructureLegend = document.createElement('span');
+    let marijuanaLegacyStructureLabel = document.createElement('label');
+    let marijuanaLegacyStructureBox = document.createElement('div');
+    forSale.className ='parent-filter-container';
+    forSaleAllInput.type = 'checkbox';
+    forSaleAllInput.value = 'marijuana-legacy-structure,marijuana-legacy-land'
+    forSaleAllInput.id = 'forSale-all';
+    forSaleAllInput.name = 'forSale-data'; 
+    if(_filterPanel.app.filters.includes('forSale-all')){
+      forSaleAllInput.checked = true;
     }else{
-      retailAllInput.checked = false;
+      forSaleAllInput.checked = false;
     }
-    retailAllInput.className = 'parent-filter';
-    retailAllLabel.innerText = 'All retails';
-    retailAllLabel.setAttribute('for', 'retail-all');
-    retailAllExpandBtn.type = 'expand';
-    retailAllInput.addEventListener('change', (ev)=>{
+    forSaleAllInput.className = 'parent-filter';
+    forSaleAllLabel.innerText = 'Public Properties for Sale';
+    forSaleAllLabel.setAttribute('for', 'forSale-all');
+    forSaleAllExpandBtn.type = 'expand';
+    forSaleAllInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    if(_filterPanel.expansion.retail){
-        retailAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    if(_filterPanel.expansion.forSale){
+        forSaleAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
     }else{
-        retailAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+        forSaleAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
     }
-    retailAllExpandBtn.addEventListener('click', (ev)=>{
-        (_filterPanel.expansion.retail) ? _filterPanel.expansion.retail = false : _filterPanel.expansion.retail = true;
+    forSaleAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.forSale) ? _filterPanel.expansion.forSale = false : _filterPanel.expansion.forSale = true;
         _filterPanel.removeForm(_filterPanel.container);
         _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
     });
-    if(_filterPanel.expansion.retail){
-      retailSubsets.className = 'filter-subset active';
+    if(_filterPanel.expansion.forSale){
+      forSaleSubsets.className = 'filter-subset active';
     }else{
-      retailSubsets.className = 'filter-subset';
+      forSaleSubsets.className = 'filter-subset';
     }
-    // Motor City Match
-    mcMatchInput.type = 'checkbox';
-    mcMatchInput.name = 'trans-data';
-    mcMatchInput.id = 'mcm-business';
-    mcMatchInput.value = 'mcm-business';
-    if(_filterPanel.app.filters.includes('mcm-business')){
-      mcMatchInput.checked = true;
+
+    // marijuana legacy land
+    marijuanaLegacyLandInput.type = 'checkbox';
+    marijuanaLegacyLandInput.name = 'trans-data';
+    marijuanaLegacyLandInput.id = 'marijuana-legacy-land';
+    marijuanaLegacyLandInput.value = 'marijuana-legacy-land';
+    if(_filterPanel.app.filters.includes('marijuana-legacy-land')){
+      marijuanaLegacyLandInput.checked = true;
     }else{
-      mcMatchInput.checked = false;
+      marijuanaLegacyLandInput.checked = false;
     }
-    mcMatchInput.addEventListener('change', (ev)=>{
+    marijuanaLegacyLandInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    mcMatchLabel.innerText = 'Motor City Match Awardees';
-    mcMatchLabel.setAttribute('for', 'mcm-business');
-    mcMatchLegend.className = 'circle mcm-business';
-    mcMatchLabel.appendChild(mcMatchLegend);
-    mcMatchBox.appendChild(mcMatchInput);
-    mcMatchBox.appendChild(mcMatchLabel);
-    retailSubsets.appendChild(mcMatchBox);
+    marijuanaLegacyLandLabel.innerText = 'Marijuana Legacy Land';
+    marijuanaLegacyLandLabel.setAttribute('for', 'marijuana-legacy-land');
+    marijuanaLegacyLandLegend.className = 'circle marijuana-land';
+    marijuanaLegacyLandLabel.appendChild(marijuanaLegacyLandLegend);
+    marijuanaLegacyLandBox.appendChild(marijuanaLegacyLandInput);
+    marijuanaLegacyLandBox.appendChild(marijuanaLegacyLandLabel);
+    forSaleSubsets.appendChild(marijuanaLegacyLandBox);
 
-    // Motor City Re-Store
-    mcRestoreInput.type = 'checkbox';
-    mcRestoreInput.name = 'trans-data';
-    mcRestoreInput.id = 'mc-restore';
-    mcRestoreInput.value = 'mc-restore';
-    if(_filterPanel.app.filters.includes('mc-restore')){
-      mcRestoreInput.checked = true;
+    // marijuana legacy structure
+    marijuanaLegacyStructureInput.type = 'checkbox';
+    marijuanaLegacyStructureInput.name = 'trans-data';
+    marijuanaLegacyStructureInput.id = 'marijuana-legacy-structure';
+    marijuanaLegacyStructureInput.value = 'marijuana-legacy-structure';
+    if(_filterPanel.app.filters.includes('marijuana-legacy-structure')){
+      marijuanaLegacyStructureInput.checked = true;
     }else{
-      mcRestoreInput.checked = false;
+      marijuanaLegacyStructureInput.checked = false;
     }
-    mcRestoreInput.addEventListener('change', (ev)=>{
+    marijuanaLegacyStructureInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    mcRestoreLabel.innerText = 'Motor City Match Restore';
-    mcRestoreLabel.setAttribute('for', 'mc-restore');
-    mcRestoreLegend.className = 'circle mc-restore';
-    mcRestoreLabel.appendChild(mcRestoreLegend);
-    mcRestoreBox.appendChild(mcRestoreInput);
-    mcRestoreBox.appendChild(mcRestoreLabel);
-    retailSubsets.appendChild(mcRestoreBox);
-   
-    retail.appendChild(retailAllInput);
-    retail.appendChild(retailAllLabel);
-    retail.appendChild(retailAllExpandBtn);
-    _filterPanel.form.appendChild(retail);
-    _filterPanel.form.appendChild(retailSubsets);
+    marijuanaLegacyStructureLabel.innerText = 'Marijuana Legacy Structures';
+    marijuanaLegacyStructureLabel.setAttribute('for', 'marijuana-legacy-structure');
+    marijuanaLegacyStructureLegend.className = 'circle marijuana-structure';
+    marijuanaLegacyStructureLabel.appendChild(marijuanaLegacyStructureLegend);
+    marijuanaLegacyStructureBox.appendChild(marijuanaLegacyStructureInput);
+    marijuanaLegacyStructureBox.appendChild(marijuanaLegacyStructureLabel);
+    forSaleSubsets.appendChild(marijuanaLegacyStructureBox);
 
-    // Create transportation section elemets
+    forSale.appendChild(forSaleAllInput);
+    forSale.appendChild(forSaleAllLabel);
+    forSale.appendChild(forSaleAllExpandBtn);
+    _filterPanel.form.appendChild(forSale);
+    _filterPanel.form.appendChild(forSaleSubsets);
+
+    // ========= Create public assets sections =========
+    let publicAssests = document.createElement('article');
+    let publicAssestsAllInput = document.createElement('input');
+    let publicAssestsAllLabel = document.createElement('label');
+    let publicAssestsAllExpandBtn = document.createElement('button');
+    let publicAssestsSubsets = document.createElement('article');
+    let fireInput = document.createElement('input');
+    let fireLegend = document.createElement('span');
+    let fireLabel = document.createElement('label');
+    let fireBox = document.createElement('div');
+    let parksInput = document.createElement('input');
+    let parksLegend = document.createElement('span');
+    let parksLabel = document.createElement('label');
+    let parksBox = document.createElement('div');
+    publicAssests.className ='parent-filter-container';
+    publicAssestsAllInput.type = 'checkbox';
+    publicAssestsAllInput.value = 'fire-stations,parks-fill,parks-line'
+    publicAssestsAllInput.id = 'publicAssests-all';
+    publicAssestsAllInput.name = 'publicAssests-data'; 
+    if(_filterPanel.app.filters.includes('publicAssests-all')){
+      publicAssestsAllInput.checked = true;
+    }else{
+      publicAssestsAllInput.checked = false;
+    }
+    publicAssestsAllInput.className = 'parent-filter';
+    publicAssestsAllLabel.innerText = 'Public Assets';
+    publicAssestsAllLabel.setAttribute('for', 'publicAssests-all');
+    publicAssestsAllExpandBtn.type = 'expand';
+    publicAssestsAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.publicAssests){
+        publicAssestsAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        publicAssestsAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    publicAssestsAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.publicAssests) ? _filterPanel.expansion.publicAssests = false : _filterPanel.expansion.publicAssests = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.publicAssests){
+      publicAssestsSubsets.className = 'filter-subset active';
+    }else{
+      publicAssestsSubsets.className = 'filter-subset';
+    }
+
+    // fire stations
+    fireInput.type = 'checkbox';
+    fireInput.name = 'trans-data';
+    fireInput.id = 'fire-stations';
+    fireInput.value = 'fire-stations';
+    if(_filterPanel.app.filters.includes('fire-stations')){
+      fireInput.checked = true;
+    }else{
+      fireInput.checked = false;
+    }
+    fireInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    fireLabel.innerText = 'Fire Stations';
+    fireLabel.setAttribute('for', 'fire-stations');
+    fireLegend.className = 'circle fire';
+    fireLabel.appendChild(fireLegend);
+    fireBox.appendChild(fireInput);
+    fireBox.appendChild(fireLabel);
+    publicAssestsSubsets.appendChild(fireBox);
+
+    // active parks
+    parksInput.type = 'checkbox';
+    parksInput.name = 'trans-data';
+    parksInput.id = 'active-parks';
+    parksInput.value = 'parks-fill,parks-line';
+    if(_filterPanel.app.filters.includes('parks-fill')){
+      parksInput.checked = true;
+    }else{
+      parksInput.checked = false;
+    }
+    parksInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    parksLabel.innerText = 'Active Parks';
+    parksLabel.setAttribute('for', 'active-parks');
+    parksLegend.className = 'square parks';
+    parksLabel.appendChild(parksLegend);
+    parksBox.appendChild(parksInput);
+    parksBox.appendChild(parksLabel);
+    publicAssestsSubsets.appendChild(parksBox);
+
+    publicAssests.appendChild(publicAssestsAllInput);
+    publicAssests.appendChild(publicAssestsAllLabel);
+    publicAssests.appendChild(publicAssestsAllExpandBtn);
+    _filterPanel.form.appendChild(publicAssests);
+    _filterPanel.form.appendChild(publicAssestsSubsets);
+
+    // ========= Create planning and housing sections =========
+    let planningHousing = document.createElement('article');
+    let planningHousingAllInput = document.createElement('input');
+    let planningHousingAllLabel = document.createElement('label');
+    let planningHousingAllExpandBtn = document.createElement('button');
+    let planningHousingSubsets = document.createElement('article');
+    let oppZonesInput = document.createElement('input');
+    let oppZonesLegend = document.createElement('span');
+    let oppZonesLabel = document.createElement('label');
+    let oppZonesBox = document.createElement('div');
+    let snfInput = document.createElement('input');
+    let snfLegend = document.createElement('span');
+    let snfLabel = document.createElement('label');
+    let snfBox = document.createElement('div');
+    let tmahInput = document.createElement('input');
+    let tmahLegend = document.createElement('span');
+    let tmahLabel = document.createElement('label');
+    let tmahBox = document.createElement('div');
+    planningHousing.className ='parent-filter-container';
+    planningHousingAllInput.type = 'checkbox';
+    planningHousingAllInput.value = 'opp-zones-fill,opp-zones-line,snf-fill,snf-line,tmah-fill,tmah-line'
+    planningHousingAllInput.id = 'planningHousing-all';
+    planningHousingAllInput.name = 'planningHousing-data'; 
+    if(_filterPanel.app.filters.includes('planningHousing-all')){
+      planningHousingAllInput.checked = true;
+    }else{
+      planningHousingAllInput.checked = false;
+    }
+    planningHousingAllInput.className = 'parent-filter';
+    planningHousingAllLabel.innerText = 'Planning and Housing';
+    planningHousingAllLabel.setAttribute('for', 'planningHousing-all');
+    planningHousingAllExpandBtn.type = 'expand';
+    planningHousingAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.planningHousing){
+        planningHousingAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        planningHousingAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    planningHousingAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.planningHousing) ? _filterPanel.expansion.planningHousing = false : _filterPanel.expansion.planningHousing = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.planningHousing){
+      planningHousingSubsets.className = 'filter-subset active';
+    }else{
+      planningHousingSubsets.className = 'filter-subset';
+    }
+
+    // Opportunity zones
+    oppZonesInput.type = 'checkbox';
+    oppZonesInput.name = 'trans-data';
+    oppZonesInput.id = 'opp-zones';
+    oppZonesInput.value = 'opp-zones-fill,opp-zones-line';
+    if(_filterPanel.app.filters.includes('opp-zones-fill')){
+      oppZonesInput.checked = true;
+    }else{
+      oppZonesInput.checked = false;
+    }
+    oppZonesInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    oppZonesLabel.innerText = 'Opportunity Zones';
+    oppZonesLabel.setAttribute('for', 'opp-zones');
+    oppZonesLegend.className = 'square opp-zones';
+    oppZonesLabel.appendChild(oppZonesLegend);
+    oppZonesBox.appendChild(oppZonesInput);
+    oppZonesBox.appendChild(oppZonesLabel);
+    planningHousingSubsets.appendChild(oppZonesBox);
+
+    // Strategic Neighborhoods
+    snfInput.type = 'checkbox';
+    snfInput.name = 'trans-data';
+    snfInput.id = 'snf';
+    snfInput.value = 'snf-fill,snf-line';
+    if(_filterPanel.app.filters.includes('snf-fill')){
+      snfInput.checked = true;
+    }else{
+      snfInput.checked = false;
+    }
+    snfInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    snfLabel.innerText = 'Strategic Neighborhood Fund';
+    snfLabel.setAttribute('for', 'snf');
+    snfLegend.className = 'square snf';
+    snfLabel.appendChild(snfLegend);
+    snfBox.appendChild(snfInput);
+    snfBox.appendChild(snfLabel);
+    planningHousingSubsets.appendChild(snfBox);
+
+    // Targeted Multifamily Housing Areas
+    tmahInput.type = 'checkbox';
+    tmahInput.name = 'trans-data';
+    tmahInput.id = 'tmah';
+    tmahInput.value = 'tmah-fill,tmah-line';
+    if(_filterPanel.app.filters.includes('tmah-fill')){
+      tmahInput.checked = true;
+    }else{
+      tmahInput.checked = false;
+    }
+    tmahInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    tmahLabel.innerText = 'Targeted Multifamily Housing Areas';
+    tmahLabel.setAttribute('for', 'tmah');
+    tmahLegend.className = 'square tmah';
+    tmahLabel.appendChild(tmahLegend);
+    tmahBox.appendChild(tmahInput);
+    tmahBox.appendChild(tmahLabel);
+    planningHousingSubsets.appendChild(tmahBox);
+
+    planningHousing.appendChild(planningHousingAllInput);
+    planningHousing.appendChild(planningHousingAllLabel);
+    planningHousing.appendChild(planningHousingAllExpandBtn);
+    _filterPanel.form.appendChild(planningHousing);
+    _filterPanel.form.appendChild(planningHousingSubsets);
+
+    // ======= Create transportation section elemets ============
     let transportation = document.createElement('article');
     let transportationAllInput = document.createElement('input');
     let transportationAllLabel = document.createElement('label');
@@ -213,7 +432,7 @@ export default class Filters {
       transportationAllInput.checked = false;
     }
     transportationAllInput.className = 'parent-filter';
-    transportationAllLabel.innerText = 'All transportations';
+    transportationAllLabel.innerText = 'Transportations';
     transportationAllLabel.setAttribute('for', 'transportation-all');
     transportationAllExpandBtn.type = 'expand';
     transportationAllInput.addEventListener('change', (ev)=>{
@@ -320,199 +539,6 @@ export default class Filters {
     transportation.appendChild(transportationAllExpandBtn);
     _filterPanel.form.appendChild(transportation);
     _filterPanel.form.appendChild(transportationSubsets);
-    // let zipCodes = document.createElement('article');
-    // let zipCodesInput = document.createElement('input');
-    // let zipCodesList = document.createElement('datalist');
-    // let zipCodesInputLabel = document.createElement('label');
-    // let zipCodesBtn = document.createElement('button');
-    // zipCodesInput.type = 'text';
-    // zipCodesInput.setAttribute('id', 'zipcode');
-    // zipCodesInput.setAttribute('list','zipcodes');
-    // zipCodesInput.setAttribute('placeholder','Enter zip code');
-    // zipCodesInputLabel.innerText = 'By Zip code:';
-    // zipCodesInputLabel.setAttribute('for', 'zipcode');
-    // zipCodesList.setAttribute('id', 'zipcodes');
-    // for (const [key, value] of Object.entries(_filterPanel.app.zips)) {
-    //     let tempOption = document.createElement('option');
-    //     tempOption.value = key;
-    //     zipCodesList.appendChild(tempOption);
-    // }
-    // zipCodesBtn.innerText = 'x';
-    // zipCodesBtn.id = 'zipcode-filter-btn';
-    // if(_filterPanel.app.filters.zipcode == null){
-    //     zipCodesBtn.className = 'filter-btn';
-    // }else{
-    //     zipCodesInput.value = _filterPanel.app.filters.zipcode;
-    //     zipCodesBtn.className = 'filter-btn active';
-    // }
-    // zipCodesInput.addEventListener('change', (ev)=>{
-    //     ev.preventDefault();
-    //     if(ev.target.value != null){
-    //         _filterPanel.app.applyFilters(ev, _filterPanel.app);
-    //         _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    //     }
-    // });
-    // zipCodesBtn.addEventListener('click', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // zipCodes.appendChild(zipCodesBtn);
-    // zipCodes.appendChild(zipCodesInputLabel);
-    // zipCodes.appendChild(zipCodesInput);
-    // zipCodes.appendChild(zipCodesList);
-    // _filterPanel.form.appendChild(zipCodes);
-    
-    // Create population section elemets
-    // let populationTypes = {
-    //     first: 'Select Type',
-    //     Elderly: 'Elderly',
-    //     Family: 'Family',
-    //     Special_Needs_or_Disabled: 'Special Need or Disabled',
-    //     Homeless: 'Homeless',
-    //     Veterans: 'Veterans'
-    // }
-    // let population = document.createElement('article');
-    // let populationSelect = document.createElement('select');
-    // let populationSelectLabel = document.createElement('label');
-    // let populationBtn = document.createElement('button');
-    // let populationDesc = document.createElement('p');
-    // populationSelect.setAttribute('id', 'population');
-    // populationSelect.setAttribute('aria-describedby','population-description');
-    // for (const [key, value] of Object.entries(populationTypes)) {
-    //     let tempOption = document.createElement('option');
-    //     if(key == 'first'){
-    //         tempOption.value = null;
-    //     }else{
-    //         tempOption.value = key;
-    //     }
-    //     tempOption.innerText = value;
-    //     populationSelect.appendChild(tempOption);
-    // }
-    // populationSelectLabel.innerText = 'For Special Populations:';
-    // populationSelectLabel.setAttribute('for', 'population');
-    // populationBtn.innerText = 'x';
-    // populationBtn.id = 'population-filter-btn';
-    // if(_filterPanel.app.filters.population == null){
-    //     populationBtn.className = 'filter-btn';
-    //     populationSelect.value = '';
-    // }else{
-    //     populationSelect.value = _filterPanel.app.filters.population;
-    //     populationBtn.className = 'filter-btn active';
-    // }
-    // populationDesc.innerText = '(Examples: elderly, veterans, families, etc.)';
-    // populationDesc.id = 'population-description';
-    // populationSelect.addEventListener('change', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.applyFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // populationBtn.addEventListener('click', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // population.appendChild(populationBtn);
-    // population.appendChild(populationSelectLabel);
-    // population.appendChild(populationSelect);
-    // population.appendChild(populationDesc);
-    // _filterPanel.form.appendChild(population);
-
-    // // Create bedrooms section elemets
-    // let bedroomsTypes = {
-    //     first: 'Select # of Bedrooms',
-    //     Number_0BR: 'Studio',
-    //     Number_1BR: '1 - Bedroom',
-    //     Number_2BR: '2 - Bedroom',
-    //     Number_3BR: '3 - Bedroom',
-    //     Number_4BR: '4 - Bedroom',
-    //     Number_5BR: '5 - Bedroom',
-    // }
-    // let bedrooms = document.createElement('article');
-    // let bedroomsSelect = document.createElement('select');
-    // let bedroomsSelectLabel = document.createElement('label');
-    // let bedroomsBtn = document.createElement('button');
-    // bedroomsSelect.setAttribute('id', 'rooms');
-    // for (const [key, value] of Object.entries(bedroomsTypes)) {
-    //     let tempOption = document.createElement('option');
-    //     if(key == 'first'){
-    //         tempOption.value = null;
-    //     }else{
-    //         tempOption.value = key;
-    //     }
-    //     tempOption.innerText = value;
-    //     bedroomsSelect.appendChild(tempOption);
-    // }
-    // bedroomsSelectLabel.innerText = 'By Number of Bedrooms:';
-    // bedroomsSelectLabel.setAttribute('for', 'rooms');
-    // bedroomsBtn.innerText = 'x';
-    // bedroomsBtn.id = 'bedrooms-filter-btn';
-    // if(_filterPanel.app.filters.bedrooms == null){
-    //     bedroomsBtn.className = 'filter-btn';
-    // }else{
-    //     bedroomsSelect.value = _filterPanel.app.filters.bedrooms;
-    //     bedroomsBtn.className = 'filter-btn active';
-    // }
-    // bedroomsSelect.addEventListener('change', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.applyFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // bedroomsBtn.addEventListener('click', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // bedrooms.appendChild(bedroomsBtn);
-    // bedrooms.appendChild(bedroomsSelectLabel);
-    // bedrooms.appendChild(bedroomsSelect);
-    // _filterPanel.form.appendChild(bedrooms);
-
-    // // Create Income elements
-    // let income = document.createElement('article');
-    // let incomeBtn = document.createElement('button');
-    // let calcBtn = document.createElement('button');
-    // incomeBtn.innerText = 'x';
-    // incomeBtn.id = 'income-filter-btn';
-    // incomeBtn.className = 'filter-btn';
-    // if(_filterPanel.app.filters.incomeBucket == null){
-    //     calcBtn.innerText = 'Search by Income';
-    //     calcBtn.className = 'off';
-    //     incomeBtn.className = 'filter-btn';
-    // }else{
-    //     calcBtn.innerText = 'By Income';
-    //     calcBtn.className = 'on';
-    //     incomeBtn.className = 'filter-btn active';
-    // }
-    // incomeBtn.addEventListener('click', (ev)=>{
-    //     ev.preventDefault();
-    //     _filterPanel.app.removeFilters(ev, _filterPanel.app);
-    //     _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'filter');
-    // });
-    // calcBtn.addEventListener('click', (ev)=>{
-    //     ev.preventDefault();
-    //     if(ev.target.className == 'off'){
-    //         _filterPanel.app.panel.createPanel(_filterPanel.app.panel, 'calculator');
-    //     }
-    // });
-    // income.appendChild(incomeBtn);
-    // income.appendChild(calcBtn);
-    // _filterPanel.form.appendChild(income);
-
-    // // Create Income legend elements
-    // let legend = document.createElement('article');
-    // let best = document.createElement('p');
-    // let maybe = document.createElement('p');
-    // best.innerHTML = '<span>x</span> Best match for your income';
-    // maybe.innerHTML = '<span>x</span> May have units affordable for your income';
-    // if(_filterPanel.app.filters.incomeBucket == null){
-    //     legend.className = 'legend';
-    // }else{
-    //     legend.className = 'legend active';
-    // }
-    // legend.appendChild(best);
-    // legend.appendChild(maybe);
-    // _filterPanel.form.appendChild(legend);
 
     // Handle submits
     _filterPanel.form.addEventListener('submit', (ev) => {

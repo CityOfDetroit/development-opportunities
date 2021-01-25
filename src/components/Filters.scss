@@ -64,8 +64,15 @@
                 border-radius: 50%;
             }
 
+            span.square{
+                width: 1em;
+                margin-left: 0.25em;
+                padding: 0 0.55em;
+                border: .1em solid;
+            }
+
             span.smart-bus{
-                border-color: #d70000;
+                border-color: #eb7609;
             }
 
             span.qline{
@@ -80,12 +87,36 @@
                 background-color: #ee382a;
             }
 
-            span.mcm-business{
-                background-color: #d26e03;
+            span.fire{
+                background-color: #8f0408;
             }
 
-            span.mc-restore{
-                background-color: #004445;
+            span.parks{
+                border-color: #28f572;
+                background-color: lighten(#28f572,30%);
+            }
+
+            span.marijuana-land{
+                background-color: #002e00;
+            }
+
+            span.marijuana-structure{
+                background-color: #028302;
+            }
+
+            span.opp-zones{
+                border-color: #83027d;
+                background-color: lighten(#83027d,30%);
+            }
+
+            span.snf{
+                border-color: #804d24;
+                background-color: lighten(#804d24,30%);
+            }
+
+            span.tmah{
+                border-color: #0060dd;
+                background-color: lighten(#0060dd,30%);
             }
         }
     }

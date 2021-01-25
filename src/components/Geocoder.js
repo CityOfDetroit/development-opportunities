@@ -18,7 +18,7 @@ export default class Geocoder {
         this.submit(ev, geocoder);
     });
     icon.className = 'fas fa-map-marker-alt';
-    label.innerText = "Find My Home:";
+    label.innerText = "Find Property:";
     label.setAttribute("for", "geocoder-input"); 
     input.type = 'text';
     input.setAttribute('list','addresses-list');

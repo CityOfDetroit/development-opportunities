@@ -39,61 +39,17 @@ export default class Maps {
                   properties: { },
               },
             });
-            _map.map.addSource("completed-planning-projects", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/PlanningProjects/FeatureServer/0/query?where=SNF+%3D+%27%27+AND+Status+%3D+%27Completed%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("planning-areas", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/PlanningProjects/FeatureServer/0/query?where=SNF+%3D+%27%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("mcm-business", {
-              type: "geojson",
-              data:
-                "https://opendata.arcgis.com/datasets/76e09cb0417a452aba99608ccf40f116_0.geojson",
-            });
-            _map.map.addSource("mc-restore", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MCRS_Awardees/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=geojson",
-            });
-            _map.map.addSource("vacant-multi", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/rosaparks_clairmount_mf/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
             _map.map.addSource("snf-areas", {
               type: "geojson",
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/PlanningProjects/FeatureServer/0/query?where=SNF+%3D+%27SNF%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("open-rfp", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Requests_for_Proposal/FeatureServer/0/query?where=status_public+%3D+%27Open+to+Submissions%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("predevelopment-rfp", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Requests_for_Proposal/FeatureServer/0/query?where=status_public+%3D+%27Pre-Development%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("in-construction-rfp", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Requests_for_Proposal/FeatureServer/0/query?where=status_public+%3D+%27In+Construction%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("completed-rfp", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Requests_for_Proposal/FeatureServer/0/query?where=status_public+%3D+%27Completed%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("targeted-multi-family-housing", {
               type: "geojson",
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Targeted_Multifamily_Affordable_Housing/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
+            // ============= transportation sources ===========
             _map.map.addSource("peoplemover", {
               type: "geojson",
               data:
@@ -118,6 +74,44 @@ export default class Maps {
               type: "geojson",
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/QLine_Stops/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
+            });
+            // ============= public assets sources ===========
+            _map.map.addSource("fire-stations", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Firehouse_Locations/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+            });
+            _map.map.addSource("active-parks", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Parks_Marijuana/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+            });
+            // ============= for sale sources ===========
+            _map.map.addSource("marijuana-legacy-structure", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/1/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+            });
+            _map.map.addSource("marijuana-legacy-land", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+            });
+            // ============= planning and housing sources ===========
+            _map.map.addSource("opp-zones", {
+              type: "geojson",
+              data:
+                "https://opendata.arcgis.com/datasets/4e50576fb1ee4a2db4208c220747831b_0.geojson",
+            });
+            _map.map.addSource("snf", {
+              type: "geojson",
+              data:
+                "https://opendata.arcgis.com/datasets/dafad9fc0e854d9fb03d9cb00ea5e69c_0.geojson",
+            });
+            _map.map.addSource("tmah", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Targeted_Multifamily_Affordable_Housing/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             // Creating layers
             // _map.map.addLayer({
@@ -176,28 +170,8 @@ export default class Maps {
             //       },
             //     },
             //   });
-              _map.map.addLayer({
-                  id: 'markers',
-                  type: 'symbol',
-                  source: 'markers',
-                  layout: {
-                      'icon-image': '{marker-symbol}-15',
-                  },
-              });  
-              _map.map.addLayer({
-                id: "targeted-multi-family-fill",
-                type: "fill",
-                source: "targeted-multi-family-housing",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#657d9b", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "targeted-multi-family-line",
-                type: "line",
-                source: "targeted-multi-family-housing",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#324965" },
-              });
+              
+              // ============= transportation layers ===========
               _map.map.addLayer({
                 id: "peoplemover",
                 type: "line",
@@ -210,7 +184,7 @@ export default class Maps {
                 type: "line",
                 source: "smartroutes",
                 layout: { visibility: "none" },
-                paint: { "line-color": "#d70000", "line-width": 2 },
+                paint: { "line-color": "#eb7609", "line-width": 2 },
               });
               _map.map.addLayer({
                 id: "mogobikes",
@@ -251,123 +225,112 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "line-color": "#7fb6ab", "line-width": 2 },
               });
-              
+              // ============= public assests layers ===========
               _map.map.addLayer({
-                id: "mcm-business",
+                id: "fire-stations",
                 type: "circle",
-                source: "mcm-business",
+                source: "fire-stations",
                 layout: { visibility: "none" },
                 paint: {
                   "circle-radius": {
-                    base: 4,
+                    base: 5,
                     stops: [
-                      [12, 4],
+                      [12, 5],
                       [22, 120],
                     ],
                   },
-                  "circle-color": "#d26e03",
+                  "circle-color": "#8f0408",
                 },
               });
               _map.map.addLayer({
-                id: "mc-restore",
+                id: "parks-fill",
+                type: "fill",
+                source: "active-parks",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#28f572", "fill-opacity": 0.5 },
+              });
+              _map.map.addLayer({
+                id: "parks-line",
+                type: "line",
+                source: "active-parks",
+                layout: { visibility: "none" },
+                paint: { "line-color": "#28f572" },
+              });
+              // ============= for sale layers ===========
+              _map.map.addLayer({
+                id: "marijuana-legacy-land",
                 type: "circle",
-                source: "mc-restore",
+                source: "marijuana-legacy-land",
                 layout: { visibility: "none" },
                 paint: {
                   "circle-radius": {
-                    base: 4,
+                    base: 5,
                     stops: [
-                      [12, 4],
+                      [12, 5],
                       [22, 120],
                     ],
                   },
-                  "circle-color": "#004445",
+                  "circle-color": "#002e00",
                 },
               });
-        
               _map.map.addLayer({
-                id: "vacant-multi-fill",
+                id: "marijuana-legacy-structure",
+                type: "circle",
+                source: "marijuana-legacy-structure",
+                layout: { visibility: "none" },
+                paint: {
+                  "circle-radius": {
+                    base: 5,
+                    stops: [
+                      [12, 5],
+                      [22, 120],
+                    ],
+                  },
+                  "circle-color": "#028302",
+                },
+              });
+              // ============= Planning and Housing layers ===========
+              _map.map.addLayer({
+                id: "opp-zones-fill",
                 type: "fill",
-                source: "vacant-multi",
+                source: "opp-zones",
                 layout: { visibility: "none" },
-                paint: { "fill-color": "#f44289", "fill-opacity": 0.75 },
+                paint: { "fill-color": "#83027d", "fill-opacity": 0.5 },
               });
               _map.map.addLayer({
-                id: "vacant-multi-line",
+                id: "opp-zones-line",
                 type: "line",
-                source: "vacant-multi",
+                source: "opp-zones",
                 layout: { visibility: "none" },
-                paint: { "line-color": "#a5295b" },
-              });
-              _map.map.addLayer({
-                id: "in-construction-rfp-fill",
-                type: "fill",
-                source: "in-construction-rfp",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#b94dba", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "in-construction-rfp-line",
-                type: "line",
-                source: "in-construction-rfp",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#b81aba" },
-              });
-              _map.map.addLayer({
-                id: "open-rfp-fill",
-                type: "fill",
-                source: "open-rfp",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#ff68ff", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "open-rfp-line",
-                type: "line",
-                source: "open-rfp",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#c56bc5" },
-              });
-              _map.map.addLayer({
-                id: "predevelopment-rfp-fill",
-                type: "fill",
-                source: "predevelopment-rfp",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#933c94", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "predevelopment-rfp-line",
-                type: "line",
-                source: "predevelopment-rfp",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#5f0b60" },
-              });
-              _map.map.addLayer({
-                id: "completed-rfp-fill",
-                type: "fill",
-                source: "completed-rfp",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#643265", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "completed-rfp-line",
-                type: "line",
-                source: "completed-rfp",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#5f0b60" },
+                paint: { "line-color": "#83027d" },
               });
               _map.map.addLayer({
                 id: "snf-fill",
                 type: "fill",
-                source: "snf-areas",
+                source: "snf",
                 layout: { visibility: "none" },
-                paint: { "fill-color": "#ffff73", "fill-opacity": 0.75 },
+                paint: { "fill-color": "#804d24", "fill-opacity": 0.5 },
               });
               _map.map.addLayer({
                 id: "snf-line",
                 type: "line",
-                source: "snf-areas",
+                source: "snf",
                 layout: { visibility: "none" },
-                paint: { "line-color": "#e89f18" },
+                paint: { "line-color": "#804d24" },
+              });
+              _map.map.addLayer({
+                id: "tmah-fill",
+                type: "fill",
+                source: "tmah",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#0060dd", "fill-opacity": 0.5 },
+              });
+              _map.map.addLayer({
+                id: "tmah-line",
+                type: "line",
+                source: "tmah",
+                layout: { visibility: "none" },
+                paint: { "line-color": "#0060dd" },
               });
             //   _map.map.addLayer({
             //     id: "dlba-structures",
@@ -404,34 +367,7 @@ export default class Maps {
             //     layout: { visibility: "none" },
             //     paint: { "fill-color": "#ff6501" },
             //   });
-              _map.map.addLayer({
-                id: "completed-planning-projects-fill",
-                type: "fill",
-                source: "completed-planning-projects",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#39b54a", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "completed-planning-projects-line",
-                type: "line",
-                source: "completed-planning-projects",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#2e9a3d" },
-              });
-              _map.map.addLayer({
-                id: "planning-areas-fill",
-                type: "fill",
-                source: "planning-areas",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#b5e15c", "fill-opacity": 0.75 },
-              });
-              _map.map.addLayer({
-                id: "planning-areas-line",
-                type: "line",
-                source: "planning-areas",
-                layout: { visibility: "none" },
-                paint: { "line-color": "#48ae18" },
-              });
+
               // _map.map.addLayer({
               //   id: "parcel-fill",
               //   type: "fill",
