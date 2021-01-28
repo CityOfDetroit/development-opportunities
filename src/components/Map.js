@@ -123,52 +123,49 @@ export default class Maps {
             //     "line-width":  3
             //   }
             //   });
-            let test =   ["R1","R2","R3","R4","R5","R6"];
             _map.map.addLayer({
-                id: "zoning",
-                type: "line",
-                source: "zoning",
-                "source-layer": "Zoning",
-                layout: { visibility: "visible" },
-                paint: {
-                  "line-color": {
-                    property: "zoning_rev",
-                    type: "categorical",
-                    stops: [
-                      ["B1","#F1948A"],
-                      ["B2","#EC7063"],
-                      ["B3","#E74C3C"],
-                      ["B4","#A93226"],
-                      ["B5","#922B21"],
-                      ["B6","#7B241C"],
-                      ["M1","#EBDEF0"],
-                      ["M2","#C39BD3"],
-                      ["M3","#9B59B6"],
-                      ["M4","#7D3C98"],
-                      ["M5","#4A235A"],
-                      ["P1","#CCD1D1"],
-                      ["PC","#884EA0"],
-                      ["PCA","#2471A3"],
-                      ["PD","#3498DB"],
-                      ["PR","#1E8449"],
-                      ["SD1","#D4E6F1"],
-                      ["SD2","#7FB3D5"],
-                      ["SD3","#D7BDE2"],
-                      ["SD4","#45B39D"],
-                      ["SD5","#ff8f00"],
-                      ["TM","#A2D9CE"],
-                      ["W1","#82E0AA"],
-                      ["R1","#FCF3CF"],
-                      ["R2","#F9E79F"],
-                      ["R3","#F4D03F"],
-                      ["R4","#F1C40F"],
-                      ["R5","#D4AC0D"],
-                      ["R6","#B7950B"]
-                    ],
-                  },
-                  "line-width": 3
-                }
-              });
+              id: "zoning",
+              type: "line",
+              source: "zoning",
+              "source-layer": "Zoning",
+              layout: { visibility: "visible" },
+              paint: {
+                "line-color": [
+                  'match',
+                  ['get', 'ZONING_REV'],
+                  "B1","#F1948A",
+                  "B2","#EC7063",
+                  "B3","#E74C3C",
+                  "B4","#A93226",
+                  "B5","#922B21",
+                  "B6","#7B241C",
+                  "M1","#EBDEF0",
+                  "M2","#C39BD3",
+                  "M3","#9B59B6",
+                  "M4","#7D3C98",
+                  "M5","#4A235A",
+                  "P1","#CCD1D1",
+                  "PC","#884EA0",
+                  "PCA","#2471A3",
+                  "PD","#3498DB",
+                  "PR","#1E8449",
+                  "SD1","#D4E6F1",
+                  "SD2","#7FB3D5",
+                  "SD3","#D7BDE2",
+                  "SD4","#45B39D",
+                  "SD5","#ff8f00",
+                  "TM","#A2D9CE",
+                  "W1","#82E0AA",
+                  "R1","#FCF3CF",
+                  "R2","#F9E79F",
+                  "R3","#F4D03F",
+                  "R4","#F1C40F",
+                  "R5","#D4AC0D",
+                  "R6","#B7950B", '#ccc'
+                ],
+                "line-width": 3
+              }
+            });
               
               // ============= transportation layers ===========
               _map.map.addLayer({
@@ -417,8 +414,8 @@ export default class Maps {
                       },
                     ],
                   });
-                });  
-                _map.map.setFilter("zoning",["in", "zoning_rev", "R1","R2","R3", "R4","R5"]);  
+                });   
+                _map.map.setFilter("zoning",["in", "ZONING_REV", "R1","R2","R3", "R4","R5"]); 
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
