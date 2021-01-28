@@ -15,6 +15,12 @@ export default class App {
         this.point              = null;
         this.map                = new Maps('map', this);
         this.filters            = [];
+        this.zoning             = {
+            r: [],
+            b: [],
+            m: [],
+            s: []
+        }; 
         this.boundary           = null;
         this.userControls       = document.createElement('form');
         this.panel              = new Panel(this);
