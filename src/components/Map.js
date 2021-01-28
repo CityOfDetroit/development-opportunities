@@ -24,10 +24,14 @@ export default class Maps {
         _map.map.addControl(new NavigationControl());
         _map.map.on("load", function () {
             // Creating sources
-            // _map.map.addSource("zoning", {
-            //   type: "vector",
-            //   url: "mapbox://cityofdetroit.5kwrqmxx",
-            // });
+            _map.map.addSource("zoning", {
+              type: "vector",
+              tiles: [
+                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/Zoning_Vector_Tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+                ],
+              'minzoom': 14,
+              'maxzoom': 19
+            });
             _map.map.addSource('markers', {
               type: 'geojson',
               data: {
@@ -38,16 +42,6 @@ export default class Maps {
                   },
                   properties: { },
               },
-            });
-            _map.map.addSource("snf-areas", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/PlanningProjects/FeatureServer/0/query?where=SNF+%3D+%27SNF%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
-            });
-            _map.map.addSource("targeted-multi-family-housing", {
-              type: "geojson",
-              data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Targeted_Multifamily_Affordable_Housing/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnHiddenFields=false&returnGeometry=true&returnCentroid=false&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=4326&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnDistinctValues=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             // ============= transportation sources ===========
             _map.map.addSource("peoplemover", {
@@ -115,61 +109,66 @@ export default class Maps {
             });
             // Creating layers
             // _map.map.addLayer({
-            //     id: "zoning",
-            //     type: "line",
-            //     source: "zoning",
-            //     "source-layer": "zoninggeojson",
-            //     layout: { visibility: "none" },
-            //     paint: {
-            //       "line-color": {
-            //         property: "zoning_rev",
-            //         type: "categorical",
-            //         stops: [
-            //           ["B1", "#b16776"],
-            //           ["B2", "#ca5572"],
-            //           ["B3", "#e2396f"],
-            //           ["B4", "#aa0044"],
-            //           ["B5", "#952347"],
-            //           ["B6", "#74001e"],
-            //           ["M1", "#986eac"],
-            //           ["M2", "#a265c2"],
-            //           ["M3", "#ab5ad8"],
-            //           ["M4", "#713891"],
-            //           ["M5", "#792aa6"],
-            //           ["P1", "#72a553"],
-            //           ["PC", "#72a553"],
-            //           ["PCA", "#72a553"],
-            //           ["PD", "#72a553"],
-            //           ["PR", "#72a553"],
-            //           ["R1", "#8195ae"],
-            //           ["R2", "#6097ce"],
-            //           ["R3", "#009aee"],
-            //           ["R4", "#006cbb"],
-            //           ["R5", "#29699d"],
-            //           ["R6", "#00428a"],
-            //           ["SD1", "#c57c3d"],
-            //           ["SD2", "#c57c3d"],
-            //           ["SD4", "#c57c3d"],
-            //           ["SD5", "#c57c3d"],
-            //           ["TM", "#c57c3d"],
-            //           ["W1", "#c57c3d"],
-            //         ],
-            //       },
-            //       "line-width": {
-            //         stops: [
-            //           [14, 1],
-            //           [19, 15],
-            //         ],
-            //       },
-            //       "line-offset": {
-            //         stops: [
-            //           [14, 0],
-            //           [17, -1],
-            //           [19, -6],
-            //         ],
-            //       },
-            //     },
+            //   'id': 'zoning',
+            //   'type': 'line',
+            //   'source': 'zoning',
+            //   'source-layer': 'Zoning',
+            //   "minzoom": 14,
+            //   "layout": {
+            //     "line-cap": "round",
+            //     "line-join": "round"
+            //   },
+            //   "paint": {
+            //     "line-color": "#b16776",
+            //     "line-width":  3
+            //   }
             //   });
+            let test =   ["R1","R2","R3","R4","R5","R6"];
+            _map.map.addLayer({
+                id: "zoning",
+                type: "line",
+                source: "zoning",
+                "source-layer": "Zoning",
+                layout: { visibility: "visible" },
+                paint: {
+                  "line-color": {
+                    property: "zoning_rev",
+                    type: "categorical",
+                    stops: [
+                      ["B1","#F1948A"],
+                      ["B2","#EC7063"],
+                      ["B3","#E74C3C"],
+                      ["B4","#A93226"],
+                      ["B5","#922B21"],
+                      ["B6","#7B241C"],
+                      ["M1","#EBDEF0"],
+                      ["M2","#C39BD3"],
+                      ["M3","#9B59B6"],
+                      ["M4","#7D3C98"],
+                      ["M5","#4A235A"],
+                      ["P1","#CCD1D1"],
+                      ["PC","#884EA0"],
+                      ["PCA","#2471A3"],
+                      ["PD","#3498DB"],
+                      ["PR","#1E8449"],
+                      ["SD1","#D4E6F1"],
+                      ["SD2","#7FB3D5"],
+                      ["SD3","#D7BDE2"],
+                      ["SD4","#45B39D"],
+                      ["SD5","#ff8f00"],
+                      ["TM","#A2D9CE"],
+                      ["W1","#82E0AA"],
+                      ["R1","#FCF3CF"],
+                      ["R2","#F9E79F"],
+                      ["R3","#F4D03F"],
+                      ["R4","#F1C40F"],
+                      ["R5","#D4AC0D"],
+                      ["R6","#B7950B"]
+                    ],
+                  },
+                  "line-width": 3
+                }
+              });
               
               // ============= transportation layers ===========
               _map.map.addLayer({
@@ -418,7 +417,8 @@ export default class Maps {
                       },
                     ],
                   });
-                });    
+                });  
+                _map.map.setFilter("zoning",["in", "zoning_rev", "R1","R2","R3", "R4","R5"]);  
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
