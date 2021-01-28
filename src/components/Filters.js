@@ -8,7 +8,10 @@ export default class Filters {
         transportation  : false,
         publicAssests   : false,
         planningHousing : false,
-        zoning          : false
+        zoning          : false,
+        zoningB         : false,
+        zoningM         : false,
+        zoningS        : false
     }; 
     this.app = app;
     this.container = document.getElementById(container);
@@ -36,7 +39,6 @@ export default class Filters {
   }
 
   updateFilters(ev,_filterPanel){
-    console.log(ev);
     let visibility = 'none';
     if(ev.target.checked){
       visibility = 'visible';
@@ -48,14 +50,12 @@ export default class Filters {
         let filtered = _filterPanel.app.filters.filter(function(value, index, arr){ 
           return value != ev.target.id;
         });
-        console.log(filtered);
         _filterPanel.app.filters = filtered;
       }
     }
     if(ev.target.name.includes('zoning-data')){
       let tempFilter = _filterPanel.buildNewZoningFilter(ev, _filterPanel, visibility);
       _filterPanel.app.map.map.setFilter(`${ev.target.name.charAt(0)}-zoning`, tempFilter);
-      _filterPanel.app.map.map.setLayoutProperty(`${ev.target.name.charAt(0)}-zoning`, "visibility", visibility);
     }else{
       let layers = ev.target.value.split(',');
       _filterPanel.app.map.changeVisibility(layers, visibility, _filterPanel.app.map);
@@ -66,48 +66,39 @@ export default class Filters {
   }
 
   buildNewZoningFilter(ev, _filterPanel, visibility){
-    console.log(_filterPanel.app.zoning);
-    console.log(_filterPanel.app.zoning[ev.target.name.charAt(0)]);
-    if(_filterPanel.app.zoning[ev.target.name.charAt(0)].length > 0){
-      console.log('clearing zoning');
-      _filterPanel.app.zoning[ev.target.name.charAt(0)].shift();
-      console.log(_filterPanel.app.zoning[ev.target.name.charAt(0)]);
-      _filterPanel.app.zoning[ev.target.name.charAt(0)].shift();
-      console.log(_filterPanel.app.zoning[ev.target.name.charAt(0)]);
-    }
     let zones = ev.target.value.split(',');
     let tempFilter = ['in', 'ZONING_REV'];
-    console.log(zones);
-    console.log(tempFilter);
     if(visibility == 'visible'){
+      if(_filterPanel.app.zoning[ev.target.name.charAt(0)].length > 0){
+        _filterPanel.app.zoning[ev.target.name.charAt(0)].shift();
+        _filterPanel.app.zoning[ev.target.name.charAt(0)].shift();
+      }
       zones.forEach((zone) => {
-        console.log(zone);
         if(!_filterPanel.app.zoning[ev.target.name.charAt(0)].includes(zone)){
           _filterPanel.app.zoning[ev.target.name.charAt(0)].push(zone);
         }
       });
-      console.log(_filterPanel.app.zoning[ev.target.name.charAt(0)]);
       _filterPanel.app.zoning[ev.target.name.charAt(0)].forEach((zone)=>{
         tempFilter.push(zone);
       });
     }else{
-      if(_filterPanel.app.filters.includes(ev.target.id)){
-        let filtered = _filterPanel.app.filters.filter(function(value, index, arr){ 
-          return value != ev.target.id;
-        });
-        console.log(filtered);
-        _filterPanel.app.filters = filtered;
-      }
+      let cleanList = _filterPanel.app.zoning[ev.target.name.charAt(0)];
+      zones.forEach((zone)=>{
+        if(cleanList.includes(zone)){
+          let filtered = cleanList.filter(function(value, index, arr){ 
+            return value != zone;
+          });
+          cleanList = filtered;
+        }
+      });
+      tempFilter = cleanList;
     }
     _filterPanel.app.zoning[ev.target.name.charAt(0)] = tempFilter;
-    console.log(tempFilter);
     return tempFilter;
   }
 
   changeSubsets(ev, _filterPanel){
-    console.log(ev.target.value);
     let filterSet = ev.target.value.split(',');
-    console.log(filterSet);
     if(ev.target.checked){
       filterSet.forEach(filter => {
         if(!_filterPanel.app.filters.includes(filter)){
@@ -118,13 +109,11 @@ export default class Filters {
       let original = _filterPanel.app.filters;
       let newList = _filterPanel.app.filters;
       filterSet.forEach(filter => {
-        console.log(filter);
         if(original.includes(filter)){
           newList = newList.filter(function(value, index, arr){ 
             return value != filter;
           });
         }
-        console.log(newList);
       });
       _filterPanel.app.filters = newList;
     }
@@ -780,6 +769,371 @@ export default class Filters {
     zoning.appendChild(zoningAllExpandBtn);
     _filterPanel.form.appendChild(zoning);
     _filterPanel.form.appendChild(zoningSubsets);
+
+    // ========= Create business zoning sections =========
+    let zoningB = document.createElement('article');
+    let zoningBAllInput = document.createElement('input');
+    let zoningBAllLabel = document.createElement('label');
+    let zoningBAllExpandBtn = document.createElement('button');
+    let zoningBSubsets = document.createElement('article');
+    let b1Input = document.createElement('input');
+    let b1Legend = document.createElement('span');
+    let b1Label = document.createElement('label');
+    let b1Box = document.createElement('div');
+    let b2Input = document.createElement('input');
+    let b2Legend = document.createElement('span');
+    let b2Label = document.createElement('label');
+    let b2Box = document.createElement('div');
+    let b3Input = document.createElement('input');
+    let b3Legend = document.createElement('span');
+    let b3Label = document.createElement('label');
+    let b3Box = document.createElement('div');
+    let b4Input = document.createElement('input');
+    let b4Legend = document.createElement('span');
+    let b4Label = document.createElement('label');
+    let b4Box = document.createElement('div');
+    let b5Input = document.createElement('input');
+    let b5Legend = document.createElement('span');
+    let b5Label = document.createElement('label');
+    let b5Box = document.createElement('div');
+    let b6Input = document.createElement('input');
+    let b6Legend = document.createElement('span');
+    let b6Label = document.createElement('label');
+    let b6Box = document.createElement('div');
+    zoningB.className ='parent-filter-container';
+    zoningBAllInput.type = 'checkbox';
+    zoningBAllInput.value = 'B1,B2,B3,B4,B5,B6'
+    zoningBAllInput.id = 'b-zoning-all';
+    zoningBAllInput.name = 'b-zoning-data'; 
+    if(_filterPanel.app.filters.includes('b-zoning-all')){
+      zoningBAllInput.checked = true;
+    }else{
+      zoningBAllInput.checked = false;
+    }
+    zoningBAllInput.className = 'parent-filter';
+    zoningBAllLabel.innerText = 'Business Zoning';
+    zoningBAllLabel.setAttribute('for', 'b-zoning-all');
+    zoningBAllExpandBtn.type = 'expand';
+    zoningBAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningB){
+        zoningBAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        zoningBAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    zoningBAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.zoningB) ? _filterPanel.expansion.zoningB = false : _filterPanel.expansion.zoningB = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningB){
+      zoningBSubsets.className = 'filter-subset active';
+    }else{
+      zoningBSubsets.className = 'filter-subset';
+    }
+
+    // B1 zoning
+    b1Input.type = 'checkbox';
+    b1Input.name = 'b-zoning-data';
+    b1Input.id = 'B1';
+    b1Input.value = 'B1';
+    if(_filterPanel.app.filters.includes('B1')){
+      b1Input.checked = true;
+    }else{
+      b1Input.checked = false;
+    }
+    b1Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b1Label.innerText = 'B1 - Zoning';
+    b1Label.setAttribute('for', 'B1');
+    b1Legend.className = 'line B1';
+    b1Label.appendChild(b1Legend);
+    b1Box.appendChild(b1Input);
+    b1Box.appendChild(b1Label);
+    zoningBSubsets.appendChild(b1Box);
+
+    // B2 zoning
+    b2Input.type = 'checkbox';
+    b2Input.name = 'b-zoning-data';
+    b2Input.id = 'B2';
+    b2Input.value = 'B2';
+    if(_filterPanel.app.filters.includes('B2')){
+      b2Input.checked = true;
+    }else{
+      b2Input.checked = false;
+    }
+    b2Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b2Label.innerText = 'B2 - Zoning';
+    b2Label.setAttribute('for', 'B2');
+    b2Legend.className = 'line B2';
+    b2Label.appendChild(b2Legend);
+    b2Box.appendChild(b2Input);
+    b2Box.appendChild(b2Label);
+    zoningBSubsets.appendChild(b2Box);
+
+    // B3 zoning
+    b3Input.type = 'checkbox';
+    b3Input.name = 'b-zoning-data';
+    b3Input.id = 'B3';
+    b3Input.value = 'B3';
+    if(_filterPanel.app.filters.includes('B3')){
+      b3Input.checked = true;
+    }else{
+      b3Input.checked = false;
+    }
+    b3Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b3Label.innerText = 'B3 - Zoning';
+    b3Label.setAttribute('for', 'B3');
+    b3Legend.className = 'line B3';
+    b3Label.appendChild(b3Legend);
+    b3Box.appendChild(b3Input);
+    b3Box.appendChild(b3Label);
+    zoningBSubsets.appendChild(b3Box);
+
+    // B4 zoning
+    b4Input.type = 'checkbox';
+    b4Input.name = 'b-zoning-data';
+    b4Input.id = 'B4';
+    b4Input.value = 'B4';
+    if(_filterPanel.app.filters.includes('B4')){
+      b4Input.checked = true;
+    }else{
+      b4Input.checked = false;
+    }
+    b4Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b4Label.innerText = 'B4 - Zoning';
+    b4Label.setAttribute('for', 'B4');
+    b4Legend.className = 'line B4';
+    b4Label.appendChild(b4Legend);
+    b4Box.appendChild(b4Input);
+    b4Box.appendChild(b4Label);
+    zoningBSubsets.appendChild(b4Box);
+
+    // B5 zoning
+    b5Input.type = 'checkbox';
+    b5Input.name = 'b-zoning-data';
+    b5Input.id = 'B5';
+    b5Input.value = 'B5';
+    if(_filterPanel.app.filters.includes('B5')){
+      b5Input.checked = true;
+    }else{
+      b5Input.checked = false;
+    }
+    b5Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b5Label.innerText = 'B5 - Zoning';
+    b5Label.setAttribute('for', 'B5');
+    b5Legend.className = 'line B5';
+    b5Label.appendChild(b5Legend);
+    b5Box.appendChild(b5Input);
+    b5Box.appendChild(b5Label);
+    zoningBSubsets.appendChild(b5Box);
+
+    // B6 zoning
+    b6Input.type = 'checkbox';
+    b6Input.name = 'b-zoning-data';
+    b6Input.id = 'B6';
+    b6Input.value = 'B6';
+    if(_filterPanel.app.filters.includes('B6')){
+      b6Input.checked = true;
+    }else{
+      b6Input.checked = false;
+    }
+    b6Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    b6Label.innerText = 'B6 - Zoning';
+    b6Label.setAttribute('for', 'B6');
+    b6Legend.className = 'line B6';
+    b6Label.appendChild(b6Legend);
+    b6Box.appendChild(b6Input);
+    b6Box.appendChild(b6Label);
+    zoningBSubsets.appendChild(b6Box);
+
+    zoningB.appendChild(zoningBAllInput);
+    zoningB.appendChild(zoningBAllLabel);
+    zoningB.appendChild(zoningBAllExpandBtn);
+    _filterPanel.form.appendChild(zoningB);
+    _filterPanel.form.appendChild(zoningBSubsets);
+
+    // ========= Create industrial zoning sections =========
+    let zoningM = document.createElement('article');
+    let zoningMAllInput = document.createElement('input');
+    let zoningMAllLabel = document.createElement('label');
+    let zoningMAllExpandBtn = document.createElement('button');
+    let zoningMSubsets = document.createElement('article');
+    let m1Input = document.createElement('input');
+    let m1Legend = document.createElement('span');
+    let m1Label = document.createElement('label');
+    let m1Box = document.createElement('div');
+    let m2Input = document.createElement('input');
+    let m2Legend = document.createElement('span');
+    let m2Label = document.createElement('label');
+    let m2Box = document.createElement('div');
+    let m3Input = document.createElement('input');
+    let m3Legend = document.createElement('span');
+    let m3Label = document.createElement('label');
+    let m3Box = document.createElement('div');
+    let m4Input = document.createElement('input');
+    let m4Legend = document.createElement('span');
+    let m4Label = document.createElement('label');
+    let m4Box = document.createElement('div');
+    let m5Input = document.createElement('input');
+    let m5Legend = document.createElement('span');
+    let m5Label = document.createElement('label');
+    let m5Box = document.createElement('div');
+    zoningM.className ='parent-filter-container';
+    zoningMAllInput.type = 'checkbox';
+    zoningMAllInput.value = 'M1,M2,M3,M4,M5'
+    zoningMAllInput.id = 'm-zoning-all';
+    zoningMAllInput.name = 'm-zoning-data'; 
+    if(_filterPanel.app.filters.includes('m-zoning-all')){
+      zoningMAllInput.checked = true;
+    }else{
+      zoningMAllInput.checked = false;
+    }
+    zoningMAllInput.className = 'parent-filter';
+    zoningMAllLabel.innerText = 'Industrial Zoning';
+    zoningMAllLabel.setAttribute('for', 'm-zoning-all');
+    zoningMAllExpandBtn.type = 'expand';
+    zoningMAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningM){
+        zoningMAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        zoningMAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    zoningMAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.zoningM) ? _filterPanel.expansion.zoningM = false : _filterPanel.expansion.zoningM = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningM){
+      zoningMSubsets.className = 'filter-subset active';
+    }else{
+      zoningMSubsets.className = 'filter-subset';
+    }
+
+    // M1 zoning
+    m1Input.type = 'checkbox';
+    m1Input.name = 'm-zoning-data';
+    m1Input.id = 'M1';
+    m1Input.value = 'M1';
+    if(_filterPanel.app.filters.includes('M1')){
+      m1Input.checked = true;
+    }else{
+      m1Input.checked = false;
+    }
+    m1Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    m1Label.innerText = 'M1 - Zoning';
+    m1Label.setAttribute('for', 'M1');
+    m1Legend.className = 'line M1';
+    m1Label.appendChild(m1Legend);
+    m1Box.appendChild(m1Input);
+    m1Box.appendChild(m1Label);
+    zoningMSubsets.appendChild(m1Box);
+
+    // M2 zoning
+    m2Input.type = 'checkbox';
+    m2Input.name = 'm-zoning-data';
+    m2Input.id = 'M2';
+    m2Input.value = 'M2';
+    if(_filterPanel.app.filters.includes('M2')){
+      m2Input.checked = true;
+    }else{
+      m2Input.checked = false;
+    }
+    m2Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    m2Label.innerText = 'M2 - Zoning';
+    m2Label.setAttribute('for', 'M2');
+    m2Legend.className = 'line M2';
+    m2Label.appendChild(m2Legend);
+    m2Box.appendChild(m2Input);
+    m2Box.appendChild(m2Label);
+    zoningMSubsets.appendChild(m2Box);
+
+    // M3 zoning
+    m3Input.type = 'checkbox';
+    m3Input.name = 'm-zoning-data';
+    m3Input.id = 'M3';
+    m3Input.value = 'M3';
+    if(_filterPanel.app.filters.includes('M3')){
+      m3Input.checked = true;
+    }else{
+      m3Input.checked = false;
+    }
+    m3Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    m3Label.innerText = 'M3 - Zoning';
+    m3Label.setAttribute('for', 'M3');
+    m3Legend.className = 'line M3';
+    m3Label.appendChild(m3Legend);
+    m3Box.appendChild(m3Input);
+    m3Box.appendChild(m3Label);
+    zoningMSubsets.appendChild(m3Box);
+
+    // M4 zoning
+    m4Input.type = 'checkbox';
+    m4Input.name = 'm-zoning-data';
+    m4Input.id = 'M4';
+    m4Input.value = 'M4';
+    if(_filterPanel.app.filters.includes('M4')){
+      m4Input.checked = true;
+    }else{
+      m4Input.checked = false;
+    }
+    m4Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    m4Label.innerText = 'M4 - Zoning';
+    m4Label.setAttribute('for', 'M4');
+    m4Legend.className = 'line M4';
+    m4Label.appendChild(m4Legend);
+    m4Box.appendChild(m4Input);
+    m4Box.appendChild(m4Label);
+    zoningMSubsets.appendChild(m4Box);
+
+    // M5 zoning
+    m5Input.type = 'checkbox';
+    m5Input.name = 'm-zoning-data';
+    m5Input.id = 'M5';
+    m5Input.value = 'M5';
+    if(_filterPanel.app.filters.includes('M5')){
+      m5Input.checked = true;
+    }else{
+      m5Input.checked = false;
+    }
+    m5Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    m5Label.innerText = 'M5 - Zoning';
+    m5Label.setAttribute('for', 'M5');
+    m5Legend.className = 'line M5';
+    m5Label.appendChild(m5Legend);
+    m5Box.appendChild(m5Input);
+    m5Box.appendChild(m5Label);
+    zoningMSubsets.appendChild(m5Box);
+
+    zoningM.appendChild(zoningMAllInput);
+    zoningM.appendChild(zoningMAllLabel);
+    zoningM.appendChild(zoningMAllExpandBtn);
+    _filterPanel.form.appendChild(zoningM);
+    _filterPanel.form.appendChild(zoningMSubsets);
 
     // Handle submits
     _filterPanel.form.addEventListener('submit', (ev) => {

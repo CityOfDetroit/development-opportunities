@@ -34,12 +34,9 @@ export default class Panel {
             // console.log(error);
         }
         _panel.panels.pop();
-        // console.log(_panel.panels);
     }
 
-    // <p><strong>Last Sale Date:</strong> ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}</p><p><strong>Last Sale Price:</strong> ${_panel.formatter(_panel.app.propertyData.saleprice)}</p>
     buildPropertyInfo(_panel){
-        console.log('building property panel');
         let date = null;
         if(_panel.app.propertyData.saledate != null){
             date = new Date(_panel.app.propertyData.saledate);
@@ -223,7 +220,6 @@ export default class Panel {
     }
 
     createImagery(_panel){
-        console.log('building streetview');
         _panel.streetview = new Streetview('streetview', _panel.app);
     }
 

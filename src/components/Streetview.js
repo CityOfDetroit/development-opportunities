@@ -26,7 +26,6 @@ export default class Streetview {
     }
 
     createStreetView(_streetview){
-        console.log('building components');
         // creating streetview components
         let header          = document.createElement('article');
         let title           = document.createElement('div');
@@ -130,8 +129,6 @@ export default class Streetview {
         _streetview.markerComponent.add([_streetview.defaultMarker]);
 
         _streetview.mly.moveToKey(_streetview.app.currentImageKey.properties.key).then((node) => {
-            console.log('node');
-            console.log(node);
             _streetview.setBearing(_streetview, node, _streetview.mly, _streetview.app.currentImageKey.geometry.coordinates, [_streetview.app.coords[0], _streetview.app.coords[1]]);
         });
         
@@ -167,21 +164,16 @@ export default class Streetview {
     }
 
     getImageKey(_streetview){
-        console.log('getting image keys');
-        console.log(_streetview.app.coords);
         fetch(`https://a.mapillary.com/v3/images?client_id=${_streetview.mapillaryClientID}&closeto=${_streetview.app.coords[0]},${_streetview.app.coords[1]}&radius=80&usernames=codgis&start_time=2018-07-01`)
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
-            console.log(data);
             let sequences = [];
             data.features.forEach((ik) => {
                 if (sequences.map((s) => s.properties.captured_at.slice(0, 10)).indexOf(ik.properties.captured_at.slice(0, 10)) === -1) {
                     sequences.push(ik);
                 }
             });
-            console.log(sequences);
             let sorted = sequences.sort((a, b) => _streetview.buildDate(a.properties.captured_at) - _streetview.buildDate(b.properties.captured_at));
-            console.log(sorted);
             _streetview.app.imageKeys = sorted;
             _streetview.app.currentImageKey = sorted[sorted.length - 1];
             _streetview.app.svCoords = _streetview.app.currentImageKey.geometry.coordinates;
@@ -195,7 +187,6 @@ export default class Streetview {
 
     loadDateOptions(_streetview){
         _streetview.app.imageKeys.forEach((key, id)=>{
-            console.log(key);
             let tempDate = new Date(key.properties.captured_at);
             let tempOption = document.createElement('option');
             if(_streetview.app.currentImageKey.properties.captured_at == key.properties.captured_at){
@@ -222,8 +213,6 @@ export default class Streetview {
     }
 
     changingImageDate(ev, _streetview){
-        console.log('changing date for imagery');
-        console.log(ev);
         _streetview.app.currentImageKey = _streetview.app.imageKeys.filter((s) => s.properties.captured_at === ev.target.value)[0];
         _streetview.removeImagery(_streetview);
         _streetview.app.svCoords = _streetview.app.currentImageKey.geometry.coordinates;
@@ -261,7 +250,6 @@ export default class Streetview {
     }
 
     setBearing(_streetview, node, mly, start, end) {
-        console.log(node.computedCA);
         if (!node.fullPano) {
           // We are only interested in setting the bearing for full 360 panoramas.
           return;

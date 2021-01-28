@@ -60,7 +60,6 @@ export default class App {
         fetch(`https://apis.detroitmi.gov/assessments/parcel/${_app.parcel}`)
         .then((resp) => resp.json()) // Transform the data into json
         .then(function(data) {
-          console.log(data);
           _app.propertyData = data;
           _app.panel.dashLast = 'parcel';
           _app.panel.createPanel(_app.panel, 'dash');

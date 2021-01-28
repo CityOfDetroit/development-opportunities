@@ -113,7 +113,6 @@ export default class Maps {
               type: "line",
               source: "zoning",
               "source-layer": "Zoning",
-              layout: { visibility: "none" },
               paint: {
                 "line-color": [
                   'match',
@@ -126,7 +125,8 @@ export default class Maps {
                   "R6","#B7950B", '#ccc'
                 ],
                 "line-width": 3
-              }
+              },
+              filter: ['in', 'ZONING_REV']
             });
 
             _map.map.addLayer({
@@ -134,7 +134,6 @@ export default class Maps {
               type: "line",
               source: "zoning",
               "source-layer": "Zoning",
-              layout: { visibility: "none" },
               paint: {
                 "line-color": [
                   'match',
@@ -147,7 +146,8 @@ export default class Maps {
                   "B6","#7B241C", '#ccc'
                 ],
                 "line-width": 3
-              }
+              },
+              filter: ['in', 'ZONING_REV']
             });
 
             _map.map.addLayer({
@@ -155,7 +155,6 @@ export default class Maps {
               type: "line",
               source: "zoning",
               "source-layer": "Zoning",
-              layout: { visibility: "none" },
               paint: {
                 "line-color": [
                   'match',
@@ -167,7 +166,8 @@ export default class Maps {
                   "M5","#4A235A",'#ccc'
                 ],
                 "line-width": 3
-              }
+              },
+              filter: ['in', 'ZONING_REV']
             });
 
             _map.map.addLayer({
@@ -175,7 +175,6 @@ export default class Maps {
               type: "line",
               source: "zoning",
               "source-layer": "Zoning",
-              layout: { visibility: "none" },
               paint: {
                 "line-color": [
                   'match',
@@ -194,7 +193,8 @@ export default class Maps {
                   "W1","#82E0AA",'#ccc'
                 ],
                 "line-width": 3
-              }
+              },
+              filter: ['in', 'ZONING_REV']
             });
               
               // ============= transportation layers ===========
