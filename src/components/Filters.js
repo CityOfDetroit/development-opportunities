@@ -8,6 +8,7 @@ export default class Filters {
         transportation  : false,
         publicAssests   : false,
         planningHousing : false,
+        zoning          : false
     }
     this.app = app;
     this.container = document.getElementById(container);
@@ -51,8 +52,18 @@ export default class Filters {
         _filterPanel.app.filters = filtered;
       }
     }
-    let layers = ev.target.value.split(',');
-    _filterPanel.app.map.changeVisibility(layers, visibility, _filterPanel.app.map);
+    if(ev.target.name.includes('zoning-data')){
+      let zones = ev.target.value.split(',');
+      let tempFilter = ['in', 'ZONING_REV'];
+      zones.forEach((zone)=>{
+        tempFilter.push(zone);
+      });
+      _filterPanel.app.map.map.setFilter(`${ev.target.name.charAt(0)}-zoning`, tempFilter);
+      _filterPanel.app.map.map.setLayoutProperty(`${ev.target.name.charAt(0)}-zoning`, "visibility", visibility);
+    }else{
+      let layers = ev.target.value.split(',');
+      _filterPanel.app.map.changeVisibility(layers, visibility, _filterPanel.app.map);
+    }
     if(ev.target.className == 'parent-filter'){
       _filterPanel.changeSubsets(ev, _filterPanel);
     }
@@ -539,6 +550,147 @@ export default class Filters {
     transportation.appendChild(transportationAllExpandBtn);
     _filterPanel.form.appendChild(transportation);
     _filterPanel.form.appendChild(transportationSubsets);
+
+    // ========= Create zoning sections =========
+    let zoning = document.createElement('article');
+    let zoningAllInput = document.createElement('input');
+    let zoningAllLabel = document.createElement('label');
+    let zoningAllExpandBtn = document.createElement('button');
+    let zoningSubsets = document.createElement('article');
+    let r1Input = document.createElement('input');
+    let r1Legend = document.createElement('span');
+    let r1Label = document.createElement('label');
+    let r1Box = document.createElement('div');
+    let r2Input = document.createElement('input');
+    let r2Legend = document.createElement('span');
+    let r2Label = document.createElement('label');
+    let r2Box = document.createElement('div');
+    let r3Input = document.createElement('input');
+    let r3Legend = document.createElement('span');
+    let r3Label = document.createElement('label');
+    let r3Box = document.createElement('div');
+    zoning.className ='parent-filter-container';
+    zoningAllInput.type = 'checkbox';
+    zoningAllInput.value = 'R1,R2,R3'
+    zoningAllInput.id = 'r-zoning-all';
+    zoningAllInput.name = 'r-zoning-data'; 
+    if(_filterPanel.app.filters.includes('r-zoning-all')){
+      zoningAllInput.checked = true;
+    }else{
+      zoningAllInput.checked = false;
+    }
+    zoningAllInput.className = 'parent-filter';
+    zoningAllLabel.innerText = 'Residential Zoning';
+    zoningAllLabel.setAttribute('for', 'r-zoning-all');
+    zoningAllExpandBtn.type = 'expand';
+    zoningAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoning){
+        zoningAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        zoningAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    zoningAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.zoning) ? _filterPanel.expansion.zoning = false : _filterPanel.expansion.zoning = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoning){
+      zoningSubsets.className = 'filter-subset active';
+    }else{
+      zoningSubsets.className = 'filter-subset';
+    }
+
+    // R1 zoning
+    r1Input.type = 'checkbox';
+    r1Input.name = 'r-zoning-data';
+    r1Input.id = 'R1';
+    r1Input.value = 'R1';
+    if(_filterPanel.app.filters.includes('R1')){
+      r1Input.checked = true;
+    }else{
+      r1Input.checked = false;
+    }
+    r1Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    r1Label.innerText = 'R1 - Zoning';
+    r1Label.setAttribute('for', 'R1');
+    r1Legend.className = 'line R1';
+    r1Label.appendChild(r1Legend);
+    r1Box.appendChild(r1Input);
+    r1Box.appendChild(r1Label);
+    zoningSubsets.appendChild(r1Box);
+
+    // R2 zoning
+    r2Input.type = 'checkbox';
+    r2Input.name = 'r-zoning-data';
+    r2Input.id = 'R2';
+    r2Input.value = 'R2';
+    if(_filterPanel.app.filters.includes('R2')){
+      r2Input.checked = true;
+    }else{
+      r2Input.checked = false;
+    }
+    r2Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    r2Label.innerText = 'R2 - Zoning';
+    r2Label.setAttribute('for', 'R2');
+    r2Legend.className = 'line R2';
+    r2Label.appendChild(r2Legend);
+    r2Box.appendChild(r2Input);
+    r2Box.appendChild(r2Label);
+    zoningSubsets.appendChild(r2Box);
+
+    // R2 zoning
+    r2Input.type = 'checkbox';
+    r2Input.name = 'r-zoning-data';
+    r2Input.id = 'R2';
+    r2Input.value = 'R2';
+    if(_filterPanel.app.filters.includes('R2')){
+      r2Input.checked = true;
+    }else{
+      r2Input.checked = false;
+    }
+    r2Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    r2Label.innerText = 'R2 - Zoning';
+    r2Label.setAttribute('for', 'R2');
+    r2Legend.className = 'line R2';
+    r2Label.appendChild(r2Legend);
+    r2Box.appendChild(r2Input);
+    r2Box.appendChild(r2Label);
+    zoningSubsets.appendChild(r2Box);
+
+    // R3 zoning
+    r3Input.type = 'checkbox';
+    r3Input.name = 'r-zoning-data';
+    r3Input.id = 'R3';
+    r3Input.value = 'R3';
+    if(_filterPanel.app.filters.includes('R3')){
+      r3Input.checked = true;
+    }else{
+      r3Input.checked = false;
+    }
+    r3Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    r3Label.innerText = 'R3 - Zoning';
+    r3Label.setAttribute('for', 'R3');
+    r3Legend.className = 'line R3';
+    r3Label.appendChild(r3Legend);
+    r3Box.appendChild(r3Input);
+    r3Box.appendChild(r3Label);
+    zoningSubsets.appendChild(r3Box);
+
+    zoning.appendChild(zoningAllInput);
+    zoning.appendChild(zoningAllLabel);
+    zoning.appendChild(zoningAllExpandBtn);
+    _filterPanel.form.appendChild(zoning);
+    _filterPanel.form.appendChild(zoningSubsets);
 
     // Handle submits
     _filterPanel.form.addEventListener('submit', (ev) => {

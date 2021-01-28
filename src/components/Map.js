@@ -24,14 +24,6 @@ export default class Maps {
         _map.map.addControl(new NavigationControl());
         _map.map.on("load", function () {
             // Creating sources
-            _map.map.addSource("zoning", {
-              type: "vector",
-              tiles: [
-                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/Zoning_Vector_Tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf'
-                ],
-              'minzoom': 14,
-              'maxzoom': 19
-            });
             _map.map.addSource('markers', {
               type: 'geojson',
               data: {
@@ -42,6 +34,14 @@ export default class Maps {
                   },
                   properties: { },
               },
+            });
+            // ============= zoning sources ===========
+            _map.map.addSource("zoning", {
+              type: "vector",
+              tiles: [
+                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/Zoning_Vector_Tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+                ],
+              'maxzoom': 19
             });
             // ============= transportation sources ===========
             _map.map.addSource("peoplemover", {
@@ -107,28 +107,34 @@ export default class Maps {
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Targeted_Multifamily_Affordable_Housing/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
-            // Creating layers
-            // _map.map.addLayer({
-            //   'id': 'zoning',
-            //   'type': 'line',
-            //   'source': 'zoning',
-            //   'source-layer': 'Zoning',
-            //   "minzoom": 14,
-            //   "layout": {
-            //     "line-cap": "round",
-            //     "line-join": "round"
-            //   },
-            //   "paint": {
-            //     "line-color": "#b16776",
-            //     "line-width":  3
-            //   }
-            //   });
+            // ============= zoning layer ===========
             _map.map.addLayer({
-              id: "zoning",
+              id: "r-zoning",
               type: "line",
               source: "zoning",
               "source-layer": "Zoning",
-              layout: { visibility: "visible" },
+              layout: { visibility: "none" },
+              paint: {
+                "line-color": [
+                  'match',
+                  ['get', 'ZONING_REV'],
+                  "R1","#FCF3CF",
+                  "R2","#F9E79F",
+                  "R3","#F4D03F",
+                  "R4","#F1C40F",
+                  "R5","#D4AC0D",
+                  "R6","#B7950B", '#ccc'
+                ],
+                "line-width": 3
+              }
+            });
+
+            _map.map.addLayer({
+              id: "b-zoning",
+              type: "line",
+              source: "zoning",
+              "source-layer": "Zoning",
+              layout: { visibility: "none" },
               paint: {
                 "line-color": [
                   'match',
@@ -138,12 +144,42 @@ export default class Maps {
                   "B3","#E74C3C",
                   "B4","#A93226",
                   "B5","#922B21",
-                  "B6","#7B241C",
+                  "B6","#7B241C", '#ccc'
+                ],
+                "line-width": 3
+              }
+            });
+
+            _map.map.addLayer({
+              id: "m-zoning",
+              type: "line",
+              source: "zoning",
+              "source-layer": "Zoning",
+              layout: { visibility: "none" },
+              paint: {
+                "line-color": [
+                  'match',
+                  ['get', 'ZONING_REV'],
                   "M1","#EBDEF0",
                   "M2","#C39BD3",
                   "M3","#9B59B6",
                   "M4","#7D3C98",
-                  "M5","#4A235A",
+                  "M5","#4A235A",'#ccc'
+                ],
+                "line-width": 3
+              }
+            });
+
+            _map.map.addLayer({
+              id: "s-zoning",
+              type: "line",
+              source: "zoning",
+              "source-layer": "Zoning",
+              layout: { visibility: "none" },
+              paint: {
+                "line-color": [
+                  'match',
+                  ['get', 'ZONING_REV'],
                   "P1","#CCD1D1",
                   "PC","#884EA0",
                   "PCA","#2471A3",
@@ -155,13 +191,7 @@ export default class Maps {
                   "SD4","#45B39D",
                   "SD5","#ff8f00",
                   "TM","#A2D9CE",
-                  "W1","#82E0AA",
-                  "R1","#FCF3CF",
-                  "R2","#F9E79F",
-                  "R3","#F4D03F",
-                  "R4","#F1C40F",
-                  "R5","#D4AC0D",
-                  "R6","#B7950B", '#ccc'
+                  "W1","#82E0AA",'#ccc'
                 ],
                 "line-width": 3
               }
@@ -415,7 +445,6 @@ export default class Maps {
                     ],
                   });
                 });   
-                _map.map.setFilter("zoning",["in", "ZONING_REV", "R1","R2","R3", "R4","R5"]); 
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
