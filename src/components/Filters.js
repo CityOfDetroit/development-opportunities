@@ -1135,6 +1135,351 @@ export default class Filters {
     _filterPanel.form.appendChild(zoningM);
     _filterPanel.form.appendChild(zoningMSubsets);
 
+    // ========= Create special zoning sections =========
+    let zoningS = document.createElement('article');
+    let zoningSAllInput = document.createElement('input');
+    let zoningSAllLabel = document.createElement('label');
+    let zoningSAllExpandBtn = document.createElement('button');
+    let zoningSSubsets = document.createElement('article');
+    let p1Input = document.createElement('input');
+    let p1Legend = document.createElement('span');
+    let p1Label = document.createElement('label');
+    let p1Box = document.createElement('div');
+    let pcInput = document.createElement('input');
+    let pcLegend = document.createElement('span');
+    let pcLabel = document.createElement('label');
+    let pcBox = document.createElement('div');
+    let pcaInput = document.createElement('input');
+    let pcaLegend = document.createElement('span');
+    let pcaLabel = document.createElement('label');
+    let pcaBox = document.createElement('div');
+    let pdInput = document.createElement('input');
+    let pdLegend = document.createElement('span');
+    let pdLabel = document.createElement('label');
+    let pdBox = document.createElement('div');
+    let prInput = document.createElement('input');
+    let prLegend = document.createElement('span');
+    let prLabel = document.createElement('label');
+    let prBox = document.createElement('div');
+    let sd1Input = document.createElement('input');
+    let sd1Legend = document.createElement('span');
+    let sd1Label = document.createElement('label');
+    let sd1Box = document.createElement('div');
+    let sd2Input = document.createElement('input');
+    let sd2Legend = document.createElement('span');
+    let sd2Label = document.createElement('label');
+    let sd2Box = document.createElement('div');
+    let sd3Input = document.createElement('input');
+    let sd3Legend = document.createElement('span');
+    let sd3Label = document.createElement('label');
+    let sd3Box = document.createElement('div');
+    let sd4Input = document.createElement('input');
+    let sd4Legend = document.createElement('span');
+    let sd4Label = document.createElement('label');
+    let sd4Box = document.createElement('div');
+    let sd5Input = document.createElement('input');
+    let sd5Legend = document.createElement('span');
+    let sd5Label = document.createElement('label');
+    let sd5Box = document.createElement('div');
+    let tmInput = document.createElement('input');
+    let tmLegend = document.createElement('span');
+    let tmLabel = document.createElement('label');
+    let tmBox = document.createElement('div');
+    let w5Input = document.createElement('input');
+    let w5Legend = document.createElement('span');
+    let w5Label = document.createElement('label');
+    let w5Box = document.createElement('div');
+    zoningS.className ='parent-filter-container';
+    zoningSAllInput.type = 'checkbox';
+    zoningSAllInput.value = 'P1,PC,PCA,PD,PR,SD1,SD2,SD3,SD4,SD5,TM,W5'
+    zoningSAllInput.id = 's-zoning-all';
+    zoningSAllInput.name = 's-zoning-data'; 
+    if(_filterPanel.app.filters.includes('s-zoning-all')){
+      zoningSAllInput.checked = true;
+    }else{
+      zoningSAllInput.checked = false;
+    }
+    zoningSAllInput.className = 'parent-filter';
+    zoningSAllLabel.innerText = 'Special Zoning';
+    zoningSAllLabel.setAttribute('for', 's-zoning-all');
+    zoningSAllExpandBtn.type = 'expand';
+    zoningSAllInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningS){
+        zoningSAllExpandBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    }else{
+        zoningSAllExpandBtn.innerHTML = '<i class="fas fa-plus"></i>';
+    }
+    zoningSAllExpandBtn.addEventListener('click', (ev)=>{
+        (_filterPanel.expansion.zoningS) ? _filterPanel.expansion.zoningS = false : _filterPanel.expansion.zoningS = true;
+        _filterPanel.removeForm(_filterPanel.container);
+        _filterPanel.buidlForm(_filterPanel.container, _filterPanel);
+    });
+    if(_filterPanel.expansion.zoningS){
+      zoningSSubsets.className = 'filter-subset active';
+    }else{
+      zoningSSubsets.className = 'filter-subset';
+    }
+
+    // P1 zoning
+    p1Input.type = 'checkbox';
+    p1Input.name = 's-zoning-data';
+    p1Input.id = 'P1';
+    p1Input.value = 'P1';
+    if(_filterPanel.app.filters.includes('P1')){
+      p1Input.checked = true;
+    }else{
+      p1Input.checked = false;
+    }
+    p1Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    p1Label.innerText = 'P1 - Zoning';
+    p1Label.setAttribute('for', 'P1');
+    p1Legend.className = 'line P1';
+    p1Label.appendChild(p1Legend);
+    p1Box.appendChild(p1Input);
+    p1Box.appendChild(p1Label);
+    zoningSSubsets.appendChild(p1Box);
+
+    // PC zoning
+    pcInput.type = 'checkbox';
+    pcInput.name = 's-zoning-data';
+    pcInput.id = 'PC';
+    pcInput.value = 'PC';
+    if(_filterPanel.app.filters.includes('PC')){
+      pcInput.checked = true;
+    }else{
+      pcInput.checked = false;
+    }
+    pcInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    pcLabel.innerText = 'PC - Zoning';
+    pcLabel.setAttribute('for', 'PC');
+    pcLegend.className = 'line PC';
+    pcLabel.appendChild(pcLegend);
+    pcBox.appendChild(pcInput);
+    pcBox.appendChild(pcLabel);
+    zoningSSubsets.appendChild(pcBox);
+
+    // PCA zoning
+    pcaInput.type = 'checkbox';
+    pcaInput.name = 's-zoning-data';
+    pcaInput.id = 'PCA';
+    pcaInput.value = 'PCA';
+    if(_filterPanel.app.filters.includes('PCA')){
+      pcaInput.checked = true;
+    }else{
+      pcaInput.checked = false;
+    }
+    pcaInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    pcaLabel.innerText = 'PCA - Zoning';
+    pcaLabel.setAttribute('for', 'PCA');
+    pcaLegend.className = 'line PCA';
+    pcaLabel.appendChild(pcaLegend);
+    pcaBox.appendChild(pcaInput);
+    pcaBox.appendChild(pcaLabel);
+    zoningSSubsets.appendChild(pcaBox);
+
+    // PD zoning
+    pdInput.type = 'checkbox';
+    pdInput.name = 's-zoning-data';
+    pdInput.id = 'PD';
+    pdInput.value = 'PD';
+    if(_filterPanel.app.filters.includes('PD')){
+      pdInput.checked = true;
+    }else{
+      pdInput.checked = false;
+    }
+    pdInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    pdLabel.innerText = 'PD - Zoning';
+    pdLabel.setAttribute('for', 'PD');
+    pdLegend.className = 'line PD';
+    pdLabel.appendChild(pdLegend);
+    pdBox.appendChild(pdInput);
+    pdBox.appendChild(pdLabel);
+    zoningSSubsets.appendChild(pdBox);
+
+    // PR zoning
+    prInput.type = 'checkbox';
+    prInput.name = 's-zoning-data';
+    prInput.id = 'PR';
+    prInput.value = 'PR';
+    if(_filterPanel.app.filters.includes('PR')){
+      prInput.checked = true;
+    }else{
+      prInput.checked = false;
+    }
+    prInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    prLabel.innerText = 'PR - Zoning';
+    prLabel.setAttribute('for', 'PR');
+    prLegend.className = 'line PR';
+    prLabel.appendChild(prLegend);
+    prBox.appendChild(prInput);
+    prBox.appendChild(prLabel);
+    zoningSSubsets.appendChild(prBox);
+
+    // SD1 zoning
+    sd1Input.type = 'checkbox';
+    sd1Input.name = 's-zoning-data';
+    sd1Input.id = 'SD1';
+    sd1Input.value = 'SD1';
+    if(_filterPanel.app.filters.includes('SD1')){
+      sd1Input.checked = true;
+    }else{
+      sd1Input.checked = false;
+    }
+    sd1Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    sd1Label.innerText = 'SD1 - Zoning';
+    sd1Label.setAttribute('for', 'SD1');
+    sd1Legend.className = 'line SD1';
+    sd1Label.appendChild(sd1Legend);
+    sd1Box.appendChild(sd1Input);
+    sd1Box.appendChild(sd1Label);
+    zoningSSubsets.appendChild(sd1Box);
+
+    // SD2 zoning
+    sd2Input.type = 'checkbox';
+    sd2Input.name = 's-zoning-data';
+    sd2Input.id = 'SD2';
+    sd2Input.value = 'SD2';
+    if(_filterPanel.app.filters.includes('SD2')){
+      sd2Input.checked = true;
+    }else{
+      sd2Input.checked = false;
+    }
+    sd2Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    sd2Label.innerText = 'SD2 - Zoning';
+    sd2Label.setAttribute('for', 'SD2');
+    sd2Legend.className = 'line SD2';
+    sd2Label.appendChild(sd2Legend);
+    sd2Box.appendChild(sd2Input);
+    sd2Box.appendChild(sd2Label);
+    zoningSSubsets.appendChild(sd2Box);
+
+    // SD3 zoning
+    sd3Input.type = 'checkbox';
+    sd3Input.name = 's-zoning-data';
+    sd3Input.id = 'SD3';
+    sd3Input.value = 'SD3';
+    if(_filterPanel.app.filters.includes('SD3')){
+      sd3Input.checked = true;
+    }else{
+      sd3Input.checked = false;
+    }
+    sd3Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    sd3Label.innerText = 'SD3 - Zoning';
+    sd3Label.setAttribute('for', 'SD3');
+    sd3Legend.className = 'line SD3';
+    sd3Label.appendChild(sd3Legend);
+    sd3Box.appendChild(sd3Input);
+    sd3Box.appendChild(sd3Label);
+    zoningSSubsets.appendChild(sd3Box);
+
+    // SD4 zoning
+    sd4Input.type = 'checkbox';
+    sd4Input.name = 's-zoning-data';
+    sd4Input.id = 'SD4';
+    sd4Input.value = 'SD4';
+    if(_filterPanel.app.filters.includes('SD4')){
+      sd4Input.checked = true;
+    }else{
+      sd4Input.checked = false;
+    }
+    sd4Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    sd4Label.innerText = 'SD4 - Zoning';
+    sd4Label.setAttribute('for', 'SD4');
+    sd4Legend.className = 'line SD4';
+    sd4Label.appendChild(sd4Legend);
+    sd4Box.appendChild(sd4Input);
+    sd4Box.appendChild(sd4Label);
+    zoningSSubsets.appendChild(sd4Box);
+
+    // SD5 zoning
+    sd5Input.type = 'checkbox';
+    sd5Input.name = 's-zoning-data';
+    sd5Input.id = 'SD5';
+    sd5Input.value = 'SD5';
+    if(_filterPanel.app.filters.includes('SD5')){
+      sd5Input.checked = true;
+    }else{
+      sd5Input.checked = false;
+    }
+    sd5Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    sd5Label.innerText = 'SD5 - Zoning';
+    sd5Label.setAttribute('for', 'SD5');
+    sd5Legend.className = 'line SD5';
+    sd5Label.appendChild(sd5Legend);
+    sd5Box.appendChild(sd5Input);
+    sd5Box.appendChild(sd5Label);
+    zoningSSubsets.appendChild(sd5Box);
+
+    // TM zoning
+    tmInput.type = 'checkbox';
+    tmInput.name = 's-zoning-data';
+    tmInput.id = 'TM';
+    tmInput.value = 'TM';
+    if(_filterPanel.app.filters.includes('TM')){
+      tmInput.checked = true;
+    }else{
+      tmInput.checked = false;
+    }
+    tmInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    tmLabel.innerText = 'TM - Zoning';
+    tmLabel.setAttribute('for', 'TM');
+    tmLegend.className = 'line TM';
+    tmLabel.appendChild(tmLegend);
+    tmBox.appendChild(tmInput);
+    tmBox.appendChild(tmLabel);
+    zoningSSubsets.appendChild(tmBox);
+
+    // W5 zoning
+    w5Input.type = 'checkbox';
+    w5Input.name = 's-zoning-data';
+    w5Input.id = 'W5';
+    w5Input.value = 'W5';
+    if(_filterPanel.app.filters.includes('W5')){
+      w5Input.checked = true;
+    }else{
+      w5Input.checked = false;
+    }
+    w5Input.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    w5Label.innerText = 'W5 - Zoning';
+    w5Label.setAttribute('for', 'W5');
+    w5Legend.className = 'line W5';
+    w5Label.appendChild(w5Legend);
+    w5Box.appendChild(w5Input);
+    w5Box.appendChild(w5Label);
+    zoningSSubsets.appendChild(w5Box);
+
+    zoningS.appendChild(zoningSAllInput);
+    zoningS.appendChild(zoningSAllLabel);
+    zoningS.appendChild(zoningSAllExpandBtn);
+    _filterPanel.form.appendChild(zoningS);
+    _filterPanel.form.appendChild(zoningSSubsets);
+
     // Handle submits
     _filterPanel.form.addEventListener('submit', (ev) => {
         ev.preventDefault();
