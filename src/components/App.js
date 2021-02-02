@@ -14,6 +14,7 @@ export default class App {
         this.propertyData       = null;
         this.point              = null;
         this.map                = new Maps('map', this);
+        this.specialProperty    = null;
         this.filters            = [];
         this.zoning             = {
             r: [],

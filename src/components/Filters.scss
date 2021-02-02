@@ -234,6 +234,26 @@
             span.W5{
                 border-color: #82E0AA;
             }
+
+            span.city-structures{
+                border-color: #146658;
+                background-color: lighten(#146658,30%);
+            }
+
+            span.city-land{
+                border-color: #00f8cf;
+                background-color: lighten(#00f8cf,30%);
+            }
+
+            span.dlba-structures{
+                border-color: #ff0022;
+                background-color: lighten(#ff0022,30%);
+            }
+
+            span.dlba-land{
+                border-color: #700202;
+                background-color: lighten(#700202,30%);
+            }
         }
     }
 

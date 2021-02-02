@@ -91,6 +91,13 @@ export default class Maps {
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
             });
+            _map.map.addSource("public-properties", {
+              type: "vector",
+              tiles: [
+                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/development_map_layers/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+                ],
+              'maxzoom': 19
+            });
             // ============= planning and housing sources ===========
             _map.map.addSource("opp-zones", {
               type: "geojson",
@@ -315,6 +322,38 @@ export default class Maps {
                   "circle-color": "#028302",
                 },
               });
+              _map.map.addLayer({
+                id: "city-structures",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "city_surplus_buildings",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#146658", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "city-land",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "city_surplus_land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-structures",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "dlba_structures",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#ff0022", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-land",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "dlba_land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#700202", "fill-opacity": 0.7 }
+              });
               // ============= Planning and Housing layers ===========
               _map.map.addLayer({
                 id: "opp-zones-fill",
@@ -358,70 +397,6 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "line-color": "#0060dd" },
               });
-            //   _map.map.addLayer({
-            //     id: "dlba-structures",
-            //     type: "fill",
-            //     source: "dlba-structures",
-            //     "source-layer": "dlba_parcels",
-            //     filter: ["==", "status", "DLBA Owned Structure"],
-            //     layout: { visibility: "none" },
-            //     paint: { "fill-color": "#53ade9" },
-            //   });
-            //   _map.map.addLayer({
-            //     id: "dlba-vacant-lots",
-            //     type: "fill",
-            //     source: "dlba-vacant-lots",
-            //     "source-layer": "dlba_parcels",
-            //     filter: ["==", "status", "DLBA Owned Vacant Land"],
-            //     layout: { visibility: "none" },
-            //     paint: { "fill-color": "#8cc9f2" },
-            //   });
-            //   _map.map.addLayer({
-            //     id: "dlba-side-lots",
-            //     type: "fill",
-            //     source: "dlba-side-lots",
-            //     "source-layer": "dlba_parcels",
-            //     filter: ["==", "status", "DLBA Owned Sidelot For Sale"],
-            //     layout: { visibility: "none" },
-            //     paint: { "fill-color": "#81b2d3" },
-            //   });
-            //   _map.map.addLayer({
-            //     id: "dlba-properties",
-            //     type: "fill",
-            //     source: "dlba-properties",
-            //     "source-layer": "dlba_one_off",
-            //     layout: { visibility: "none" },
-            //     paint: { "fill-color": "#ff6501" },
-            //   });
-
-              // _map.map.addLayer({
-              //   id: "parcel-fill",
-              //   type: "fill",
-              //   source: "parcels",
-              //   minzoom: 13,
-              //   layout: {},
-              //   paint: { "fill-color": "#fff", "fill-opacity": 0 },
-              //   "source-layer": "assessor_parcels-50m4yu",
-              // });
-              // _map.map.addLayer({
-              //   id: "parcel-line",
-              //   type: "line",
-              //   source: "parcels",
-              //   minzoom: 13,
-              //   layout: {},
-              //   paint: { "line-color": "#cbcbcb" },
-              //   "source-layer": "assessor_parcels-50m4yu",
-              // });
-              // _map.map.addLayer({
-              //   id: "parcel-fill-hover",
-              //   type: "line",
-              //   source: "parcels",
-              //   minzoom: 13,
-              //   layout: {},
-              //   paint: { "line-color": "#a40040" },
-              //   "source-layer": "assessor_parcels-50m4yu",
-              //   filter: ["==", "parcelno", ""],
-              // });
 
             _map.map.on('style.load', () => {
                 _map.map.loadImage(videoIcon, (error, image) => {
@@ -448,19 +423,49 @@ export default class Maps {
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
-                let parcel = _map.map.queryRenderedFeatures(e.point, {
-                  layers: ["parcels-fill"],
+              let possibleProperty = null;
+              let parcel = _map.map.queryRenderedFeatures(e.point, {
+                layers: ["parcels-fill"],
+              });
+              _map.app.coords = [e.lngLat.lng,e.lngLat.lat];
+              _map.app.parcel = parcel[0].properties.parcelno;
+              _map.map.flyTo({
+                  center: [e.lngLat.lng,e.lngLat.lat],
+                  zoom: 18,
+                  essential: true // this animation is considered essential with respect to prefers-reduced-motion
+              });
+              _map.map.setFilter("parcels-highlight", ["==", "parcelno", _map.app.parcel ? _map.app.parcel : ""]);
+              possibleProperty = _map.map.queryRenderedFeatures(e.point, {
+                layers: ["dlba-land"],
+              });
+              if(possibleProperty.length) {
+                _map.app.specialProperty = "dlba-land";
+              }else{
+                possibleProperty = _map.map.queryRenderedFeatures(e.point, {
+                  layers: ["dlba-structures"],
                 });
-                _map.app.coords = [e.lngLat.lng,e.lngLat.lat];
-                _map.app.parcel = parcel[0].properties.parcelno;
-                _map.map.flyTo({
-                    center: [e.lngLat.lng,e.lngLat.lat],
-                    zoom: 18,
-                    essential: true // this animation is considered essential with respect to prefers-reduced-motion
-                });
-                _map.map.setFilter("parcels-highlight", ["==", "parcelno", _map.app.parcel ? _map.app.parcel : ""]);
-                _map.app.getParcelData(_map.app);
-                // setCoords(e.lngLat);
+                if(possibleProperty.length) {
+                  _map.app.specialProperty = "dlba-structures";
+                }else{
+                  possibleProperty = _map.map.queryRenderedFeatures(e.point, {
+                    layers: ["city-land"],
+                  });
+                  if(possibleProperty.length) {
+                    _map.app.specialProperty = "city-land";
+                  }else{
+                    possibleProperty = _map.map.queryRenderedFeatures(e.point, {
+                      layers: ["city-structures"],
+                    });
+                    if(possibleProperty.length) {
+                      _map.app.specialProperty = "city-structures";
+                    }else{
+                      _map.app.specialProperty = null;
+                    }
+                  }
+                }
+              }
+              _map.app.getParcelData(_map.app);
+              // setCoords(e.lngLat);
             });
 
             _map.map.on("click", function (e) {
