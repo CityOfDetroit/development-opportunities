@@ -1,7 +1,6 @@
 import * as Mapillary from "mapillary-js";
 import bearing from "@turf/bearing";
 import './Streetview.scss';
-import videoIcon from '../img/video.png'
 
 export default class Streetview {
     constructor(container, app) {
@@ -132,7 +131,7 @@ export default class Streetview {
             _streetview.setBearing(_streetview, node, _streetview.mly, _streetview.app.currentImageKey.geometry.coordinates, [_streetview.app.coords[0], _streetview.app.coords[1]]);
         });
         
-        _streetview.app.map.map.loadImage(videoIcon, (error, image) => {
+        _streetview.app.map.map.loadImage('https://detroitmi.gov/sites/detroitmi.localhost/files/styles/default/public/2021-02/video.png', (error, image) => {
             if (error) throw error;
             if(!_streetview.app.map.map.hasImage('video')){
                 _streetview.app.map.map.addImage('video', image);

@@ -11,7 +11,7 @@ export default class Filters {
         zoning          : false,
         zoningB         : false,
         zoningM         : false,
-        zoningS        : false
+        zoningS         : false
     }; 
     this.app = app;
     this.container = document.getElementById(container);
@@ -130,6 +130,14 @@ export default class Filters {
     let forSaleAllLabel = document.createElement('label');
     let forSaleAllExpandBtn = document.createElement('button');
     let forSaleSubsets = document.createElement('article');
+    let publicLandInput = document.createElement('input');
+    let publicLandLegend = document.createElement('span');
+    let publicLandLabel = document.createElement('label');
+    let publicLandBox = document.createElement('div');
+    let publicStructureInput = document.createElement('input');
+    let publicStructureLegend = document.createElement('span');
+    let publicStructureLabel = document.createElement('label');
+    let publicStructureBox = document.createElement('div');
     let marijuanaLegacyLandInput = document.createElement('input');
     let marijuanaLegacyLandLegend = document.createElement('span');
     let marijuanaLegacyLandLabel = document.createElement('label');
@@ -140,7 +148,7 @@ export default class Filters {
     let marijuanaLegacyStructureBox = document.createElement('div');
     forSale.className ='parent-filter-container';
     forSaleAllInput.type = 'checkbox';
-    forSaleAllInput.value = 'marijuana-legacy-structure,marijuana-legacy-land'
+    forSaleAllInput.value = 'city-land,dlba-land,city-structures,dlba-structures,marijuana-legacy-structure,marijuana-legacy-land'
     forSaleAllInput.id = 'forSale-all';
     forSaleAllInput.name = 'forSale-data'; 
     if(_filterPanel.app.filters.includes('forSale-all')){
@@ -171,9 +179,51 @@ export default class Filters {
       forSaleSubsets.className = 'filter-subset';
     }
 
+    // City and DLBA land
+    publicLandInput.type = 'checkbox';
+    publicLandInput.name = 'forSale-data';
+    publicLandInput.id = 'public-land';
+    publicLandInput.value = 'city-land,dlba-land';
+    if(_filterPanel.app.filters.includes('city-land')){
+      publicLandInput.checked = true;
+    }else{
+      publicLandInput.checked = false;
+    }
+    publicLandInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    publicLandLabel.innerText = 'Public Land';
+    publicLandLabel.setAttribute('for', 'public-land');
+    publicLandLegend.className = 'circle public-land';
+    publicLandLabel.appendChild(publicLandLegend);
+    publicLandBox.appendChild(publicLandInput);
+    publicLandBox.appendChild(publicLandLabel);
+    forSaleSubsets.appendChild(publicLandBox);
+
+    // City and DLBA Structure
+    publicStructureInput.type = 'checkbox';
+    publicStructureInput.name = 'forSale-data';
+    publicStructureInput.id = 'public-structure';
+    publicStructureInput.value = 'city-structures,dlba-structures';
+    if(_filterPanel.app.filters.includes('city-structures')){
+      publicStructureInput.checked = true;
+    }else{
+      publicStructureInput.checked = false;
+    }
+    publicStructureInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    publicStructureLabel.innerText = 'Public Structure';
+    publicStructureLabel.setAttribute('for', 'public-structure');
+    publicStructureLegend.className = 'circle public-structure';
+    publicStructureLabel.appendChild(publicStructureLegend);
+    publicStructureBox.appendChild(publicStructureInput);
+    publicStructureBox.appendChild(publicStructureLabel);
+    forSaleSubsets.appendChild(publicStructureBox);
+
     // marijuana legacy land
     marijuanaLegacyLandInput.type = 'checkbox';
-    marijuanaLegacyLandInput.name = 'trans-data';
+    marijuanaLegacyLandInput.name = 'forSale-data';
     marijuanaLegacyLandInput.id = 'marijuana-legacy-land';
     marijuanaLegacyLandInput.value = 'marijuana-legacy-land';
     if(_filterPanel.app.filters.includes('marijuana-legacy-land')){
@@ -194,7 +244,7 @@ export default class Filters {
 
     // marijuana legacy structure
     marijuanaLegacyStructureInput.type = 'checkbox';
-    marijuanaLegacyStructureInput.name = 'trans-data';
+    marijuanaLegacyStructureInput.name = 'forSale-data';
     marijuanaLegacyStructureInput.id = 'marijuana-legacy-structure';
     marijuanaLegacyStructureInput.value = 'marijuana-legacy-structure';
     if(_filterPanel.app.filters.includes('marijuana-legacy-structure')){
@@ -229,13 +279,17 @@ export default class Filters {
     let fireLegend = document.createElement('span');
     let fireLabel = document.createElement('label');
     let fireBox = document.createElement('div');
+    let policeInput = document.createElement('input');
+    let policeLegend = document.createElement('span');
+    let policeLabel = document.createElement('label');
+    let policeBox = document.createElement('div');
     let parksInput = document.createElement('input');
     let parksLegend = document.createElement('span');
     let parksLabel = document.createElement('label');
     let parksBox = document.createElement('div');
     publicAssests.className ='parent-filter-container';
     publicAssestsAllInput.type = 'checkbox';
-    publicAssestsAllInput.value = 'fire-stations,parks-fill,parks-line'
+    publicAssestsAllInput.value = 'fire-stations,police-stations,parks-fill,parks-line'
     publicAssestsAllInput.id = 'publicAssests-all';
     publicAssestsAllInput.name = 'publicAssests-data'; 
     if(_filterPanel.app.filters.includes('publicAssests-all')){
@@ -268,7 +322,7 @@ export default class Filters {
 
     // fire stations
     fireInput.type = 'checkbox';
-    fireInput.name = 'trans-data';
+    fireInput.name = 'publicAssests-data';
     fireInput.id = 'fire-stations';
     fireInput.value = 'fire-stations';
     if(_filterPanel.app.filters.includes('fire-stations')){
@@ -287,9 +341,30 @@ export default class Filters {
     fireBox.appendChild(fireLabel);
     publicAssestsSubsets.appendChild(fireBox);
 
+    // police stations
+    policeInput.type = 'checkbox';
+    policeInput.name = 'publicAssests-data';
+    policeInput.id = 'police-stations';
+    policeInput.value = 'police-stations';
+    if(_filterPanel.app.filters.includes('police-stations')){
+      policeInput.checked = true;
+    }else{
+      policeInput.checked = false;
+    }
+    policeInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    policeLabel.innerText = 'police Stations';
+    policeLabel.setAttribute('for', 'police-stations');
+    policeLegend.className = 'circle police';
+    policeLabel.appendChild(policeLegend);
+    policeBox.appendChild(policeInput);
+    policeBox.appendChild(policeLabel);
+    publicAssestsSubsets.appendChild(policeBox);
+
     // active parks
     parksInput.type = 'checkbox';
-    parksInput.name = 'trans-data';
+    parksInput.name = 'publicAssests-data';
     parksInput.id = 'active-parks';
     parksInput.value = 'parks-fill,parks-line';
     if(_filterPanel.app.filters.includes('parks-fill')){

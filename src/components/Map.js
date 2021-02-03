@@ -70,26 +70,31 @@ export default class Maps {
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/QLine_Stops/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
             });
             // ============= public assets sources ===========
+            _map.map.addSource("police-stations", {
+              type: "geojson",
+              data:
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Precinct_Buildings/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
+            });
             _map.map.addSource("fire-stations", {
               type: "geojson",
               data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Firehouse_Locations/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Firehouse_Locations/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("active-parks", {
               type: "geojson",
               data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Parks_Marijuana/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/Parks_Marijuana/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             // ============= for sale sources ===========
             _map.map.addSource("marijuana-legacy-structure", {
               type: "geojson",
               data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/1/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/1/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("marijuana-legacy-land", {
               type: "geojson",
               data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=B8zV2NtyxBp0VWKV3RAz_X4EpXEh2bJbLN2ihY3Nq8uuT711dEOQ0AXCwODTBGNAxnyRJZy9yzVN0oUNPkh_vHD_fJnakFxIvqhKhfp25Us3HwdCLrP7yvrC_IAit5uRTB4Cde4WMb2UHQ0j1WHZQNb_j5ePlzw1rsjG-yXD3AKZq52MtTj5L6qAaaJikfc-7NcCkAcjp9PozgGVIGm2xrK9Nnv1h1mjxDlon_BegZI.",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("public-properties", {
               type: "vector",
@@ -276,6 +281,22 @@ export default class Maps {
                 },
               });
               _map.map.addLayer({
+                id: "police-stations",
+                type: "circle",
+                source: "police-stations",
+                layout: { visibility: "none" },
+                paint: {
+                  "circle-radius": {
+                    base: 5,
+                    stops: [
+                      [12, 5],
+                      [22, 120],
+                    ],
+                  },
+                  "circle-color": "#00158b",
+                },
+              });
+              _map.map.addLayer({
                 id: "parks-fill",
                 type: "fill",
                 source: "active-parks",
@@ -290,6 +311,38 @@ export default class Maps {
                 paint: { "line-color": "#28f572" },
               });
               // ============= for sale layers ===========
+              _map.map.addLayer({
+                id: "city-structures",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "city_surplus_buildings",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "city-land",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "city_surplus_land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-structures",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "dlba_structures",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-land",
+                type: "fill",
+                source: "public-properties",
+                "source-layer": "dlba_land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
+              });
               _map.map.addLayer({
                 id: "marijuana-legacy-land",
                 type: "circle",
@@ -321,38 +374,6 @@ export default class Maps {
                   },
                   "circle-color": "#028302",
                 },
-              });
-              _map.map.addLayer({
-                id: "city-structures",
-                type: "fill",
-                source: "public-properties",
-                "source-layer": "city_surplus_buildings",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#146658", "fill-opacity": 0.7 }
-              });
-              _map.map.addLayer({
-                id: "city-land",
-                type: "fill",
-                source: "public-properties",
-                "source-layer": "city_surplus_land",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
-              });
-              _map.map.addLayer({
-                id: "dlba-structures",
-                type: "fill",
-                source: "public-properties",
-                "source-layer": "dlba_structures",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#ff0022", "fill-opacity": 0.7 }
-              });
-              _map.map.addLayer({
-                id: "dlba-land",
-                type: "fill",
-                source: "public-properties",
-                "source-layer": "dlba_land",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#700202", "fill-opacity": 0.7 }
               });
               // ============= Planning and Housing layers ===========
               _map.map.addLayer({

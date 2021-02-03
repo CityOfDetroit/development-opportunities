@@ -74,6 +74,22 @@ $cubic: cubic-bezier(.64,.09,.08,1);
             text-decoration: none;
         }
 
+        .buy-btn{
+            margin-bottom: 1.25em;
+            width: 100%;
+
+            a{
+                display: block;
+                padding: 1em;
+                text-align: center;
+                background-color: $color-3;
+                color: $black;
+                font-weight: bold;
+                border: none;
+                text-decoration: none;
+            }
+        }
+
         .form-btn{
             padding: .75em; 
             text-align: center; 

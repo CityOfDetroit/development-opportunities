@@ -44,6 +44,7 @@ export default class Panel {
         let markup = `
         <h2>${_panel.app.propertyData.propaddr}</h2>
         <section id="streetview"></section>
+        ${_panel.checkSpecialCase(_panel)}
         <section class="group">
         <span class="header">KEY DATA<sup>*</sup></span>
         <p><strong>Owner:</strong> ${_panel.app.propertyData.taxpayer1}</p>
@@ -99,24 +100,18 @@ export default class Panel {
         <img alt="Photo of Detroit" src="https://detroitmi.gov/sites/detroitmi.localhost/files/styles/de2e/public/2018-11/detroit1.jpg">
         <section class="group">
         <span class="header">DEMOGRAPHICS</span>
-        <p><strong>Population:</strong> 672,795</p>
+        <p><strong>Population:</strong> ${_panel.app.cityData[0].data[1][0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
         </section>
         <section class="group">
         <span class="header">REAL ESTATE</span>
-        <p><strong>City-Owned Parcels:</strong> 9,221</p>
-        <p><strong>DLBA Parcels:</strong> 83,557</p>
-        <p><strong>Total RFP Developments:</strong> 27</p>
-        <p><strong>Open BSEED Commercial Permits:</strong> 667</p>
-        <p><strong>Open BSEED Residential Permits:</strong> 2,526</p>
+        <p><strong>DLBA Properties:</strong> ${_panel.app.cityData[2].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
+        <p><strong>Open BSEED Permits:</strong> ${_panel.app.cityData[1].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
         </section>
         <section class="group">
         <span class="header">INFRASTRUCTURE</span>
-        <p><strong>City Owned Parks:</strong> 307</p>
-        </section>
-        <section class="group">
-        <span class="header">RETAIL</span>
-        <p><strong>Motor City Match Open Businesses:</strong> 57</p>
-        <p><strong>Motor City Match Restore Recipients:</strong> 169</p>
+        <p><strong>Police Stations:</strong> ${_panel.app.cityData[3].data.count}</p>
+        <p><strong>Fire Stations:</strong> ${_panel.app.cityData[4].data.count}</p>
+        <p><strong>Active Parks:</strong> ${_panel.app.cityData[5].data.count}</p>
         </section>
         `;
         return markup;
@@ -216,6 +211,32 @@ export default class Panel {
           <article id="calc-box"></article>
         </section>
         `;
+        return markup;
+    }
+
+    checkSpecialCase(_panel){
+        let markup = null;
+        switch (_panel.app.specialProperty) {
+            case 'city-land':
+                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to Buy this land</a></div>`;
+                break;
+
+            case 'dlba-land':
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to Buy this land</a></div>`;
+                break;
+
+            case 'city-structures':
+                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to Buy this Property</a></div>`;
+                break;
+
+            case 'dlba-structures':
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to Buy this Property</a></div>`;
+                break;
+        
+            default:
+                markup = '';
+                break;
+        }
         return markup;
     }
 
