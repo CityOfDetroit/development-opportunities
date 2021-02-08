@@ -456,36 +456,7 @@ export default class Maps {
                   essential: true // this animation is considered essential with respect to prefers-reduced-motion
               });
               _map.map.setFilter("parcels-highlight", ["==", "parcelno", _map.app.parcel ? _map.app.parcel : ""]);
-              possibleProperty = _map.map.queryRenderedFeatures(e.point, {
-                layers: ["dlba-land"],
-              });
-              if(possibleProperty.length) {
-                _map.app.specialProperty = "dlba-land";
-              }else{
-                possibleProperty = _map.map.queryRenderedFeatures(e.point, {
-                  layers: ["dlba-structures"],
-                });
-                if(possibleProperty.length) {
-                  _map.app.specialProperty = "dlba-structures";
-                }else{
-                  possibleProperty = _map.map.queryRenderedFeatures(e.point, {
-                    layers: ["city-land"],
-                  });
-                  if(possibleProperty.length) {
-                    _map.app.specialProperty = "city-land";
-                  }else{
-                    possibleProperty = _map.map.queryRenderedFeatures(e.point, {
-                      layers: ["city-structures"],
-                    });
-                    if(possibleProperty.length) {
-                      _map.app.specialProperty = "city-structures";
-                    }else{
-                      _map.app.specialProperty = null;
-                    }
-                  }
-                }
-              }
-              _map.app.getParcelData(_map.app);
+              _map.app.checkSpecialProperties(_map.app.parcel, _map.app);
               // setCoords(e.lngLat);
             });
 

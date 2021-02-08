@@ -354,7 +354,7 @@ export default class Filters {
     policeInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    policeLabel.innerText = 'police Stations';
+    policeLabel.innerText = 'Police Stations';
     policeLabel.setAttribute('for', 'police-stations');
     policeLegend.className = 'circle police';
     policeLabel.appendChild(policeLegend);
@@ -542,7 +542,7 @@ export default class Filters {
       transportationAllInput.checked = false;
     }
     transportationAllInput.className = 'parent-filter';
-    transportationAllLabel.innerText = 'Transportations';
+    transportationAllLabel.innerText = 'Transportation';
     transportationAllLabel.setAttribute('for', 'transportation-all');
     transportationAllExpandBtn.type = 'expand';
     transportationAllInput.addEventListener('change', (ev)=>{

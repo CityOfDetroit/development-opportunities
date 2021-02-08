@@ -43,7 +43,7 @@ export default class App {
             ev.preventDefault();
             _app.panel.createPanel(_app.panel, 'dash');
         });
-        configBtn.innerHTML = '<i class="fas fa-cogs"></i> <span>Settings</span>';
+        configBtn.innerHTML = '<i class="fas fa-layer-group"></i> <span>Data Layers</span>';
         configBtn.addEventListener('click', (ev)=>{
             ev.preventDefault();
             _app.panel.createPanel(_app.panel, 'filter');
@@ -137,6 +137,71 @@ export default class App {
           }).catch(reason => {
             // console.log(reason);
           });
+    }
+
+    checkSpecialProperties(parcel, _app){
+      let cityStructure = new Promise((resolve, reject) => {
+          let url = `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/DevelopmentMap/FeatureServer/0/query?where=parcel_id+%3D+%27${parcel}%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
+          return fetch(url)
+          .then((resp) => resp.json()) // Transform the data into json
+          .then(function(data) {
+            resolve({"id": "city-structures", "data": data});
+          }).catch( err => {
+            // console.log(err);
+          });
+      });
+      let cityLand = new Promise((resolve, reject) => {
+          let url = `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/DevelopmentMap/FeatureServer/1/query?where=parcel_id+%3D+%27${parcel}%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
+          return fetch(url)
+          .then((resp) => resp.json()) // Transform the data into json
+          .then(function(data) {
+            resolve({"id": "city-land", "data": data});
+          }).catch( err => {
+            // console.log(err);
+          });
+      });
+      let dlbaStructure = new Promise((resolve, reject) => {
+          let url = `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/DevelopmentMap/FeatureServer/2/query?where=parcel_id+%3D+%27${parcel}%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
+          return fetch(url)
+          .then((resp) => resp.json()) // Transform the data into json
+          .then(function(data) {
+            resolve({"id": "city-structures", "data": data});
+          }).catch( err => {
+            // console.log(err);
+          });
+      });
+      let dlbaLand = new Promise((resolve, reject) => {
+          let url = `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/DevelopmentMap/FeatureServer/3/query?where=parcel_id+%3D+%27${parcel}%27&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pjson&token=`;
+          return fetch(url)
+          .then((resp) => resp.json()) // Transform the data into json
+          .then(function(data) {
+            resolve({"id": "city-land", "data": data});
+          }).catch( err => {
+            // console.log(err);
+          });
+      });
+      Promise.all([cityStructure,cityLand,dlbaStructure,dlbaLand]).then(values => {
+          if(values[0].data.features.length){
+              _app.specialProperty = "city-structures";
+          }else{
+              if(values[1].data.features.length){
+                  _app.specialProperty = "city-land";
+              }else{
+                  if(values[2].data.features.length){
+                      _app.specialProperty = "dlba-structures";
+                  }else{
+                      if(values[3].data.features.length){
+                          _app.specialProperty = "dlba-land";
+                      }else{
+                          _app.specialProperty = null;
+                      }   
+                  }
+              }
+          }
+          _app.getParcelData(_app);
+      }).catch(reason => {
+      // console.log(reason);
+      });
     }
 
     checkParcelValid(parcel){

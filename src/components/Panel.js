@@ -122,23 +122,34 @@ export default class Panel {
         <h2>Map Information</h2>
         <section class="group">
         <span class="header">DATA</span>
-        <p>Opportunity Map data is sourced from the following: Detroit Open Data Portal, Detroit Land Bank Authority (DLBA), City of Detroit Assessors Office, Housing and Revitalization Department, Planning and Development Department, Detroit Economic Growth Corporation - Motor City Match and Motor City Restore, Data Driven Detroit, Buildings and Safety Engineering and Environment Department, Department of Transportation. In a few instances, DLBA data may be more up-to-date than the City of Detroit Assessors Office. For questions, please visit the City of Detroit Assessors Office and/or provide us direct feedback here.</p>
+        <p>Opportunity Map data is sourced from the following: Detroit Open Data Portal, Detroit Land Bank Authority (DLBA), City of Detroit Assessors Office, Housing and Revitalization Department, Planning and Development Department, Buildings and Safety Engineering and Environment Department and Department of Transportation. In a few instances, DLBA data may be more up-to-date than the City of Detroit Assessors Office. For questions, please visit the <a href="https://detroitmi.gov/departments/office-chief-financial-officer/ocfo-divisions/office-assessor" target="_blank">City of Detroit Assessors Office.</a></p>
         </section>
         <section class="group">
         <span class="header">GLOSSARY</span>
         <p><strong>PUBLIC ASSETS</strong></p>
-        <p>Detroit Land Bank Authority (DLBA) and the City of Detroit marketed properties for sale – Verify with the Detroit Building Authority and/or the DLBA for the most accurate information.</p>
-        <p><strong>PRETAIL</strong></p>
-        <p>Motor City Match and Motor City Restore are programs run by the Detroit Economic Growth Corporation that support entrepreneurs and existing small businesses.</p>
+        <p>Detroit Land Bank Authority (DLBA) and the City of Detroit (P&DD) owned properties identified as available for sale. However, please verify with the Detroit Building Authority and/or the DLBA for the most accurate information.</p>
+        <p><strong>PUBLIC LAND</strong></p>
+        <p>Detroit Land Bank Authority (DLBA) and the City of Detroit (P&DD) owned vacant parcels identified as available for sale. However, please verify with the Detroit Building Authority and/or the DLBA for the most accurate information.</p>
+        <p><strong>PUBLIC STRUCTURES</strong></p>
+        <p>Detroit Land Bank Authority (DLBA) and the City of Detroit (P&DD) owned buildings identified as available for sale. However, please verify with the Detroit Building Authority and/or the DLBA for the most accurate information.</p>
+        <p><strong>MARIJUANA LEGACY LAND</strong></p>
+        <p>The City of Detroit (P&DD) owned vacant parcels identified and specifically set aside as available for sale to certified Detroit Legacy Applicants for specific uses in the cannabis industry. Please refer to <a href="https://detroitmeansbusiness.org/homegrown/" target="_blank">Detroit Means Business</a> for more information.</p>
+        <p><strong>MARIJUANA LEGACY STRUCTURES</strong></p>
+        <p>The City of Detroit (P&DD) owned buildings identified and specifically set aside as available for sale to certified Detroit Legacy Applicants for specific uses in the cannabis industry. Please refer to <a href="https://detroitmeansbusiness.org/homegrown/" target="_blank">Detroit Means Business</a> for more information.</p>
+        <p><strong>PUBLIC SERVICE ASSETS</strong></p>
+        <ul>
+            <li>Fire Stations</li>
+            <li>Police Stations</li>
+            <li>Active Parks</li>
+        </ul>
         <p><strong>PLANNING & HOUSING</strong></p>
         <p>There are several planning areas for different purposes city wide, explainations are below:</p>
         <ul>
-        <li>Targeted Multifamily Housing Areas – identify areas of the city with stronger housing markets and active commercial corridors. Developers of both market-rate and affordable housing, are encouraged to focus in these areas. To understand more, please check out the Housing & Revitalization Department Developers Page.</li>
-        <li>Planning Areas and Strategic Neighborhood Fund Investment Areas are areas are subject to City of Detroit led neighborhood planning studies that use community engagement to guide future public investment and development in neighborhoods.</li>
-        <li>Streetscape Improvements – Publically funded streetscape improvements intended to promote walkability and small businesses.</li>
+        <li>Targeted Multifamily Housing Areas – identify areas of the city with stronger housing markets and active commercial corridors. Developers of both market-rate and affordable housing, are encouraged to focus in these areas. To understand more, please check out the Housing & Revitalization Department <a href="https://detroitmi.gov/departments/housing-and-revitalization-department/developers-and-contractors" target="_blank">Developers Page.</a></li>
+        <li>Strategic Neighborhood Fund Investment Areas are areas that can access certain funding sources drawn from philanthropic contributions and public subsidies designed to improve Detroit neighborhoods.</li>
+        <li>Opportunity Zones are areas that can access certain federally funded incentives and economic tools to spur development.</li>
         </ul>
-        <p><strong>DEVELOPMENT</strong></p>
-        <p>Request for Proposals - Calls for development teams to develop publically owned parcels and/or structures</p>
+        <p><strong>ZONING</strong></p>
         <p><strong>Residential Zoning</strong></p>
         <ul>
         <li>R1 Single-Family Residential District</li>
@@ -179,17 +190,17 @@ export default class Panel {
         <li>SD3 Special Development District, Technology and Research</li>
         <li>SD4 Special Development District, Riverfront mixed use</li>
         <li>SD5 Special Development District, Casinos</li>
+        <li>TM</li>
+        <li>W5</li>
         </ul>
         <p><strong>PUBLIC TRANSPORTATION</strong></p>
-        <p>DDOT Buses - Detroit Department of Transportation Bus Routes</p>
-        
-        <p>SMART Buses - Suburban Mobility Authority for Regional Transportation (SMART) is Southeast Michigan's only regional bus system</p>
-        
-        <p>QLine - 3.3 mile streetcar that rides along the Woodward Corridor</p>
-        
-        <p>People Mover - Elevated Train that routed throughout Downtown Detroit</p>
-        
-        <p>MoGo Bike Sharing - Bike rentals across the greater downtown</p>
+        <ul>
+        <li>DDOT Buses - Detroit Department of Transportation Bus Routes</li>
+        <li>SMART Buses - Suburban Mobility Authority for Regional Transportation (SMART) is Southeast Michigan's only regional bus system</li>
+        <li>QLine - 3.3 mile streetcar that rides along the Woodward Corridor</li>     
+        <lip>People Mover - Elevated Train that routed throughout Downtown Detroit</li>
+        <li>MoGo Bike Sharing - Bike rentals across the greater downtown</li>
+        </ul>
         </section>
         `;
         return markup;
@@ -197,7 +208,7 @@ export default class Panel {
 
     buildFilters(_panel){
         let markup = `
-        <h2>Map Settings</h2>
+        <h2>Map Data Layers</h2>
         <article id="filter-box">
         </article>
         `;
@@ -218,19 +229,19 @@ export default class Panel {
         let markup = null;
         switch (_panel.app.specialProperty) {
             case 'city-land':
-                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to Buy this land</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to buy this land</a></div>`;
                 break;
 
             case 'dlba-land':
-                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to Buy this land</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to buy this land</a></div>`;
                 break;
 
             case 'city-structures':
-                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to Buy this Property</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://detroitmi.gov/properties" target="_blank">Inquire to buy this Property</a></div>`;
                 break;
 
             case 'dlba-structures':
-                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to Buy this Property</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to buy this Property</a></div>`;
                 break;
         
             default:

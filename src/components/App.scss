@@ -32,7 +32,6 @@ $cubic: cubic-bezier(.64,.09,.08,1);
               width: 35em;
               max-width: 100%;
           min-height: 75vh;
-          padding: 1em;
           overflow: hidden;;
       
           div{
@@ -40,6 +39,7 @@ $cubic: cubic-bezier(.64,.09,.08,1);
             display: flex;
       
             article{
+              font-weight: bold;
               width: 100%;
               position: relative;
               padding: 1em;
@@ -48,6 +48,7 @@ $cubic: cubic-bezier(.64,.09,.08,1);
               h2{
                 text-align: center;
                 text-transform: uppercase;
+                font-size: 2em;
               }
 
               article{
