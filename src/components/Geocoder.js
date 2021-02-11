@@ -100,6 +100,7 @@ export default class Geocoder {
                             geocoder._controller.checkSpecialProperties(parcel.attributes.User_fld, geocoder._controller);
                             geocoder._controller.map.map.setFilter("parcels-highlight", ["==", "parcelno", parcel.attributes.User_fld]);
                             geocoder.form.childNodes[1].value = '';
+                            document.getElementById('initial-loader-overlay').className = 'active';
                         }else{
                             geocoder._controller.panel.createErrorMsg(geocoder._controller.panel);
                         }

@@ -440,7 +440,7 @@ export default class Maps {
                       },
                     ],
                   });
-                });   
+                }); 
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
@@ -461,6 +461,7 @@ export default class Maps {
             });
 
             _map.map.on("click", function (e) {
+              document.getElementById('initial-loader-overlay').className = 'active';
               let parcel = _map.map.queryRenderedFeatures(e.point, {
                 layers: ["parcels-fill"],
               });
@@ -468,7 +469,8 @@ export default class Maps {
                 _map.app.panel.dashLast = 'city';
                 _map.app.panel.createPanel(_map.app.panel, 'dash');
               }
-          });
+            });
+            document.querySelector('#initial-loader-overlay').className = '';
         });
     }
 

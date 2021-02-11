@@ -291,5 +291,6 @@ export default class Panel {
         }
         tempPanel.prepend(closeBtn);
         document.querySelector('#app .panel').className = "panel active";
+        document.querySelector('#initial-loader-overlay').className = '';
     }
 }
