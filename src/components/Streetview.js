@@ -131,28 +131,22 @@ export default class Streetview {
             _streetview.setBearing(_streetview, node, _streetview.mly, _streetview.app.currentImageKey.geometry.coordinates, [_streetview.app.coords[0], _streetview.app.coords[1]]);
         });
         
-        _streetview.app.map.map.loadImage('https://detroitmi.gov/sites/detroitmi.localhost/files/styles/default/public/2021-02/video.png', (error, image) => {
-            if (error) throw error;
-            if(!_streetview.app.map.map.hasImage('video')){
-                _streetview.app.map.map.addImage('video', image);
-            }
-            _streetview.app.map.map.getSource('mapillary').setData({
-              type: "FeatureCollection",
-              // we'll make the map data here
-              features: [
-                {
-                  type: "Feature",
-                  geometry: {
-                    type: "Point",
-                    coordinates: [_streetview.app.svCoords[0], _streetview.app.svCoords[1]],
-                  },
-                  properties: {
-                    bearing: _streetview.app.svBearing - 90,
-                  },
-                },
-              ],
-            });
-        }); 
+        _streetview.app.map.map.getSource('mapillary').setData({
+          type: "FeatureCollection",
+          // we'll make the map data here
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [_streetview.app.svCoords[0], _streetview.app.svCoords[1]],
+              },
+              properties: {
+                bearing: _streetview.app.svBearing - 90,
+              },
+            },
+          ],
+        });
     }
 
     removeImagery(_streetview){

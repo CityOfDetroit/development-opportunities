@@ -418,6 +418,12 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "line-color": "#0060dd" },
               });
+            
+            // ========= loading video icon =======
+            _map.map.loadImage('https://detroitmi.gov/sites/detroitmi.localhost/files/styles/default/public/2021-02/video.png', (error, image) => {
+              if (error) throw error;
+              _map.map.addImage('video', image);
+            }); 
 
             _map.map.on('style.load', () => {
                 _map.map.loadImage(videoIcon, (error, image) => {
