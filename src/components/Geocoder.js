@@ -59,11 +59,8 @@ export default class Geocoder {
             if(type === 'suggestions'){
                 data.candidates.forEach((item)=>{
                     let sugg = document.createElement('option');
-                    if(item.attributes.User_fld === ''){
+                    if(item.attributes.User_fld != ''){
                         sugg.value = item.address;
-                        sugg.setAttribute('data-parsel', 'no-parcel');
-                    }else{
-                        sugg.value = `${item.address} RECOMMENDED`;
                         sugg.setAttribute('data-parsel', item.attributes.User_fld);
                     }
                     
@@ -83,7 +80,7 @@ export default class Geocoder {
                             let parcel = null;
                             let location;
                             data.candidates.forEach((item) => {
-                                if(item.attributes.User_fld !== ''){
+                                if(item.attributes.User_fld != ''){
                                     if(geocoder._controller.checkParcelValid(item.attributes.User_fld)){
                                         parcel = item;
                                     }

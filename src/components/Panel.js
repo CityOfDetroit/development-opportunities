@@ -233,7 +233,7 @@ export default class Panel {
                 break;
 
             case 'dlba-land':
-                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to buy this land</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/development-projects/" target="_blank">Inquire to buy this land</a></div>`;
                 break;
 
             case 'city-structures':
@@ -241,7 +241,7 @@ export default class Panel {
                 break;
 
             case 'dlba-structures':
-                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/" target="_blank">Inquire to buy this Property</a></div>`;
+                markup = `<div class="buy-btn"><a href="https://buildingdetroit.org/development-projects/" target="_blank">Inquire to buy this Property</a></div>`;
                 break;
         
             default:
