@@ -1,4 +1,5 @@
-import { Map, NavigationControl } from 'maplibre-gl'
+import { Map, NavigationControl } from 'maplibre-gl';
+import uniqBy from 'lodash.uniqby';
 import mapStyle from './style.json';
 import './Map.scss';
 import '../../node_modules/maplibre-gl/dist/mapbox-gl.css';
@@ -462,9 +463,19 @@ export default class Maps {
                   essential: true // this animation is considered essential with respect to prefers-reduced-motion
               });
               _map.map.setFilter("parcels-highlight", ["==", "parcelno", _map.app.parcel ? _map.app.parcel : ""]);
-              _map.app.checkSpecialProperties(_map.app.parcel, _map.app);
               // setCoords(e.lngLat);
             });
+
+            _map.map.on('moveend', e => {
+              if (_map.map.getZoom() > 17.5 && _map.app.parcel != null) {
+                let features = _map.map.queryRenderedFeatures({
+                  layers: ['mapillary-images']
+                })
+                let uniqs = uniqBy(features, 'properties.id')
+                _map.app.imageKeys = uniqs;
+                _map.app.checkSpecialProperties(_map.app.parcel, _map.app);
+              }
+            })
 
             _map.map.on("click", function (e) {
               document.getElementById('initial-loader-overlay').className = 'active';
@@ -479,6 +490,14 @@ export default class Maps {
             document.querySelector('#initial-loader-overlay').className = '';
         });
     }
+
+    getUniqueItemsByProperties = (items, propNames) => {
+      const propNamesArray = Array.from(propNames);
+    
+      return items.filter((item, index, array) =>
+        index === array.findIndex(foundItem => isPropValuesEqual(foundItem, item, propNamesArray))
+      );
+    };
 
     changeVisibility(layers, visibility, _map){
       layers.forEach(layer => {

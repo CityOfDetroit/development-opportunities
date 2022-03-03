@@ -12,7 +12,7 @@ export default class Streetview {
         this.markerComponent    = null;
         this.container          = document.getElementById(container);
         this.mly                = null;
-        this.mapillaryClientID  = 'bmZxVGc0ODVBVXhZVk5FTDdyeHlhZzowM2EyODU0Njc4OWY3ZGNi';
+        this.mapillaryToken     = 'MLY|4690399437648324|de87555bb6015affa20c3df794ebab15';
         this.markerStyle        = {
             ballColor: "white",
             ballOpacity: 0.5,
@@ -102,18 +102,22 @@ export default class Streetview {
 
     loadImagery(_streetview){ 
         _streetview.setLoading(_streetview, false);
-        _streetview.mly = new Mapillary.Viewer({
-            // Replace this with your own client ID from mapillary.com
-            apiClient: _streetview.mapillaryClientID,
+        try {
+          _streetview.mly = new Mapillary.Viewer({
+            accessToken: _streetview.mapillaryToken,
             component: {
-                cover: false,
-                marker: true,
-                sequence: false,
-                cache: true,
-                attribution: false,
+              marker: true,
+              bearing: false,
+              cover: true,
+              attribution: false,
+              sequence: false,
+              cache: true,
+              direction: true
             },
             container: 'mly',
+            imageId: _streetview.app.currentImageKey.properties.id
         });
+        _streetview.mly.deactivateCover();
 
         _streetview.mly.on("nodechanged", (n) => {
             _streetview.app.svCoords = n.latLon;
@@ -123,13 +127,14 @@ export default class Streetview {
             _streetview.app.svBearing = b;
         });
 
-        _streetview.defaultMarker = new Mapillary.MarkerComponent.SimpleMarker("default-id", { lat: _streetview.app.coords[1], lon: _streetview.app.coords[0] }, _streetview.markerStyle);
+        _streetview.defaultMarker = new Mapillary.SimpleMarker("default-id", { lat: _streetview.app.coords[1], lng: _streetview.app.coords[0] }, _streetview.markerStyle);
         _streetview.markerComponent = _streetview.mly.getComponent("marker");
         _streetview.markerComponent.add([_streetview.defaultMarker]);
-
-        _streetview.mly.moveToKey(_streetview.app.currentImageKey.properties.key).then((node) => {
-            _streetview.setBearing(_streetview, node, _streetview.mly, _streetview.app.currentImageKey.geometry.coordinates, [_streetview.app.coords[0], _streetview.app.coords[1]]);
-        });
+        
+        } catch (error) {
+          console.log(error);
+        }
+        
         
         _streetview.app.map.map.getSource('mapillary').setData({
           type: "FeatureCollection",
@@ -157,25 +162,27 @@ export default class Streetview {
     }
 
     getImageKey(_streetview){
-        fetch(`https://a.mapillary.com/v3/images?client_id=${_streetview.mapillaryClientID}&closeto=${_streetview.app.coords[0]},${_streetview.app.coords[1]}&radius=80&usernames=codgis&start_time=2018-07-01`)
-        .then((resp) => resp.json()) // Transform the data into json
-        .then(function(data) {
-            let sequences = [];
-            data.features.forEach((ik) => {
-                if (sequences.map((s) => s.properties.captured_at.slice(0, 10)).indexOf(ik.properties.captured_at.slice(0, 10)) === -1) {
-                    sequences.push(ik);
-                }
-            });
-            let sorted = sequences.sort((a, b) => _streetview.buildDate(a.properties.captured_at) - _streetview.buildDate(b.properties.captured_at));
-            _streetview.app.imageKeys = sorted;
-            _streetview.app.currentImageKey = sorted[sorted.length - 1];
-            _streetview.app.svCoords = _streetview.app.currentImageKey.geometry.coordinates;
-            _streetview.setCameraIcon(_streetview);
-            _streetview.loadDateOptions(_streetview);
-            _streetview.loadImagery(_streetview);
-        }).catch( err => {
-          // console.log(err);
-        });
+      let sequences = [];
+      console.log(_streetview.app.imageKeys);
+      _streetview.app.imageKeys.forEach((ik) => {
+        try {
+          if (sequences.map((s) => s.properties.captured_at.toString().slice(0, 6)).indexOf(ik.properties.captured_at.toString().slice(0, 6)) === -1) {
+            sequences.push(ik);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+       
+      });
+      console.log(sequences);
+      let sorted = sequences.sort((a, b) => _streetview.buildDate(a.properties.captured_at) - _streetview.buildDate(b.properties.captured_at));
+      _streetview.app.imageKeys = sorted;
+      console.log(sorted);
+      _streetview.app.currentImageKey = sorted[sorted.length - 1];
+      _streetview.app.svCoords = _streetview.app.currentImageKey.geometry.coordinates;
+      _streetview.setCameraIcon(_streetview);
+      _streetview.loadDateOptions(_streetview);
+      _streetview.loadImagery(_streetview);
     }
 
     loadDateOptions(_streetview){
