@@ -16992,7 +16992,7 @@
         "source": "mly",
         "source-layer": "image",
         "maxzoom": 22,
-        "minzoom": 14,
+        "minzoom": 11,
         "filter": [
           "all",
           ["==", "is_pano", true],
