@@ -267,7 +267,7 @@ export default class Streetview {
     //    of the image. See
     //    https://mapillary.github.io/mapillary-js/classes/viewer.html
     //    for explanation of the basic coordinate system of an image.
-    var basic = (desiredBearing - nodeBearing) / 360 + 0.5;
+    let basic = (desiredBearing - nodeBearing) / 360 + 0.5;
 
     // Wrap to a valid basic coordinate (on the [0, 1] interval).
     // Needed when difference between desired bearing and node

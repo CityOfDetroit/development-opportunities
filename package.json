@@ -1,6 +1,6 @@
 {
   "name": "development-opportunities",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Application used to better understand the development opportunities across the City of Detriot.",
   "main": "index.js",
   "repository": "https://github.com/CityOfDetroit/development-opportunities.git",

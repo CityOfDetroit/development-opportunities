@@ -51,7 +51,7 @@ export default class Geocoder {
       newTempAddr += item;
       ((index < size) && (index + 1) !== size) ? newTempAddr += '+': 0;
     }); 
-    let url = `https://gis.detroitmi.gov/arcgis/rest/services/DoIT/CompositeGeocoder/GeocodeServer/findAddressCandidates?Street=&City=&ZIP=&SingleLine=${newTempAddr}&category=&outFields=User_fld&maxLocations=4&outSR=4326&searchExtent=&location=&distance=&magicKey=&f=json`;
+    let url = `https://opengis.detroitmi.gov/opengis/rest/services/BaseUnits/BaseUnitGeocoder/GeocodeServer/findAddressCandidates?Address=&Address2=&Address3=&Neighborhood=&City=&Subregion=&Region=&Postal=&PostalExt=&CountryCode=&SingleLine=${newTempAddr}&outFields=*&maxLocations=4&matchOutOfRange=true&langCode=&locationType=&sourceCountry=&category=&location=&distance=&searchExtent=&outSR=4326&magicKey=&f=json`;
     
     try {
         fetch(url)
@@ -60,9 +60,9 @@ export default class Geocoder {
             if(type === 'suggestions'){
                 data.candidates.forEach((item)=>{
                     let sugg = document.createElement('option');
-                    if(item.attributes.User_fld != ''){
+                    if(item.attributes.parcel_id != ''){
                         sugg.value = item.address;
-                        sugg.setAttribute('data-parsel', item.attributes.User_fld);
+                        sugg.setAttribute('data-parsel', item.attributes.parcel_id);
                     }
                     
                     sugg.onclick = (ev) => {
@@ -81,23 +81,23 @@ export default class Geocoder {
                             let parcel = null;
                             let location;
                             data.candidates.forEach((item) => {
-                                if(item.attributes.User_fld != ''){
-                                    if(geocoder._controller.checkParcelValid(item.attributes.User_fld)){
+                                if(item.attributes.parcel_id != ''){
+                                    if(geocoder._controller.checkParcelValid(item.attributes.parcel_id)){
                                         parcel = item;
                                     }
                                 }
                             });
                             (parcel == null) ? location = data.candidates[0].location : location = null;
                             geocoder._controller.coords = [parcel.location.x, parcel.location.y];
-                            geocoder._controller.parcel = parcel.attributes.User_fld;
+                            geocoder._controller.parcel = parcel.attributes.parcel_id;
                             geocoder._controller.centroid = turf.point([parcel.location.x, parcel.location.y]);
                             geocoder._controller.map.map.flyTo({
                                 center: [parcel.location.x,parcel.location.y],
                                 zoom: 18,
                                 essential: true // this animation is considered essential with respect to prefers-reduced-motion
                             });
-                            geocoder._controller.checkSpecialProperties(parcel.attributes.User_fld, geocoder._controller);
-                            geocoder._controller.map.map.setFilter("parcels-highlight", ["==", "parcelno", parcel.attributes.User_fld]);
+                            geocoder._controller.checkSpecialProperties(parcel.attributes.parcel_id, geocoder._controller);
+                            geocoder._controller.map.map.setFilter("parcels-highlight", ["==", "parcelno", parcel.attributes.parcel_id]);
                             geocoder.form.childNodes[1].value = '';
                             document.getElementById('initial-loader-overlay').className = 'active';
                         }else{
