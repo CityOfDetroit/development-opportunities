@@ -105,3 +105,7 @@ dist
 
 #local files
 local/
+
+# Cypress
+cypress/videos
+cypress/screenshots
