@@ -8,8 +8,9 @@ This project was created using:
  - [MapLibre](https://github.com/maplibre/maplibre-gl-js) for WebGL map rendering.
  - [Mapillary](https://www.mapillary.com/) for streetview imagery.
  - [Turf](https://turfjs.org/) for geospacial analysis.
- - [Parcel](https://parceljs.org/) as a web application bundler.
- - [Yarn](https://yarnpkg.com/en/) for 3rd party library use and management.
+ - [Webpack](https://webpack.js.org/) as a web application bundler.
+ - [Yarn](https://classic.yarnpkg.com/en/) to manage project dependencies.
+ - [Cypress](https://www.cypress.io/) for testing.
 
 Please make sure these are installed locally
 
