@@ -7,19 +7,24 @@
   "author": "Edgar Montes <jedgar1mx@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html --https --no-cache -p 3000 --open",
+    "start": "parcel src/index.html --no-cache -p 3000 --open",
     "test": "./node_modules/.bin/cypress open",
     "build": "parcel build src/index.js --no-cache --public-url '.' --no-source-maps -d build"
   },
   "dependencies": {
-    "@turf/bearing": "^6.0.1",
-    "mapillary-js": "^3.0.0",
+    "mapillary-js": "^4.1.0",
     "maplibre-gl": "^1.13.0-rc.4"
   },
   "devDependencies": {
+    "@turf/bearing": "^6.5.0",
+    "@turf/centroid": "^6.5.0",
+    "@turf/distance": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "cssnano": "^4.1.10",
+    "lodash.sortby": "^4.7.0",
+    "lodash.uniqby": "^4.7.0",
     "sass": "^1.30.0"
   }
 }

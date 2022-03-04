@@ -1,7 +1,7 @@
 import Filters from './Filters';
 import Streetview from './Streetview';
 import './Panel.scss';
-import '../../node_modules/mapillary-js/dist/mapillary.min.css';
+import '../../node_modules/mapillary-js/dist/mapillary.css';
 export default class Panel {
     constructor(app) {
         this.app = app;

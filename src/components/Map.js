@@ -1,4 +1,6 @@
-import { Map, NavigationControl } from 'maplibre-gl'
+import { Map, NavigationControl } from 'maplibre-gl';
+import uniqBy from 'lodash.uniqby';
+import centroid from '@turf/centroid';
 import mapStyle from './style.json';
 import './Map.scss';
 import '../../node_modules/maplibre-gl/dist/mapbox-gl.css';
@@ -450,21 +452,48 @@ export default class Maps {
             });
 
             _map.map.on("click", "parcels-fill", function (e) {
-              let possibleProperty = null;
               let parcel = _map.map.queryRenderedFeatures(e.point, {
                 layers: ["parcels-fill"],
               });
-              _map.app.coords = [e.lngLat.lng,e.lngLat.lat];
               _map.app.parcel = parcel[0].properties.parcelno;
               _map.map.flyTo({
                   center: [e.lngLat.lng,e.lngLat.lat],
                   zoom: 18,
                   essential: true // this animation is considered essential with respect to prefers-reduced-motion
               });
+              if(parcel[0]._geometry){
+                _map.app.centroid = centroid(parcel[0]._geometry);
+              }else{
+                _map.app.centroid = centroid(parcel[0].geometry);
+              }
+              _map.app.coords = _map.app.centroid.geometry.coordinates;
               _map.map.setFilter("parcels-highlight", ["==", "parcelno", _map.app.parcel ? _map.app.parcel : ""]);
-              _map.app.checkSpecialProperties(_map.app.parcel, _map.app);
-              // setCoords(e.lngLat);
             });
+
+            _map.map.on('moveend', e => {
+              try {
+                switch (true) {
+                  case e.originalEvent === 'WheelEvent':
+                    break;
+                  
+                  case e.originalEvent === 'MouseEvent':
+                    break;
+                
+                  default:
+                    if (_map.map.getZoom() > 17.5 && _map.app.parcel != null) {
+                      let features = _map.map.queryRenderedFeatures({
+                        layers: ['mapillary-images']
+                      })
+                      let uniqs = uniqBy(features, 'properties.id')
+                      _map.app.imageKeys = uniqs;
+                      _map.app.checkSpecialProperties(_map.app.parcel, _map.app);
+                    }
+                    break;
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            })
 
             _map.map.on("click", function (e) {
               document.getElementById('initial-loader-overlay').className = 'active';
@@ -479,6 +508,14 @@ export default class Maps {
             document.querySelector('#initial-loader-overlay').className = '';
         });
     }
+
+    getUniqueItemsByProperties = (items, propNames) => {
+      const propNamesArray = Array.from(propNames);
+    
+      return items.filter((item, index, array) =>
+        index === array.findIndex(foundItem => isPropValuesEqual(foundItem, item, propNamesArray))
+      );
+    };
 
     changeVisibility(layers, visibility, _map){
       layers.forEach(layer => {

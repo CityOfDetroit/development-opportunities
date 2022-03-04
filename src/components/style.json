@@ -17,6 +17,12 @@
           "type": "FeatureCollection",
           "features": []
         }
+      },
+      "mly": {
+        "type": "vector",
+        "tiles": ["https://tiles.mapillary.com/maps/vtp/mly1_computed_public/2/{z}/{x}/{y}?access_token=MLY|4690399437648324|de87555bb6015affa20c3df794ebab15"],
+        "maxzoom": 14,
+        "minzoom": 14
       }
     },
     "layers": [
@@ -16978,6 +16984,29 @@
           "text-halo-color": "#EBE7E2",
           "text-halo-width": 1,
           "text-halo-blur": 1
+        }
+      },
+      {
+        "id": "mapillary-images",
+        "type": "circle",
+        "source": "mly",
+        "source-layer": "image",
+        "maxzoom": 22,
+        "minzoom": 11,
+        "filter": [
+          "all",
+          ["==", "is_pano", true],
+          ["==", "organization_id", 518073312556755]
+        ],
+        "layout": {
+          "visibility": "visible"
+        },
+        "paint": {
+          "circle-radius": {
+            "base": 1,
+            "stops": [[13, 0.1], [14, 0.5], [17, 2], [18.5, 4], [19, 7], [19.5, 10]]
+          },
+          "circle-color": "rgba(20,20,120,0)"
         }
       },
       {

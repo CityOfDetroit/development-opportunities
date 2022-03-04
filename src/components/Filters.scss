@@ -36,6 +36,11 @@
         label{
             cursor: pointer;
         }
+
+        input[type="checkbox"]{
+            height: auto;
+            margin-right: .5em;
+        }
     }
 
     .filter-subset{
@@ -248,6 +253,11 @@
                 border-color: #00f8cf;
                 background-color: lighten(#00f8cf,30%);
             }
+        }
+
+        input[type="checkbox"]{
+            height: auto;
+            margin-right: .5em;
         }
     }
 

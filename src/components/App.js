@@ -9,6 +9,7 @@ export default class App {
         this.svBearing          = null;
         this.coord              = null;
         this.imageKeys          = null;
+        this.centroid           = null;
         this.currentImageKey    = null;
         this.parcel             = null;
         this.propertyData       = null;
