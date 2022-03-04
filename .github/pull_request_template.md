@@ -1,12 +1,3 @@
----
-name: Pull request
-about: Describes changes in pull request
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## Fixes # 
 --------
 
