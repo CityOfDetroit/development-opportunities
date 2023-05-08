@@ -1,3 +1,7 @@
+// TODO: Update esri endpoints according to this document:
+//
+// https://cidetroitmius.sharepoint.com/:x:/r/sites/M365-DoIT-DSA/_layouts/15/Doc.aspx?sourcedoc=%7BB953F237-B6EC-438A-B04E-CDFEBB6BC257%7D&file=Data%20Layers%20-%20Development%20Opportunities%20App.xlsx&action=default&mobileredirect=true
+
 import { Map, NavigationControl } from 'maplibre-gl';
 import uniqBy from 'lodash.uniqby';
 import centroid from '@turf/centroid';
