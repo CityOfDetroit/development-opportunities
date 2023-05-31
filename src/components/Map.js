@@ -105,7 +105,7 @@ export default class Maps {
             _map.map.addSource("public-properties", {
               type: "vector",
               tiles: [
-                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/development_map_layers/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer/tile/{z}/{y}/{x}.pbf'
                 ],
               'maxzoom': 19
             });
@@ -321,7 +321,7 @@ export default class Maps {
                 id: "city-structures",
                 type: "fill",
                 source: "public-properties",
-                "source-layer": "city_surplus_buildings",
+                "source-layer": "City Real Estate Surplus Buildings",
                 layout: { visibility: "none" },
                 paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
               });
@@ -329,7 +329,7 @@ export default class Maps {
                 id: "city-land",
                 type: "fill",
                 source: "public-properties",
-                "source-layer": "city_surplus_land",
+                "source-layer": "City Real Estate Surplus Land",
                 layout: { visibility: "none" },
                 paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
               });
