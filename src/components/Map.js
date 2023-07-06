@@ -1,3 +1,7 @@
+// TODO: Update esri endpoints according to this document:
+//
+// https://cidetroitmius.sharepoint.com/:x:/r/sites/M365-DoIT-DSA/_layouts/15/Doc.aspx?sourcedoc=%7BB953F237-B6EC-438A-B04E-CDFEBB6BC257%7D&file=Data%20Layers%20-%20Development%20Opportunities%20App.xlsx&action=default&mobileredirect=true
+
 import { Map, NavigationControl } from 'maplibre-gl';
 import uniqBy from 'lodash.uniqby';
 import centroid from '@turf/centroid';
@@ -99,11 +103,20 @@ export default class Maps {
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("public-properties", {
-              type: "vector",
-              tiles: [
-                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/development_map_layers/VectorTileServer/tile/{z}/{y}/{x}.pbf'
-                ],
-              'maxzoom': 19
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
             });
             // ============= planning and housing sources ===========
             _map.map.addSource("opp-zones", {
@@ -317,7 +330,7 @@ export default class Maps {
                 id: "city-structures",
                 type: "fill",
                 source: "public-properties",
-                "source-layer": "city_surplus_buildings",
+                "source-layer": "City Real Estate Surplus Buildings",
                 layout: { visibility: "none" },
                 paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
               });
@@ -325,7 +338,7 @@ export default class Maps {
                 id: "city-land",
                 type: "fill",
                 source: "public-properties",
-                "source-layer": "city_surplus_land",
+                "source-layer": "City Real Estate Surplus Land",
                 layout: { visibility: "none" },
                 paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
               });
