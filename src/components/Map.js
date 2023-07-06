@@ -103,11 +103,20 @@ export default class Maps {
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
             _map.map.addSource("public-properties", {
-              type: "vector",
-              tiles: [
-                'https://tiles.arcgis.com/tiles/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer/tile/{z}/{y}/{x}.pbf'
-                ],
-              'maxzoom': 19
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/DevelopmentOpportunitiesLayers/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
             });
             // ============= planning and housing sources ===========
             _map.map.addSource("opp-zones", {
