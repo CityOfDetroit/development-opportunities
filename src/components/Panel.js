@@ -95,6 +95,7 @@ export default class Panel {
     }
 
     buildCityData(_panel){
+        console.log(_panel.app.cityData);
         let markup = `
         <h2>City of Detroit</h2>
         <img alt="Photo of Detroit" src="https://detroitmi.gov/sites/detroitmi.localhost/files/styles/de2e/public/2018-11/detroit1.jpg">
