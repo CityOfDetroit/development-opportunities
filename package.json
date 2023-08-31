@@ -1,6 +1,6 @@
 {
   "name": "development-opportunities",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Application used to better understand the development opportunities across the City of Detriot.",
   "main": "main.js",
   "repository": "https://github.com/CityOfDetroit/development-opportunities.git",
@@ -13,6 +13,7 @@
     "test": "start-server-and-test start http://localhost:3000 cy:run"
   },
   "dependencies": {
+    "@sentry/browser": "^7.66.0",
     "mapillary-js": "^4.1.0",
     "maplibre-gl": "^1.13.0-rc.4"
   },
@@ -24,11 +25,12 @@
     "@babel/plugin-transform-runtime": "^7.15.8",
     "@babel/preset-env": "^7.16.0",
     "@babel/runtime": "^7.15.4",
+    "@sentry/webpack-plugin": "^2.7.0",
+    "@svgr/webpack": "^5.5.0",
     "@turf/bearing": "^6.5.0",
     "@turf/centroid": "^6.5.0",
     "@turf/distance": "^6.5.0",
     "@turf/helpers": "^6.5.0",
-    "@svgr/webpack": "^5.5.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "concurrently": "^7.0.0",

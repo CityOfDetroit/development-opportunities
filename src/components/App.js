@@ -34,7 +34,7 @@ export default class App {
     initialLoad(_app){
         _app.getCityData(_app);
         document.getElementById('close-welcome').addEventListener('click', ()=>{
-            document.getElementById('welcome-panel').className = '';
+          document.getElementById('welcome-panel').className = '';
         });
         let dashBtn = document.createElement('button');
         let configBtn = document.createElement('button');
