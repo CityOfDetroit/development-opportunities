@@ -95,7 +95,6 @@ export default class Panel {
     }
 
     buildCityData(_panel){
-        console.log(_panel.app.cityData);
         let populationCheck = (_panel.app.cityData[0].data.length) ? true : false;
         let permitCheck = (_panel.app.cityData[1].data.count) ? true : false;
         let dlbaCheck = (_panel.app.cityData[2].data.count) ? true : false;
