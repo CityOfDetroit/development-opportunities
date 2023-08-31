@@ -96,24 +96,35 @@ export default class Panel {
 
     buildCityData(_panel){
         console.log(_panel.app.cityData);
+        let populationCheck = (_panel.app.cityData[0].data.length) ? true : false;
+        let permitCheck = (_panel.app.cityData[1].data.count) ? true : false;
+        let dlbaCheck = (_panel.app.cityData[2].data.count) ? true : false;
+        let policeCheck = (_panel.app.cityData[3].data.count) ? true : false;
+        let fireCheck = (_panel.app.cityData[4].data.count) ? true : false;
+        let parksCheck = (_panel.app.cityData[5].data.count) ? true : false;
         let markup = `
         <h2>City of Detroit</h2>
         <img alt="Photo of Detroit" src="https://detroitmi.gov/sites/detroitmi.localhost/files/styles/de2e/public/2018-11/detroit1.jpg">
-        <section class="group">
+        ${(populationCheck) ? `<section class="group">
         <span class="header">DEMOGRAPHICS</span>
         <p><strong>Population:</strong> ${_panel.app.cityData[0].data[1][0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
-        </section>
+        </section>` : ``}
         <section class="group">
         <span class="header">REAL ESTATE</span>
-        <p><strong>DLBA Properties:</strong> ${_panel.app.cityData[2].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
-        <p><strong>Open BSEED Permits:</strong> ${_panel.app.cityData[1].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
+        ${(dlbaCheck) ? `<p><strong>DLBA Properties:</strong> ${_panel.app.cityData[2].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
+        ` : ``}
+        ${(permitCheck) ? `<p><strong>Open BSEED Permits:</strong> ${_panel.app.cityData[1].data.count.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</p>
+        ` : ``}
         </section>
         <section class="group">
         <span class="header">INFRASTRUCTURE</span>
-        <p><strong>Police Stations:</strong> ${_panel.app.cityData[3].data.count}</p>
-        <p><strong>Fire Stations:</strong> ${_panel.app.cityData[4].data.count}</p>
-        <p><strong>Active Parks:</strong> ${_panel.app.cityData[5].data.count}</p>
+        ${(policeCheck) ? `<p><strong>Police Stations:</strong> ${_panel.app.cityData[3].data.count}</p>
+        ` : ``}
+        ${(fireCheck) ? `<p><strong>Fire Stations:</strong> ${_panel.app.cityData[4].data.count}</p>
+        ` : ``}
+        ${(parksCheck) ? `<p><strong>Active Parks:</strong> ${_panel.app.cityData[5].data.count}</p>
         </section>
+        ` : ``}
         `;
         return markup;
     }
