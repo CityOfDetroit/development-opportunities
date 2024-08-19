@@ -133,6 +133,7 @@ export default class App {
               // console.log(err);
             });
         });
+        
         Promise.all([population,permits,dlbaProperties,police,fire,parks]).then(values => {
             _app.cityData = values;
           }).catch(reason => {

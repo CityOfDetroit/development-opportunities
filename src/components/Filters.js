@@ -407,9 +407,13 @@ export default class Filters {
     let tmahLegend = document.createElement('span');
     let tmahLabel = document.createElement('label');
     let tmahBox = document.createElement('div');
+    let jlgRouteInput = document.createElement('input');
+    let jlgRouteLegend = document.createElement('span');
+    let jlgRouteLabel = document.createElement('label');
+    let jlgRouteBox = document.createElement('div');
     planningHousing.className ='parent-filter-container';
     planningHousingAllInput.type = 'checkbox';
-    planningHousingAllInput.value = 'opp-zones-fill,opp-zones-line,snf-fill,snf-line,tmah-fill,tmah-line'
+    planningHousingAllInput.value = 'opp-zones-fill,opp-zones-line,snf-fill,snf-line,tmah-fill,tmah-line,jlg-route'
     planningHousingAllInput.id = 'planningHousing-all';
     planningHousingAllInput.name = 'planningHousing-data'; 
     if(_filterPanel.app.filters.includes('planningHousing-all')){
@@ -502,6 +506,28 @@ export default class Filters {
     tmahBox.appendChild(tmahInput);
     tmahBox.appendChild(tmahLabel);
     planningHousingSubsets.appendChild(tmahBox);
+
+    planningHousing.appendChild(planningHousingAllInput);
+    planningHousing.appendChild(planningHousingAllLabel);
+    planningHousing.appendChild(planningHousingAllExpandBtn);
+    _filterPanel.form.appendChild(planningHousing);
+    _filterPanel.form.appendChild(planningHousingSubsets);
+
+    // Joe Louis Greenway Route
+    jlgRouteInput.type = 'checkbox';
+    jlgRouteInput.name = 'jlg-route';
+    jlgRouteInput.id = 'jlg-route';
+    jlgRouteInput.value = 'jlg-route';
+    jlgRouteInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    jlgRouteLabel.innerText = 'Joe Louis Greenway Route';
+    jlgRouteLabel.setAttribute('for', 'jlg-route');
+    jlgRouteLegend.className = 'line jlg-route';
+    jlgRouteLabel.appendChild(jlgRouteLegend);
+    jlgRouteBox.appendChild(jlgRouteInput);
+    jlgRouteBox.appendChild(jlgRouteLabel);
+    planningHousingSubsets.appendChild(jlgRouteBox);
 
     planningHousing.appendChild(planningHousingAllInput);
     planningHousing.appendChild(planningHousingAllLabel);
