@@ -411,21 +411,21 @@ export default class Maps {
                 layout: { visibility: "none" },
                 paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
               });
-            _map.map.addLayer({
-              id: "marijuana-legacy-land",
-              type: "circle",
-              source: "marijuana-legacy-land",
-              layout: { visibility: "none" },
-              paint: {
-                "circle-radius": {
-                  base: 5,
-                  stops: [
-                    [12, 5],
-                    [22, 120],
-                  ],
+              _map.map.addLayer({
+                id: "marijuana-legacy-land",
+                type: "circle",
+                source: "marijuana-legacy-land",
+                layout: { visibility: "none" },
+                paint: {
+                  "circle-radius": {
+                    base: 5,
+                    stops: [
+                      [12, 5],
+                      [22, 120],
+                    ],
+                  },
+                  "circle-color": "#002e00",
                 },
-                "circle-color": "#002e00",
-              },
               });
               _map.map.addLayer({
                 id: "marijuana-legacy-structure",
