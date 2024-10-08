@@ -102,70 +102,70 @@ export default class Maps {
               data:
                 "https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/City_Owned_Land_and_Structures_Set_Aside_for_Adult_Use_Marijuana/FeatureServer/2/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=*&returnGeometry=true&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=",
             });
-              _map.map.addSource("dlba-land", {
-                "type": "vector",
-                "bounds": [
-                  -83.2847,
-                  42.2657,
-                  -82.9238,
-                  42.4499
-                ],
-                "minzoom": 0,
-                "maxzoom": 19,
-                "scheme": "xyz",
-                "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Land_vector_tiles/VectorTileServer",
-                "tiles": [
-                  "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Land_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
-                ]
-              });
-              _map.map.addSource("dlba-buildings", {
-                "type": "vector",
-                "bounds": [
-                  -83.2847,
-                  42.2657,
-                  -82.9238,
-                  42.4499
-                ],
-                "minzoom": 0,
-                "maxzoom": 19,
-                "scheme": "xyz",
-                "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Buildings_vector_tiles/VectorTileServer",
-                "tiles": [
-                  "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Buildings_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
-                ]
-              });
-              _map.map.addSource("city-land", {
-                "type": "vector",
-                "bounds": [
-                  -83.2847,
-                  42.2657,
-                  -82.9238,
-                  42.4499
-                ],
-                "minzoom": 0,
-                "maxzoom": 19,
-                "scheme": "xyz",
-                "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Land_vector_tiles/VectorTileServer",
-                "tiles": [
-                  "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Land_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
-                ]
-              });
-              _map.map.addSource("city-buildings", {
-                "type": "vector",
-                "bounds": [
-                  -83.2847,
-                  42.2657,
-                  -82.9238,
-                  42.4499
-                ],
-                "minzoom": 0,
-                "maxzoom": 19,
-                "scheme": "xyz",
-                "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Buildings_vector_tiles/VectorTileServer",
-                "tiles": [
-                  "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Buildings_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
-                ]
-              });
+            _map.map.addSource("dlba-land", {
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Land_vector_tiles/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Land_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
+            });
+            _map.map.addSource("dlba-buildings", {
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Buildings_vector_tiles/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_DLBA_Buildings_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
+            });
+            _map.map.addSource("city-land", {
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Land_vector_tiles/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Land_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
+            });
+            _map.map.addSource("city-buildings", {
+              "type": "vector",
+              "bounds": [
+                -83.2847,
+                42.2657,
+                -82.9238,
+                42.4499
+              ],
+              "minzoom": 0,
+              "maxzoom": 19,
+              "scheme": "xyz",
+              "url": "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Buildings_vector_tiles/VectorTileServer",
+              "tiles": [
+                "https://vectortileservices2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/Development_Opportunities_City_Real_Estate_Buildings_vector_tiles/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+              ]
+            });
             // ============= planning and housing sources ===========
             _map.map.addSource("opp-zones", {
               type: "geojson",
@@ -379,53 +379,53 @@ export default class Maps {
                 paint: { "line-color": "#28f572" },
               });
               // ============= for sale layers ===========
-                _map.map.addLayer({
-                  id: "city-structures",
-                  type: "fill",
-                  source: "city-buildings",
-                  "source-layer": "Development Opportunities City Real Estate Buildings",
-                  layout: { visibility: "none" },
-                  paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
-                });
-                _map.map.addLayer({
-                  id: "city-land",
-                  type: "fill",
-                  source: "city-land",
-                  "source-layer": "Development Opportunities City Real Estate Land",
-                  layout: { visibility: "none" },
-                  paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
-                });
-                _map.map.addLayer({
-                  id: "dlba-structures",
-                  type: "fill",
-                  source: "dlba-buildings",
-                  "source-layer": "Development Opportunities DLBA Buildings",
-                  layout: { visibility: "none" },
-                  paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
-                });
-                _map.map.addLayer({
-                  id: "dlba-land",
-                  type: "fill",
-                  source: "dlba-land",
-                  "source-layer": "Development Opportunities DLBA Land",
-                  layout: { visibility: "none" },
-                  paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
-                });
               _map.map.addLayer({
-                id: "marijuana-legacy-land",
-                type: "circle",
-                source: "marijuana-legacy-land",
+                id: "city-structures",
+                type: "fill",
+                source: "city-buildings",
+                "source-layer": "Development Opportunities City Real Estate Buildings",
                 layout: { visibility: "none" },
-                paint: {
-                  "circle-radius": {
-                    base: 5,
-                    stops: [
-                      [12, 5],
-                      [22, 120],
-                    ],
-                  },
-                  "circle-color": "#002e00",
+                paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "city-land",
+                type: "fill",
+                source: "city-land",
+                "source-layer": "Development Opportunities City Real Estate Land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-structures",
+                type: "fill",
+                source: "dlba-buildings",
+                "source-layer": "Development Opportunities DLBA Buildings",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#009980", "fill-opacity": 0.7 }
+              });
+              _map.map.addLayer({
+                id: "dlba-land",
+                type: "fill",
+                source: "dlba-land",
+                "source-layer": "Development Opportunities DLBA Land",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#00f8cf", "fill-opacity": 0.7 }
+              });
+            _map.map.addLayer({
+              id: "marijuana-legacy-land",
+              type: "circle",
+              source: "marijuana-legacy-land",
+              layout: { visibility: "none" },
+              paint: {
+                "circle-radius": {
+                  base: 5,
+                  stops: [
+                    [12, 5],
+                    [22, 120],
+                  ],
                 },
+                "circle-color": "#002e00",
+              },
               });
               _map.map.addLayer({
                 id: "marijuana-legacy-structure",
