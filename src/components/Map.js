@@ -58,7 +58,7 @@ export default class Maps {
             _map.map.addSource("mogobikes", {
               type: "geojson",
               data:
-                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/MoGo_Bike_Share_Locations/FeatureServer/0/query?outFields=*&outSR=4326&where=1%3D1&f=geojson",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/mogo_stations/FeatureServer/0/query?&where=1%3D1&f=geojson",
             });
             _map.map.addSource("smartroutes", {
               type: "geojson",
@@ -175,7 +175,7 @@ export default class Maps {
             _map.map.addSource("snf", {
               type: "geojson",
               data:
-                "https://opendata.arcgis.com/datasets/dafad9fc0e854d9fb03d9cb00ea5e69c_0.geojson",
+                "https://services2.arcgis.com/qvkbeam7Wirps6zC/arcgis/rest/services/SNF/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson",
             });
             _map.map.addSource("tmah", {
               type: "geojson",
@@ -485,13 +485,6 @@ export default class Maps {
                 source: "tmah",
                 layout: { visibility: "none" },
                 paint: { "line-color": "#0060dd" },
-              });
-              _map.map.addLayer({
-                id: "tmah-fill",
-                type: "fill",
-                source: "tmah",
-                layout: { visibility: "none" },
-                paint: { "fill-color": "#0060dd", "fill-opacity": 0.5 },
               });
               _map.map.addLayer({
                 id: "jlg-route",
