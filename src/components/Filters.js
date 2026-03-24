@@ -407,13 +407,21 @@ export default class Filters {
     let tmahLegend = document.createElement('span');
     let tmahLabel = document.createElement('label');
     let tmahBox = document.createElement('div');
+    let alfahHighInput = document.createElement('input');
+    let alfahHighLegend = document.createElement('span');
+    let alfahHighLabel = document.createElement('label');
+    let alfahHighBox = document.createElement('div');
+    let alfahInput = document.createElement('input');
+    let alfahLegend = document.createElement('span');
+    let alfahLabel = document.createElement('label');
+    let alfahBox = document.createElement('div');
     let jlgRouteInput = document.createElement('input');
     let jlgRouteLegend = document.createElement('span');
     let jlgRouteLabel = document.createElement('label');
     let jlgRouteBox = document.createElement('div');
     planningHousing.className ='parent-filter-container';
     planningHousingAllInput.type = 'checkbox';
-    planningHousingAllInput.value = 'opp-zones-fill,opp-zones-line,snf-fill,snf-line,tmah-fill,tmah-line,jlg-route'
+    planningHousingAllInput.value = 'opp-zones-fill,opp-zones-line,snf-fill,snf-line,tmah-fill,tmah-line,jlg-route,alfah-high-fill,alfah-high-line,alfah-fill,alfah-line'
     planningHousingAllInput.id = 'planningHousing-all';
     planningHousingAllInput.name = 'planningHousing-data'; 
     if(_filterPanel.app.filters.includes('planningHousing-all')){
@@ -446,7 +454,7 @@ export default class Filters {
 
     // Opportunity zones
     oppZonesInput.type = 'checkbox';
-    oppZonesInput.name = 'trans-data';
+    oppZonesInput.name = 'planning-data';
     oppZonesInput.id = 'opp-zones';
     oppZonesInput.value = 'opp-zones-fill,opp-zones-line';
     if(_filterPanel.app.filters.includes('opp-zones-fill')){
@@ -467,7 +475,7 @@ export default class Filters {
 
     // Strategic Neighborhoods
     snfInput.type = 'checkbox';
-    snfInput.name = 'trans-data';
+    snfInput.name = 'planning-data';
     snfInput.id = 'snf';
     snfInput.value = 'snf-fill,snf-line';
     if(_filterPanel.app.filters.includes('snf-fill')){
@@ -488,7 +496,7 @@ export default class Filters {
 
     // Targeted Multifamily Housing Areas
     tmahInput.type = 'checkbox';
-    tmahInput.name = 'trans-data';
+    tmahInput.name = 'planning-data';
     tmahInput.id = 'tmah';
     tmahInput.value = 'tmah-fill,tmah-line';
     if(_filterPanel.app.filters.includes('tmah-fill')){
@@ -528,6 +536,60 @@ export default class Filters {
     jlgRouteBox.appendChild(jlgRouteInput);
     jlgRouteBox.appendChild(jlgRouteLabel);
     planningHousingSubsets.appendChild(jlgRouteBox);
+
+    planningHousing.appendChild(planningHousingAllInput);
+    planningHousing.appendChild(planningHousingAllLabel);
+    planningHousing.appendChild(planningHousingAllExpandBtn);
+    _filterPanel.form.appendChild(planningHousing);
+    _filterPanel.form.appendChild(planningHousingSubsets);
+
+    // ALFAH Section 108 High Priority Areas
+    alfahHighInput.type = 'checkbox';
+    alfahHighInput.name = 'planning-data';
+    alfahHighInput.id = 'alfah-high';
+    alfahHighInput.value = 'alfah-high-fill,alfah-high-line';
+    if(_filterPanel.app.filters.includes('alfah-high-fill')){
+      alfahHighInput.checked = true;
+    }else{
+      alfahHighInput.checked = false;
+    }
+    alfahHighInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    alfahHighLabel.innerText = 'ALFAH Section 108 High Priority Areas';
+    alfahHighLabel.setAttribute('for', 'alfah-high');
+    alfahHighLegend.className = 'square alfah-high';
+    alfahHighLabel.appendChild(alfahHighLegend);
+    alfahHighBox.appendChild(alfahHighInput);
+    alfahHighBox.appendChild(alfahHighLabel);
+    planningHousingSubsets.appendChild(alfahHighBox);
+
+    planningHousing.appendChild(planningHousingAllInput);
+    planningHousing.appendChild(planningHousingAllLabel);
+    planningHousing.appendChild(planningHousingAllExpandBtn);
+    _filterPanel.form.appendChild(planningHousing);
+    _filterPanel.form.appendChild(planningHousingSubsets);
+
+    // ALFAH Section 108 Priority Areas
+    alfahInput.type = 'checkbox';
+    alfahInput.name = 'planning-data';
+    alfahInput.id = 'alfah';
+    alfahInput.value = 'alfah-fill,alfah-line';
+    if(_filterPanel.app.filters.includes('alfah-fill')){
+      alfahInput.checked = true;
+    }else{
+      alfahInput.checked = false;
+    }
+    alfahInput.addEventListener('change', (ev)=>{
+      _filterPanel.updateFilters(ev, _filterPanel);
+    });
+    alfahLabel.innerText = 'ALFAH Section 108 Priority Areas';
+    alfahLabel.setAttribute('for', 'alfah');
+    alfahLegend.className = 'square alfah';
+    alfahLabel.appendChild(alfahLegend);
+    alfahBox.appendChild(alfahInput);
+    alfahBox.appendChild(alfahLabel);
+    planningHousingSubsets.appendChild(alfahBox);
 
     planningHousing.appendChild(planningHousingAllInput);
     planningHousing.appendChild(planningHousingAllLabel);

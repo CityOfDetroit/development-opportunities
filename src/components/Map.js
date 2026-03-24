@@ -187,6 +187,11 @@ export default class Maps {
               data: 
               `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/JLG_Route_Phases_View_Layer/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields=&returnGeometry=true&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`,
             });
+            _map.map.addSource("alfah-108", {
+              type: "geojson",
+              data: 
+              `https://services2.arcgis.com/qvkbeam7Wirps6zC/ArcGIS/rest/services/ALFAH_Section_108_Area/FeatureServer/0/query?where=1%3D1&objectIds=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&outDistance=&relationParam=&returnGeodetic=false&outFields=*&returnGeometry=true&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&returnAggIds=false&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=true&quantizationParameters=&sqlFormat=none&f=pgeojson&token=`,
+            });
             // ============= zoning layer ===========
             _map.map.addLayer({
               id: "r-zoning",
@@ -492,6 +497,38 @@ export default class Maps {
                 source: "jlg-route",
                 layout: { visibility: "none" },
                 paint: { "line-color": "#3dff07", "line-width": 3 },
+              });
+              _map.map.addLayer({
+                id: "alfah-high-fill",
+                type: "fill",
+                filter: ["==", "Name", "High Priority Areas"],
+                source: "alfah-108",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#ff7b00", "fill-opacity": 0.5 },
+              });
+              _map.map.addLayer({
+                id: "alfah-high-line",
+                type: "line",
+                filter: ["==", "Name", "High Priority Areas"],
+                source: "alfah-108",
+                layout: { visibility: "none" },
+                paint: { "line-color": "#ff7b00" },
+              });
+              _map.map.addLayer({
+                id: "alfah-fill",
+                type: "fill",
+                filter: ["==", "Name", "Priority Areas"],
+                source: "alfah-108",
+                layout: { visibility: "none" },
+                paint: { "fill-color": "#ffc300", "fill-opacity": 0.5 },
+              });
+              _map.map.addLayer({
+                id: "alfah-line",
+                type: "line",
+                filter: ["==", "Name", "Priority Areas"],
+                source: "alfah-108",
+                layout: { visibility: "none" },
+                paint: { "line-color": "#ffc300" },
               });
             // ========= loading video icon =======
             _map.map.loadImage('https://detroitmi.gov/sites/detroitmi.localhost/files/styles/default/public/2021-02/video.png', (error, image) => {
