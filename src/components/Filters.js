@@ -543,7 +543,7 @@ export default class Filters {
     _filterPanel.form.appendChild(planningHousing);
     _filterPanel.form.appendChild(planningHousingSubsets);
 
-    // ALFAH Section 108 High Priority Areas
+    // ALFAH S108 – NRSA
     alfahHighInput.type = 'checkbox';
     alfahHighInput.name = 'planning-data';
     alfahHighInput.id = 'alfah-high';
@@ -556,7 +556,7 @@ export default class Filters {
     alfahHighInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    alfahHighLabel.innerText = 'ALFAH Section 108 High Priority Areas';
+    alfahHighLabel.innerText = 'ALFAH S108 – NRSA';
     alfahHighLabel.setAttribute('for', 'alfah-high');
     alfahHighLegend.className = 'square alfah-high';
     alfahHighLabel.appendChild(alfahHighLegend);
@@ -570,7 +570,7 @@ export default class Filters {
     _filterPanel.form.appendChild(planningHousing);
     _filterPanel.form.appendChild(planningHousingSubsets);
 
-    // ALFAH Section 108 Priority Areas
+    // ALFAH S108 – Outside Greater Downtown
     alfahInput.type = 'checkbox';
     alfahInput.name = 'planning-data';
     alfahInput.id = 'alfah';
@@ -583,7 +583,7 @@ export default class Filters {
     alfahInput.addEventListener('change', (ev)=>{
       _filterPanel.updateFilters(ev, _filterPanel);
     });
-    alfahLabel.innerText = 'ALFAH Section 108 Priority Areas';
+    alfahLabel.innerText = 'ALFAH S108 – Outside Greater Downtown';
     alfahLabel.setAttribute('for', 'alfah');
     alfahLegend.className = 'square alfah';
     alfahLabel.appendChild(alfahLegend);
